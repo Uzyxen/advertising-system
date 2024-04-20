@@ -1,5 +1,6 @@
 <template>
-     <HomePage />
+     <HomeSection />
+     <SearchForOffersSection />
 </template>
 
 <script setup>
