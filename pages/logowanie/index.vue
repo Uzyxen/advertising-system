@@ -20,6 +20,11 @@
                 <button type="submit">Dalej</button>
             </form>
 
+            <div id="register">
+                <p>Nie masz konta?</p>
+                <Nuxt-link to="/rejestracja">Zarejestruj się</Nuxt-link>
+            </div>
+
             <p id="for-companies">
                 <Nuxt-link to="/firma/logowanie">Logowanie dla firm</Nuxt-link>
             </p>
@@ -117,8 +122,18 @@
         margin: 10px 0 50px;
     }
 
-    #login-box form {
+    #register{
         flex: 1;
+        display: flex;
+        gap: 10px;
+    }
+
+    #register p, #register a {
+        margin: 20px 0 0 !important;
+    }
+
+    #register a {
+        color: rgb(16, 125, 214);
     }
 
     #login-box form div{
