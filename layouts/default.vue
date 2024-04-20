@@ -11,5 +11,5 @@
 </script>
 
 <style>
-    @import url('../styles/style.css');
+    @import url('./assets/styles/style.css');
 </style>
