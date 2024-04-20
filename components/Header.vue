@@ -95,7 +95,7 @@
                         <h2>Zaloguj się, aby uzyskać dostęp do wszystkich funkcji portalu</h2>
                         <Nuxt-link to="/logowanie"><button id="login-button">Zaloguj się</button></Nuxt-link>
                         <h3>Lub</h3>
-                        <Nuxt-link to="/logowanie"><button id="register-button">Zarejestruj się</button></Nuxt-link>
+                        <Nuxt-link to="/rejestracja"><button id="register-button">Zarejestruj się</button></Nuxt-link>
                     </div>
                 </div>
             </div>
