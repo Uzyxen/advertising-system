@@ -4,6 +4,8 @@
     <main>
         <slot />
     </main>
+
+    <Footer />
 </template>
 
 <script>
