@@ -2,8 +2,20 @@
 
 :root {
     /* text */
-    --asc-txt: var( --mol-purple );
+    
+    --asc-txt:                  var( --mol-purple );
+    --asc-txt-alt:              var( --mol-white );
+    --asc-txt-alt-inverted:     var( --mol-black );
 
-    /* buttons */
-    --asc-bg: var( --mol-purple );
+    --asc-txt-ui:               var( --mol-black-light );
+    --asc-txt-ui-alt:           var( --mol-black );
+
+    --asc-txt-hover:            var( --mol-white );
+
+    /* buttons, etc. */
+
+    --asc-bg:                   var( --mol-purple );
+    --asc-bg-alt:               var( --mol-white );
+    --asc-bg-border:            var( --mol-gray-light );
+    --asc-bg-border-alt:        var( --mol-purple )
 }

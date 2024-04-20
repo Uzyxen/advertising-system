@@ -1,3 +1,7 @@
 :root {
     --mol-purple: #6244DB;
+    --mol-white: #fff;
+    --mol-black: #000;
+    --mol-black-light: #393939;
+    --mol-gray-light: #ddd;
 }
