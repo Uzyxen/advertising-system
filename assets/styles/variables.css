@@ -17,5 +17,8 @@
     --asc-bg:                   var( --mol-purple );
     --asc-bg-alt:               var( --mol-white );
     --asc-bg-border:            var( --mol-gray-light );
-    --asc-bg-border-alt:        var( --mol-purple )
+    --asc-bg-border-alt:        var( --mol-purple );
+
+    /* svg */
+    --asc-bg-svg:               var( --mol-purple );
 }
