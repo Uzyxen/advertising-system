@@ -1,4 +1,4 @@
-export const useUserStore = defineStore('userStore', {
+export const useCompanyStore = defineStore('companyStore', {
     state: () => ({
         logged: false,
         name: '',
