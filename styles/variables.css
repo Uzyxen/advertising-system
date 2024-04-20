@@ -1,0 +1,9 @@
+@import url('colors.css');
+
+:root {
+    /* text */
+    --asc-txt: var( --mol-purple );
+
+    /* buttons */
+    --asc-bg: var( --mol-purple );
+}
