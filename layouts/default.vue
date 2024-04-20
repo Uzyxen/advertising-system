@@ -1,4 +1,10 @@
 <template>
+    <div id="background">
+        <picture>
+            <img src="/img/background/background.png">
+        </picture>
+    </div>
+
     <Header />
 
     <main>
@@ -14,4 +20,11 @@
 
 <style>
     @import url('/assets/styles/style.css');
+
+    #background{
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        z-index: -5;
+    }
 </style>
