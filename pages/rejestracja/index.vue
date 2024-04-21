@@ -37,7 +37,8 @@
 
 <script setup>
     definePageMeta({
-        layout: 'clear'
+        layout: 'clear',
+        middleware: 'is-user-logged'
     });
 
     const data = ref({
