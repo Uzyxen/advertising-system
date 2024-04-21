@@ -108,6 +108,10 @@
     const companyStore = useCompanyStore();
 
     const account_dropdown_visible = ref(false);
+
+    function logout() {
+        userStore.LogOut();
+    }
 </script>
 
 <style scoped>
