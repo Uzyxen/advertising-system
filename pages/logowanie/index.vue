@@ -47,17 +47,28 @@
        passwordErr: '' 
     });
 
-    function Login() {
+    const success = ref(false);
+
+    async function Login() {
         if(data.value.email == '') {
             error.value.emailErr = 'Wypełnij pole!';
+            success.value = false;
         } else {
             error.value.emailErr = '';
+            success.value = true;
         }
 
         if(data.value.password == '') {
             error.value.passwordErr = 'Wypełnij pole!';
+            success.value = false;
         } else {
             error.value.passwordErr = '';
+            success.value = true;
+        }
+
+        if(success.value === true) {
+            const userStore = useUserStore();
+            userStore.Login(data.value);
         }
     }
 </script>
