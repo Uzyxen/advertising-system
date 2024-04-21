@@ -1,7 +1,9 @@
 <template>
-    <div>
+    <section>
+        <SectionTitle>Oferty pracy</SectionTitle>
 
-    </div>
+        <OffersList />
+    </section>
 </template>
 
 <script setup>
@@ -9,5 +11,9 @@
 </script>
 
 <style scoped>
-
+    section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 </style>

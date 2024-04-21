@@ -111,6 +111,9 @@
 
     function logout() {
         userStore.LogOut();
+
+        const router = useRouter();
+        router.push({ path: '/' });
     }
 </script>
 
