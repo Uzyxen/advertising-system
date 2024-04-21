@@ -126,10 +126,12 @@
         flex: 1;
         display: flex;
         gap: 10px;
+        align-items: start;
     }
 
     #register p, #register a {
         margin: 20px 0 0 !important;
+        display: block;
     }
 
     #register a {

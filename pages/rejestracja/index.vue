@@ -26,6 +26,11 @@
 
                 <button type="submit">Zarejestruj się</button>
             </form>
+
+            <div id="login">
+                <p>Masz już konto?</p>
+                <Nuxt-link to="/logowanie">Zaloguj się</Nuxt-link>
+            </div>
         </div>
     </div>
 </template>
@@ -36,12 +41,14 @@
     });
 
     const data = ref({
+        login: '',
         email: '',
         password: '',
         password_2: ''
     });
 
     const error = ref({
+        loginErr: '',
         emailErr: '',
         passwordErr: '',
         password_2Err: ''
@@ -153,5 +160,20 @@
         padding: 15px;
         font-size: 18px;
         cursor: pointer;
+    }
+
+    #login{
+        flex: 1;
+        display: flex;
+        gap: 10px;
+        align-items: start;
+    }
+
+    #login p, #login a {
+        margin: 20px 0 0 !important;
+    }
+
+    #login a {
+        color: rgb(16, 125, 214);
     }
 </style>
