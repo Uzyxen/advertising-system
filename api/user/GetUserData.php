@@ -1,5 +1,5 @@
 <?php
-    require '../auth/auth.php';
+    require_once '../auth/auth.php';
 
     if(IsUserLogged()) {
         echo json_encode(['data' => [
@@ -14,5 +14,7 @@
             'age' => $_SESSION['wiek'],
             'country' => $_SESSION['kraj']
         ]]);
+    } else {
+        json_encode('you are not logged');
     }
 ?>

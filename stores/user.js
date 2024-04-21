@@ -28,8 +28,12 @@ export const useUserStore = defineStore('userStore', {
                 this.gender = response.value.data.gender;
                 this.age = response.value.data.age;
                 this.country = response.value.data.country;
+
+                return true;
             } else if(response.value) {
                 console.log(response.value);
+
+                return false;
             }
         },
 
@@ -39,15 +43,15 @@ export const useUserStore = defineStore('userStore', {
 
             if(response.value.data) {
                 this.logged = response.value.data.logged;
-                this.first_name = response.value.first_name;
-                this.last_name = response.value.last_name;
-                this.description = response.value.description;
-                this.phone_number = response.value.phone_number;
-                this.email = response.value.email;
-                this.position = response.value.position;
-                this.gender = response.value.gender;
+                this.first_name = response.value.data.first_name;
+                this.last_name = response.value.data.last_name;
+                this.description = response.value.data.description;
+                this.phone_number = response.value.data.phone_number;
+                this.email = response.value.data.email;
+                this.position = response.value.data.position;
+                this.gender = response.value.data.gender;
                 this.age = response.value.age;
-                this.country = response.value.country;
+                this.country = response.value.data.country;
             } else if(response.value) {
                 console.log(response.value);
             }

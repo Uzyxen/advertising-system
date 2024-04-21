@@ -68,7 +68,13 @@
 
         if(success.value === true) {
             const userStore = useUserStore();
-            userStore.Login(data.value);
+            const response = await userStore.Login(data.value);
+
+            if(response) {
+                const router = useRouter();
+
+                router.push({ path: '/profil' });
+            }
         }
     }
 </script>
