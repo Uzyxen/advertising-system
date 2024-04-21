@@ -34,7 +34,7 @@
 
 <script setup>
     definePageMeta({
-        layout: 'login'
+        layout: 'clear'
     });
 
     const data = ref({
