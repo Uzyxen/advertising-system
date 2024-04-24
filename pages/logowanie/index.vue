@@ -35,7 +35,6 @@
 <script setup>
     definePageMeta({
         layout: 'clear',
-        middleware: 'is-user-logged'
     });
 
     const data = ref({
@@ -49,6 +48,11 @@
     });
 
     const success = ref(false);
+    const email = useRoute().query.email;
+
+    if(email !== undefined) {
+        data.value.email = email;
+    }
 
     async function Login() {
         if(data.value.email == '') {
@@ -86,6 +90,7 @@
         font-size: 14px;
         color: #FA4132;
         padding-bottom: 10px;
+        text-align: right;
     }
 
     .input-error {
