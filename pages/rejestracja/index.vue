@@ -1,4 +1,18 @@
 <template>
+    <Transition>
+        <div v-if="status == 'failure'" id="email-exists">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                <!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc. -->
+                <path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z"/>
+            </svg>
+
+            <h2>
+                {{ message }},
+                <a @click.prevent="GoToLogin(data.email)">przejdź do logowania</a>
+            </h2>
+        </div>
+    </Transition>
+
     <div id="root">
         <div id="blur-circle"></div>
 
@@ -14,13 +28,13 @@
 
                 <div>
                     <label for="password">Hasło:</label>
-                    <input :class="{ 'input-error': error.passwordErr }" placeholder="Hasło" type="text" name="password" v-model="data.password">
+                    <input :class="{ 'input-error': error.passwordErr }" placeholder="Hasło" type="password" name="password" v-model="data.password">
                     <span class="error">{{ error.passwordErr }}</span>
                 </div>
 
                 <div>
                     <label for="password_2">Powtórz hasło:</label>
-                    <input :class="{ 'input-error': error.password_2Err }" placeholder="Powtórz hasło" type="text" name="password_2" v-model="data.password_2">
+                    <input :class="{ 'input-error': error.password_2Err }" placeholder="Powtórz hasło" type="password" name="password_2" v-model="data.password_2">
                     <span class="error">{{ error.password_2Err }}</span>
                 </div>
 
@@ -38,7 +52,6 @@
 <script setup>
     definePageMeta({
         layout: 'clear',
-        middleware: 'is-user-logged'
     });
 
     const data = ref({
@@ -49,38 +62,105 @@
     });
 
     const error = ref({
-        loginErr: '',
         emailErr: '',
         passwordErr: '',
         password_2Err: ''
     });
 
-    function Register() {
+    const success = ref(false);
+
+    const status = ref('');
+    const message = ref('');
+
+    function GoToLogin(email) {
+        const router = useRouter();
+
+        router.push({ path: '/logowanie', query: { email: data.value.email } });
+    }
+
+    async function Register() {
         if(data.value.email == '') {
             error.value.emailErr = 'Wypełnij pole!';
+            success.value = false;
         } else {
             error.value.emailErr = '';
+            success.value = true;
+
+            const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if(!regex.test(data.value.email)) {
+                error.value.emailErr = 'Niepoprawny adres e-mail';
+                success.value = false;
+            } else {
+                error.value.emailErr = '';
+                success.value = true;
+            }
         }
 
         if(data.value.password == '') {
             error.value.passwordErr = 'Wypełnij pole!';
+            success.value = false;
         } else {
             error.value.passwordErr = '';
+            success.value = true;
         }
 
         if(data.value.password_2 == '') {
             error.value.password_2Err = 'Wypełnij pole!';
+            success.value = false;
         } else {
             error.value.password_2Err = '';
+            success.value = true;
+        }
+
+        if(success.value === true) {
+            const response = await $fetch('http://localhost/advertising-system/backend/api/user/RegisterUser.php' , { body: data.value, method: 'post', responseType: 'json' });
+
+
+            if(response) {
+                console.log(response);
+
+                status.value = response.status;
+                message.value = response.message;
+            }
         }
     }
 </script>
 
 <style scoped>
+    #email-exists {
+        position: absolute;
+        left: calc(50% - 270px);
+        padding: 20px;
+        top: 20px;
+        width: 500px;
+        background-color: var(--asc-bg-alt);
+        box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.15);
+        display: flex; 
+        gap: 20px;
+        border-radius: 2px;
+        z-index: 9999;
+    }
+
+    #email-exists svg {
+        fill: rgb(255, 204, 0);
+        width: 50px;
+    }
+
+    #email-exists h2 {
+        font-size: 15px;
+    }
+
+    #email-exists h2 a {
+        color: rgb(16, 125, 214);
+        cursor: pointer;
+    }
+
     .error{
         font-size: 14px;
         color: #FA4132;
         padding-bottom: 10px;
+        text-align: right;
     }
 
     .input-error {
@@ -176,5 +256,16 @@
 
     #login a {
         color: rgb(16, 125, 214);
+    }
+
+    .v-enter-active,
+    .v-leave-active {
+        transition: all .3s cubic-bezier(0.83,0.04,0.17,1.28);
+    }
+
+    .v-enter-from,
+    .v-leave-to {
+        transform: translateY(-50px);
+        opacity: 0;
     }
 </style>
