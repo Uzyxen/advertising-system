@@ -5,9 +5,7 @@
 </template>
 
 <script setup>
-    definePageMeta({
-        middleware: 'auth-user'
-    })
+    
 </script>
 
 <style scoped>

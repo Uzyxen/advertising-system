@@ -5,12 +5,18 @@
             if(session_status() == PHP_SESSION_NONE) { // if session doesnt exists
                 session_start();
 
-                setcookie('PHPSESSID', session_id(), time() + 20 * 24 * 60 * 60, '/', '', false, true); // 20 days
+                $this->saveSessionCookie();
             }
         }
 
         public function regenerateID() {
-            session_regenerate_id();
+            session_regenerate_id(true);
+
+            $this->saveSessionCookie();
+        }
+
+        private function saveSessionCookie() {
+            setcookie('PHPSESSID', session_id(), time() + 20 * 24 * 60 * 60, '/', '', false, true); // 20 days
         }
 
         public function exists() {

@@ -116,7 +116,6 @@
         if(success.value === true) {
             const response = await $fetch('http://localhost/advertising-system/backend/api/user/RegisterUser.php' , { body: data.value, method: 'post', responseType: 'json' });
 
-
             if(response) {
                 console.log(response);
 

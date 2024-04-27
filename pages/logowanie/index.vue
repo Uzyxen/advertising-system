@@ -72,13 +72,15 @@
         }
 
         if(success.value === true) {
-            const response = await $fetch('http://localhost/advertising-system/backend/api/user/LogInUser.php', { credentials: 'include', responseType: 'json' });
+            const response = await $fetch('http://localhost/advertising-system/backend/api/user/LogInUser.php', { body: data.value, method: 'post', credentials: 'include', responseType: 'json' });
 
-            //if(response) {
-                //const router = useRouter();
+            if(response) {
+                if(response == 'success') {
+                    const router = useRouter();
 
-                //router.push({ path: '/profil' });
-            //}
+                    router.push({ path: '/profil' });
+                }
+            }
         }
     }
 </script>

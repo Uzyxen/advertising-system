@@ -17,7 +17,11 @@
                 exit();
             }
 
-            $this->getUser($this->email, $this->password);
+            if($this->getUser($this->email, $this->password)) {
+                return 'success';
+            } else {
+                return 'failure';
+            }
         }
 
         private function emptyInput() {
