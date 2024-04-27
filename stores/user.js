@@ -14,52 +14,47 @@ export const useUserStore = defineStore('userStore', {
 
     actions: {
         async Login(user_data) {
-            const headers = useRequestHeaders(['cookie']);
-            const { data: response } = await useFetch('http://localhost/advertising-system/api/user/LogIn.php', { headers, credentials: 'include', method: 'POST', body: user_data, responseType: 'json' });
+            const { data: response } = await $fetch('http://localhost/advertising-system/backend/api/user/LogIn.php', { credentials: 'include', method: 'POST', body: user_data, responseType: 'json' });
          
-            if(response.value.data) {
-                this.logged = response.value.data.logged;
-                this.first_name = response.value.data.first_name;
-                this.last_name = response.value.data.last_name;
-                this.description = response.value.data.description;
-                this.phone_number = response.value.data.phone_number;
-                this.email = response.value.data.email;
-                this.position = response.value.data.position;
-                this.gender = response.value.data.gender;
-                this.age = response.value.data.age;
-                this.country = response.value.data.country;
+            console.log(response);
+
+            if(response) {
+                this.logged = response.logged;
+                this.first_name = response.first_name;
+                this.last_name = response.last_name;
+                this.description = response.description;
+                this.phone_number = response.phone_number;
+                this.email = response.email;
+                this.position = response.position;
+                this.gender = response.gender;
+                this.age = response.age;
+                this.country = response.country;
 
                 return true;
-            } else if(response.value) {
-                console.log(response.value);
-
+            } else {
                 return false;
             }
         },
 
         async GetUserData() {
-            const headers = useRequestHeaders(['cookie']);
-            const { data: response } = await useFetch('http://localhost/advertising-system/api/user/GetUserData.php', { headers, credentials: 'include', responseType: 'json' });
+            const { data: response } = await $fetch('http://localhost/advertising-system/backend/api/user/GetUserData.php', { credentials: 'include', responseType: 'json' });
 
-            if(response.value.data) {
-                this.logged = response.value.data.logged;
-                this.first_name = response.value.data.first_name;
-                this.last_name = response.value.data.last_name;
-                this.description = response.value.data.description;
-                this.phone_number = response.value.data.phone_number;
-                this.email = response.value.data.email;
-                this.position = response.value.data.position;
-                this.gender = response.value.data.gender;
-                this.age = response.value.age;
-                this.country = response.value.data.country;
-            } else if(response.value) {
-                console.log(response.value);
+            if(response) {
+                this.logged = response.logged;
+                this.first_name = response.first_name;
+                this.last_name = response.last_name;
+                this.description = response.description;
+                this.phone_number = response.phone_number;
+                this.email = response.email;
+                this.position = response.position;
+                this.gender = response.gender;
+                this.age = response.age;
+                this.country = response.country;
             }
         },
 
         async LogOut() {
-            const headers = useRequestHeaders(['cookie']);
-            await useFetch('http://localhost/advertising-system/api/user/LogOut.php', { headers, credentials: 'include' });
+            await $fetch('http://localhost/advertising-system/api/user/LogOut.php', { credentials: 'include' });
 
             this.logged = false;
             this.first_name = '';

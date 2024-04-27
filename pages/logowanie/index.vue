@@ -72,14 +72,13 @@
         }
 
         if(success.value === true) {
-            const userStore = useUserStore();
-            const response = await userStore.Login(data.value);
+            const response = await $fetch('http://localhost/advertising-system/backend/api/user/LogInUser.php', { credentials: 'include', responseType: 'json' });
 
-            if(response) {
-                const router = useRouter();
+            //if(response) {
+                //const router = useRouter();
 
-                router.push({ path: '/profil' });
-            }
+                //router.push({ path: '/profil' });
+            //}
         }
     }
 </script>

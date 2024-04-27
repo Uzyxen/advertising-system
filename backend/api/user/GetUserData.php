@@ -1,7 +1,11 @@
 <?php
-    require_once '../auth/auth.php';
+    if(isset($_COOKIE['PHPSESSID'])) {
+        session_id($_COOKIE['PHPSESSID']);
 
-    if(IsUserLogged()) {
+        session_start();
+    }
+
+    if(isset($_SESSION) && isset($_SESSION['user_logged'])) {
         echo json_encode(['data' => [
             'logged' => $_SESSION['user_logged'], 
             'first_name' => $_SESSION['imie'], 
@@ -14,7 +18,5 @@
             'age' => $_SESSION['wiek'],
             'country' => $_SESSION['kraj']
         ]]);
-    } else {
-        json_encode('you are not logged');
     }
 ?>
