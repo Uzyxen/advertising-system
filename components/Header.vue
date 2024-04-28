@@ -111,7 +111,14 @@
     async function LogOut() {
         const response = await $fetch('http://localhost/advertising-system/backend/api/user/LogOut.php', { method: 'post', credentials: 'include', responseType: 'json' });
 
-        console.log(response);
+        if (response == 'success') {
+            const router = useRouter();
+            
+            user_logged.value = false;
+            company_logged.value = false;
+
+            router.push({ path: "/" });
+        }
     }
 
     async function CheckIfLogged() {
