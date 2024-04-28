@@ -17,7 +17,7 @@
                 if(password_verify($password, $result[0]['password'])) {
                     $this->session = new Session();
                     $this->session->regenerateID(); // regenerate id after login
-                    //$this->session->set('user_logged', true);
+                    $this->session->set('user_logged', true); // set user_logged flag to true
 
                     return true;
                 } else {

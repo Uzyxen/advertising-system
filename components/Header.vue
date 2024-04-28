@@ -7,11 +7,11 @@
                     Oferty pracy
                 </Nuxt-link>
 
-                <Nuxt-link to="/oferty-uzytkownikow" v-if="companyStore.logged">
+                <Nuxt-link to="/oferty-uzytkownikow" v-if="user_logged">
                     Szukaj pracowników
                 </Nuxt-link>
 
-                <Nuxt-link to="/cv" v-if="!companyStore.logged">Kreator CV</Nuxt-link>
+                <Nuxt-link to="/cv">Kreator CV</Nuxt-link>
             </nav>
 
             <div id="hamburger-menu">
@@ -27,7 +27,7 @@
                 </div>
 
                 <div id="my-account-dropdown" v-if="account_dropdown_visible" ref="dropDown">
-                    <div id="dropdown-company-logged" v-if="companyStore.logged">
+                    <div id="dropdown-company-logged" v-if="company_logged">
                         <ul>
                             <li>
                                 <Nuxt-link to="/firma/profil">Profil firmy</Nuxt-link>
@@ -63,7 +63,7 @@
                         <button class="logout-button" @click="logout">Wyloguj się</button>
                     </div>
 
-                    <div id="dropdown-user-logged" v-if="userStore.logged">
+                    <div id="dropdown-user-logged" v-if="user_logged">
                         <ul>
                             <li><Nuxt-link to="/profil">Profil</Nuxt-link></li>
 
@@ -91,7 +91,7 @@
                         <button class="logout-button" @click="logout">Wyloguj się</button>
                     </div>
 
-                    <div v-if="userStore.logged === false && companyStore.logged === false">
+                    <div v-if="user_logged === false && company_logged === false">
                         <h2>Zaloguj się, aby uzyskać dostęp do wszystkich funkcji portalu</h2>
                         <Nuxt-link to="/logowanie"><button id="login-button">Zaloguj się</button></Nuxt-link>
                         <h3>Lub</h3>
@@ -104,17 +104,21 @@
 </template>
 
 <script setup>
-    const userStore = useUserStore();
-    const companyStore = useCompanyStore();
-
+    const user_logged = ref(false);
+    const company_logged = ref(false);
     const account_dropdown_visible = ref(false);
 
-    function logout() {
-        userStore.LogOut();
+    async function CheckIfLogged() {
+        const response = await $fetch('http://localhost/advertising-system/backend/api/user/CheckIfLogged.php', { credentials: 'include', responseType: 'json' });
 
-        const router = useRouter();
-        router.push({ path: '/' });
+        if(response) {
+            user_logged.value = response.logged;
+        }
     }
+
+    onMounted(() => {
+        CheckIfLogged();
+    });
 </script>
 
 <style scoped>
