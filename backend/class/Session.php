@@ -42,5 +42,10 @@
 
             return null;
         }
+
+        public function destroy() {
+            unset($_SESSION);
+            session_destroy();
+        }
     }
 ?>
