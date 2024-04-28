@@ -60,7 +60,7 @@
 
                         <hr>
 
-                        <button class="logout-button" @click="logout">Wyloguj się</button>
+                        <button class="logout-button" @click="LogOut">Wyloguj się</button>
                     </div>
 
                     <div id="dropdown-user-logged" v-if="user_logged">
@@ -88,7 +88,7 @@
 
                         <hr>
 
-                        <button class="logout-button" @click="logout">Wyloguj się</button>
+                        <button class="logout-button" @click="LogOut">Wyloguj się</button>
                     </div>
 
                     <div v-if="user_logged === false && company_logged === false">
@@ -107,6 +107,12 @@
     const user_logged = ref(false);
     const company_logged = ref(false);
     const account_dropdown_visible = ref(false);
+
+    async function LogOut() {
+        const response = await $fetch('http://localhost/advertising-system/backend/api/user/LogOut.php', { method: 'post', credentials: 'include', responseType: 'json' });
+
+        console.log(response);
+    }
 
     async function CheckIfLogged() {
         const response = await $fetch('http://localhost/advertising-system/backend/api/user/CheckIfLogged.php', { credentials: 'include', responseType: 'json' });
