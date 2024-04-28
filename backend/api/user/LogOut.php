@@ -1,13 +1,8 @@
 <?php
-    session_start();
+    include('../../class/Session.php');
 
-    session_unset();
-
-    if (isset($_COOKIE[session_name()])) {
-        setcookie(session_name(), '', time() - 3600, '/');
+    if($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $session = new Session();
+        $session->destroy();
     }
-
-    session_destroy();
-
-    exit;
 ?>
