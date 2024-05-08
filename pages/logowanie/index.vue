@@ -2,19 +2,18 @@
     <div id="root">
         <div id="blur-circle"></div>
         <div id="login-box">
-            <h2>Zaloguj się</h2>
+            <h2>Zaloguj się do portalu</h2>
+            <span class="error">{{ error_message }}</span>
 
             <form @submit.prevent="Login" method="post"> 
                 <div>
                     <label for="email">Email:</label>
                     <input :class="{ 'input-error': error.emailErr }" placeholder="Adres e-mail" type="text" name="email" v-model="data.email">
-                    <span class="error">{{ error.emailErr }}</span>
                 </div>
 
                 <div>
                     <label for="password">Hasło:</label>
                     <input :class="{ 'input-error': error.passwordErr }" placeholder="Hasło" type="password" name="password" v-model="data.password">
-                    <span class="error">{{ error.passwordErr }}</span>
                 </div>
 
                 <button type="submit">Zaloguj się</button>
@@ -43,9 +42,11 @@
     });
 
     const error = ref({
-       emailErr: '',
-       passwordErr: '' 
+       emailErr: false,
+       passwordErr: false 
     });
+
+    const error_message = ref('');
 
     const success = ref(false);
     const email = useRoute().query.email;
@@ -56,18 +57,22 @@
 
     async function Login() {
         if(data.value.email == '') {
-            error.value.emailErr = 'Wypełnij pole!';
+            error.value.emailErr = true;
+            error_message.value = 'Uzupełnij wymagane pola!';
             success.value = false;
         } else {
-            error.value.emailErr = '';
+            error.value.emailErr = false;
+            error_message.value = '';
             success.value = true;
         }
 
         if(data.value.password == '') {
-            error.value.passwordErr = 'Wypełnij pole!';
+            error.value.passwordErr = true;
+            error_message.value = 'Uzupełnij wymagane pola!';
             success.value = false;
         } else {
-            error.value.passwordErr = '';
+            error.value.passwordErr = false;
+            error_message.value = '';
             success.value = true;
         }
 
@@ -76,9 +81,14 @@
 
             if(response) {
                 if(response == 'success') {
+                    success.value = true;
+                    error_message.value = '';
                     const router = useRouter();
 
                     router.push({ path: '/profil' });
+                } else {
+                    success.value = false;
+                    error_message.value = 'Nie znaleziono użytkownika o takich danych!';
                 }
             }
         }
@@ -88,10 +98,10 @@
 
 <style scoped>
     .error{
-        font-size: 14px;
+        font-size: 16px;
         color: #FA4132;
-        padding-bottom: 10px;
-        text-align: right;
+        padding-bottom: 30px;
+        text-align: center;
     }
 
     .input-error {
@@ -134,6 +144,7 @@
         z-index: 99;
         display: flex;
         flex-direction: column;
+        gap: 10px;
     }
 
     #login-box h2{
@@ -160,6 +171,12 @@
 
     #register a {
         color: rgb(16, 125, 214);
+    }
+
+    #login-box form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px
     }
 
     #login-box form div{
