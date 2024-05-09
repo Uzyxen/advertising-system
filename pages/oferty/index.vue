@@ -2,6 +2,7 @@
     <section>
         <SectionTitle>Oferty pracy</SectionTitle>
 
+        <OfferSort />
         <OffersList />
     </section>
 </template>
@@ -15,6 +16,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        gap: 15px;
         height: 100vh;
     }
 </style>
