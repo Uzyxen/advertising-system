@@ -11,5 +11,15 @@
 
             return $result;
         }
+
+        protected function getUserSkills($user_id) {
+            $sql = "SELECT umiejetnosc FROM umiejetnosci WHERE uzytkownik_id = ?"; 
+            $stmt = $this->connect()->prepare($sql);
+
+            $stmt->execute([$user_id]);
+            $result = $stmt->fetch();
+
+            return $result;
+        }
     }
 ?>
