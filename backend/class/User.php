@@ -21,5 +21,15 @@
 
             return $result;
         }
+
+        protected function getUserExprerience($user_id) {
+            $sql = "SELECT data_poczatek, data_koniec, stanowisko, opis, firma, lokalizacja FROM doswiadczenie WHERE uzytkownik_id = ? ORDER BY data_poczatek ASC"; 
+            $stmt = $this->connect()->prepare($sql);
+
+            $stmt->execute([$user_id]);
+            $result = $stmt->fetchAll();
+
+            return $result;
+        }
     }
 ?>

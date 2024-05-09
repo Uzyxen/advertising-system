@@ -47,11 +47,13 @@
                         <hr>
 
                         <div id="experience">
-                            <div id="experience-block">
+                            <div id="experience-block" v-for="experience in userExperience">
                                 <div id="abstract">
                                     <div id="circle"></div>
                                     <div id="line"></div>
                                 </div>
+
+                                <UserExperience :experience="experience"/>
                             </div>
                         </div>
                     </div>
@@ -74,6 +76,8 @@ import UserSkill from '~/components/UserSkill.vue';
 
     const { data: userData } = await useFetch('http://localhost/advertising-system/backend/api/user/GetUserData.php', { credentials: 'include', responseType: 'json', method: 'post' });
     const { data: userSkills } = await useFetch('http://localhost/advertising-system/backend/api/user/GetUserSkills.php', { credentials: 'include', responseType: 'json', method: 'post' });
+    const { data: userExperience } = await useFetch('http://localhost/advertising-system/backend/api/user/GetUserExperience.php', { credentials: 'include', responseType: 'json', method: 'post' });
+
 
 </script>
 
@@ -285,7 +289,6 @@ import UserSkill from '~/components/UserSkill.vue';
             margin: 0 auto;
         }
     }
-
     
     #dark-block {
         position: fixed;
