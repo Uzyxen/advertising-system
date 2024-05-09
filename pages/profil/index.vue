@@ -28,13 +28,13 @@
 
                 <section id="main-section">
                     <div>
-                        <h2 class="header">Podsumowanie zawodowe</h2>
+                        <EditHeader>Podsumowanie zawodowe</EditHeader>
                         <hr>
                         <p>{{ userData.opis }}</p>
                     </div>
 
                     <div>
-                        <h2 class="header">Umiejętności</h2>
+                        <EditHeader>Umiejętności</EditHeader>
                         <hr>
 
                         <div id="skills">
@@ -43,7 +43,7 @@
                     </div>
 
                     <div>
-                        <h2 class="header">Doświadczenie</h2>
+                        <EditHeader>Doświadczenie</EditHeader>
                         <hr>
 
                         <div id="experience">
@@ -132,7 +132,7 @@ import UserSkill from '~/components/UserSkill.vue';
 
     main {
         display: flex;
-
+        gap: 22px
     }
 
     main #left-side {
@@ -190,11 +190,6 @@ import UserSkill from '~/components/UserSkill.vue';
         width: 30%;
         fill: #ddd;
         
-    }
-
-    h2.header{
-        display: inline-block;
-        cursor: pointer;
     }
 
     h2#user-name {
