@@ -1,5 +1,7 @@
 <template>
     <div id="root">
+        <EditModal @close="isModalVisible = false" :isVisible="isModalVisible" />
+
         <div id="background-baner"></div>
         <div id="root-inner">
             <nav id="top-nav">
@@ -28,13 +30,13 @@
 
                 <section id="main-section">
                     <div>
-                        <EditHeader>Podsumowanie zawodowe</EditHeader>
+                        <EditHeader @edit="isModalVisible = true">Podsumowanie zawodowe</EditHeader>
                         <hr>
                         <p>{{ userData.opis }}</p>
                     </div>
 
                     <div>
-                        <EditHeader>Umiejętności</EditHeader>
+                        <EditHeader @edit="isModalVisible = true">Umiejętności</EditHeader>
                         <hr>
 
                         <div id="skills">
@@ -43,7 +45,7 @@
                     </div>
 
                     <div>
-                        <EditHeader>Doświadczenie</EditHeader>
+                        <EditHeader @edit="isModalVisible = true">Doświadczenie</EditHeader>
                         <hr>
 
                         <div id="experience">
@@ -68,7 +70,9 @@
 </template>
 
 <script setup>
-import UserSkill from '~/components/UserSkill.vue';
+    import UserSkill from '~/components/UserSkill.vue';
+
+    const isModalVisible = ref(false);
 
     definePageMeta({
         middleware: 'auth-user'

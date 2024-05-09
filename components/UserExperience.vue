@@ -26,7 +26,6 @@
         display: flex;
         width: 370px;
         height: 150px;
-        max-height: 300px;
         box-shadow: 0 0 5px rgba(0,0,0,.12);
         background-color: #FFF;
         flex-direction: column;
