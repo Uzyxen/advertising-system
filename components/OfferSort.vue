@@ -15,12 +15,16 @@
 </template>
 
 <script setup>
+    const emit = defineEmits(['loading']);
+
     function ShowSortMethods() {
         isSortMethodsVisible.value = !isSortMethodsVisible.value;
     }
 
     function SelectSortMethod(id) {
         selected.value = id;
+
+        emit('loading');
     }
 
     const isSortMethodsVisible = ref(false);

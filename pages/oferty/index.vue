@@ -1,14 +1,16 @@
 <template>
+    <LoadingScreen :is-loading="loading" />
+
     <section>
         <SectionTitle>Oferty pracy</SectionTitle>
 
-        <OfferSort />
+        <OfferSort @loading="loading = true" />
         <OffersList />
     </section>
 </template>
 
 <script setup>
-
+    const loading = ref(false);
 </script>
 
 <style scoped>
