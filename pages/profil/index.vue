@@ -38,9 +38,7 @@
                         <hr>
 
                         <div id="skills">
-                            <h2 v-for="skill in userSkills">
-                                {{ skill.umiejetnosc }}
-                            </h2>
+                            <UserSkill v-for="skill in userSkills" :skill="skill.umiejetnosc" />
                         </div>
                     </div>
 
@@ -68,6 +66,8 @@
 </template>
 
 <script setup>
+import UserSkill from '~/components/UserSkill.vue';
+
     definePageMeta({
         middleware: 'auth-user'
     });
