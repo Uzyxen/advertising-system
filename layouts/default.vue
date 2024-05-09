@@ -28,7 +28,7 @@
         z-index: -5;
     }
 
-    picture, img {
+    #background picture, #background img {
         width: 100%;
         height: 100%;
     }
