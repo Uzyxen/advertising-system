@@ -11,6 +11,7 @@
         font-size: 42px;
         font-weight: 800;
         position: relative;
+        margin-bottom: 15px
     }
 
     h2::before{
