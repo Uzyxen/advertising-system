@@ -58,22 +58,22 @@
     async function Login() {
         if(data.value.email == '') {
             error.value.emailErr = true;
-            error_message.value = 'Uzupełnij wymagane pola!';
             success.value = false;
+            error_message.value = 'Uzupełnij wymagane pola!';
         } else {
             error.value.emailErr = false;
-            error_message.value = '';
             success.value = true;
+            error_message.value = '';
         }
 
         if(data.value.password == '') {
             error.value.passwordErr = true;
-            error_message.value = 'Uzupełnij wymagane pola!';
             success.value = false;
+            error_message.value = 'Uzupełnij wymagane pola!';
         } else {
             error.value.passwordErr = false;
-            error_message.value = '';
             success.value = true;
+            error_message.value = '';
         }
 
         if(success.value === true) {
@@ -81,13 +81,11 @@
 
             if(response) {
                 if(response == 'success') {
-                    success.value = true;
                     error_message.value = '';
                     const router = useRouter();
-
+                    
                     router.push({ path: '/profil' });
                 } else {
-                    success.value = false;
                     error_message.value = 'Nie znaleziono użytkownika o takich danych!';
                 }
             }
