@@ -1,22 +1,9 @@
 <?php
-    if(isset($_COOKIE['PHPSESSID'])) {
-        session_id($_COOKIE['PHPSESSID']);
+    if($_SERVER['REQUEST_METHOD'] === 'POST') {
+        include('../../controller/UserController.php');
 
-        session_start();
-    }
+        $user = new UserController();
 
-    if(isset($_SESSION) && isset($_SESSION['user_logged'])) {
-        echo json_encode(['data' => [
-            'logged' => $_SESSION['user_logged'], 
-            'first_name' => $_SESSION['imie'], 
-            'last_name' => $_SESSION['nazwisko'],
-            'description' => $_SESSION['opis'],
-            'phone_number' => $_SESSION['numer_telefonu'],
-            'email' => $_SESSION['email'],
-            'position' => $_SESSION['stanowisko'],
-            'gender' => $_SESSION['plec'],
-            'age' => $_SESSION['wiek'],
-            'country' => $_SESSION['kraj']
-        ]]);
+        echo json_encode($user->fetchUserData());
     }
 ?>

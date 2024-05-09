@@ -35,8 +35,16 @@
             return array_key_exists($key, $_SESSION);
         }
 
+        public function check($key) {
+            if(isset($_SESSION[$key])) {
+                return true;
+            }
+
+            return false;
+        }
+
         public function get($key) {
-            if (array_key_exists($key, $_SESSION)) {
+            if ($this->has($key)) {
                 return $_SESSION[$key];
             }
 

@@ -6,7 +6,7 @@
         private $session;
 
         protected function getUser($email, $password) {
-            $sql = "SELECT password FROM uzytkownicy WHERE email = ?";
+            $sql = "SELECT uzytkownik_id, password FROM uzytkownicy WHERE email = ?";
             $stmt = $this->connect()->prepare($sql);
 
             $stmt->execute([$email]);
@@ -18,6 +18,7 @@
                     $this->session = new Session();
                     $this->session->regenerateID(); // regenerate id after login
                     $this->session->set('user_logged', true); // set user_logged flag to true
+                    $this->session->set('user_id', $result[0]['uzytkownik_id']);
 
                     return true;
                 } else {
