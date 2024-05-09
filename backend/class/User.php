@@ -17,7 +17,7 @@
             $stmt = $this->connect()->prepare($sql);
 
             $stmt->execute([$user_id]);
-            $result = $stmt->fetch();
+            $result = $stmt->fetchAll();
 
             return $result;
         }

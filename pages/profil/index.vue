@@ -38,7 +38,9 @@
                         <hr>
 
                         <div id="skills">
-
+                            <h2 v-for="skill in userSkills">
+                                {{ skill.umiejetnosc }}
+                            </h2>
                         </div>
                     </div>
 
@@ -71,6 +73,8 @@
     });
 
     const { data: userData } = await useFetch('http://localhost/advertising-system/backend/api/user/GetUserData.php', { credentials: 'include', responseType: 'json', method: 'post' });
+    const { data: userSkills } = await useFetch('http://localhost/advertising-system/backend/api/user/GetUserSkills.php', { credentials: 'include', responseType: 'json', method: 'post' });
+
 </script>
 
 <style scoped>

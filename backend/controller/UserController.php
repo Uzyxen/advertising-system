@@ -23,5 +23,19 @@
 
             return $this->getUserData($this->user_id);
         }
+
+        public function fetchUserSkills() {
+            if($this->session->check('user_logged') == false) {
+                exit();
+            }
+
+            if($this->session->check('user_id') == false) {
+                exit();
+            } else {
+                $this->user_id = $this->session->get('user_id');
+            }
+
+            return $this->getUserSkills($this->user_id);
+        }
     }
 ?>
