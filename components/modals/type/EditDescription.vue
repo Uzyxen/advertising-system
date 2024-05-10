@@ -1,14 +1,14 @@
 <template>
     <ModalHeader>Podsumowanie zawodowe</ModalHeader>
 
-    <textarea spellcheck="false" v-model="description"></textarea>
+    <textarea spellcheck="false" v-model="newDescription"></textarea>
 
-    <ModalSaveButton @button-clicked="">Zapisz zmiany</ModalSaveButton>
+    <ModalSaveButton @button-clicked="">Zapisz</ModalSaveButton>
 </template>
 
 <script setup>
-    const model = defineModel();
-    const description = ref(model.value);
+    const props = defineProps(['description']);
+    const newDescription = ref(props.description);
 </script>
 
 <style scoped>
