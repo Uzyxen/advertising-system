@@ -1,3 +1,3 @@
 <template>
-    <h2>Wybierz zdjęcie</h2>
+    <ModalHeader>Wybierz zdjęcie</ModalHeader>
 </template>

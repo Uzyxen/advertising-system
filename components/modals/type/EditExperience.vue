@@ -1,3 +1,3 @@
 <template>
-    <h2>Doświadczenie</h2>
+    <ModalHeader>Doświadczenie</ModalHeader>
 </template>

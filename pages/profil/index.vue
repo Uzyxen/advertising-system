@@ -233,12 +233,6 @@
         border-right: 1px solid #DDD;
     }
 
-    #main-section > div h2 {
-        color: #231D2B;
-        font-size: 25px;
-        margin: 22px 0 13px 22px;
-    }
-
     #main-section > div hr {
         background-color: #DDD;
         height: 1px;

@@ -12,6 +12,9 @@
     .header{
         display: inline-block;
         cursor: pointer;
+        color: #231D2B;
+        font-size: 25px;
+        margin: 22px 0 13px 22px;
     }
 
     svg {

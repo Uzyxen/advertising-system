@@ -1,3 +1,3 @@
 <template>
-    <h2>Umiejętności</h2>
+    <ModalHeader>Umiejętności</ModalHeader>
 </template>
