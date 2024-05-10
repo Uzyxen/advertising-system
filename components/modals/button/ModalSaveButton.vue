@@ -1,5 +1,7 @@
 <template>
-    <button>Zapisz zmiany</button>
+    <button @click="$emit('buttonClicked')">
+        <slot />
+    </button>
 </template>
 
 <style scoped>
@@ -7,8 +9,9 @@
         align-self: flex-end;
         background-color: var(--asc-bg);
         color: var(--asc-txt-alt);
-        font-size: 22px;
-        padding: 10px 15px;
+        font-size: 18px;
+        width: 200px;
+        padding: 10px 12px;
         border-radius: 2px;
         cursor: pointer;
     }

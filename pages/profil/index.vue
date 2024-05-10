@@ -2,7 +2,7 @@
     <div id="root">
         <EditModal @close="isModalVisible = false" :isVisible="isModalVisible" >
             <EditImage v-if="modalType === 0" />
-            <EditDescription v-if="modalType === 1" />
+            <EditDescription v-if="modalType === 1" v-model="userData.opis" />
             <EditSkills v-if="modalType === 2" />
             <EditExperience v-if="modalType === 3" />
         </EditModal>
