@@ -111,10 +111,13 @@
     }
 
     #root-inner {
-        padding: 40px 150px 50px;
+        margin: 40px 150px 50px;
         display: flex;
         flex-direction: column;
         gap: 22px;
+        -webkit-box-shadow: 0px 5px 100px -68px rgba(35, 29, 43, 1);
+        -moz-box-shadow: 0px 5px 100px -68px rgba(35, 29, 43, 1);
+        box-shadow: 0px 5px 100px -68px rgba(35, 29, 43, 1);
     }
 
     nav#top-nav {
@@ -150,7 +153,6 @@
 
     main {
         display: flex;
-        gap: 22px
     }
 
     main #left-side {
