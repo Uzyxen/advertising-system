@@ -34,16 +34,18 @@
 
     #modal {
         background-color: var(--asc-bg-alt);
-        height: 600px;
-        width: 550px;
+        height: auto;
+        width: 500px;
         position: relative;
+        padding: 0 20px 20px;
+        border-radius: 2px;
     }
 
     svg {
         position: absolute;
         left: 15px;
         top: 15px;
-        width: 30px;
+        width: 25px;
         cursor: pointer;
         fill: #231D2B;
         z-index: 99;
