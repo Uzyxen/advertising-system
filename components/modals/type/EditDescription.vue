@@ -20,9 +20,10 @@
         width: calc(100% - 20px);
         margin: 0 25px;
         height: 400px;
-        font-size: 18px;
+        font-size: 16px;
         overflow-y: auto;
         border-radius: 2px;
         padding: 5px 10px;
+        color: #676071;
     }
 </style>
