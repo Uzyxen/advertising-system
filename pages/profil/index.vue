@@ -107,7 +107,7 @@
         left: 0;
         top: 0;
         z-index: -1;
-        border-radius: 50px;
+        background-image: url('steps.svg');
     }
 
     #root-inner {
