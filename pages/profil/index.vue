@@ -31,13 +31,35 @@
                             </div>
 
                             <div id="user-basic-info">
-                                <h2 id="user-name">{{ userData.imie }} {{ userData.nazwisko }}</h2>
-                                <h3 id="user-position">{{ userData.stanowisko }}</h3>
+                                <div>
+                                    <h2 id="user-name">{{ userData.imie }} {{ userData.nazwisko }}</h2>
+                                    <h3 id="user-position">{{ userData.stanowisko }}</h3>
+                                </div>
+
+                                <PurpleButton style="margin-bottom: 10px;">Udostępnij profil</PurpleButton>
                             </div>
                         </div>
 
                         <div id="user-alt">
-                            <h4></h4>
+                            <div>
+                                <h4>Kraj: </h4>
+                                <h4>{{ userData.kraj }}</h4>
+                            </div>
+
+                            <div>
+                                <h4>Wiek: </h4>
+                                <h4>{{ userData.wiek }}</h4>
+                            </div>
+
+                            <div>
+                                <h4>Numer kontaktowy: </h4>
+                                <h4>{{ userData.numer_telefonu }}</h4>
+                            </div>
+
+                            <div>
+                                <h4>Status: </h4>
+                                <h4>{{ userData.status }}</h4>
+                            </div>
                         </div>
                     </section>
 
@@ -76,7 +98,15 @@
                 </div>
 
                 <section id="right-side">
+                    <div id="languages">
+                        <EditHeader style="font-size: 20px;">Języki</EditHeader>
+                        <hr>
 
+                        <div v-for="language in languages">
+                            <h4>{{ language.lang }}</h4>
+                            <h4>{{ language.level }}</h4>
+                        </div>
+                    </div>
                 </section>
             </main>
         </div>
@@ -94,6 +124,12 @@
 
     // --------
     // data
+
+    const languages = ref([
+        { lang: 'Polski', level: 'Ojczysty' },
+        { lang: 'Angielski', level: 'Zaawansowany' },
+        { lang: 'Niemiecki', level: 'Komunikatywny' }
+    ]);
 
     const isModalVisible = ref(false);
     const modalType = ref(0);
@@ -177,12 +213,33 @@
         width: 100%;
         height: 250px;
         display: flex;
+        align-items: center;
         border-bottom: 1px solid #DDD;
     }
 
     #user-main {
         display: flex;
-        align-items: center;
+        flex: 1;
+        border-right: 1px solid #DDD;
+    }
+
+    #user-alt {
+        width: 300px;
+        height: 150px;
+        padding: 13px 20px 0;
+        gap: 10px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    #user-alt > div {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    #user-alt > div h4:first-child {
+        color: var(--asc-txt-ui-sec);
+        font-weight: 600;
     }
 
     #user-main #image {
@@ -195,6 +252,7 @@
     #user-basic-info {
         display: flex;
         flex-direction: column;
+        justify-content: space-between;
         height: 150px;
     }
 
@@ -252,7 +310,7 @@
         background-color: #FFF;
     }
 
-    #main-section > div hr {
+    hr {
         background-color: #DDD;
         height: 1px;
         border: none;
@@ -310,6 +368,12 @@
         background-color: #6244DB;
     }
 
+    #languages > div {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 13px
+    }
+
     @media (min-width: 1920px){
         #root{
             max-width: 1740px;
@@ -317,106 +381,6 @@
         }
     }
     
-    #dark-block {
-        position: fixed;
-        background-color: #0000008a;
-        width: 100%;
-        height: 100%;
-        left: 0;
-        top: 0;
-        z-index: 999;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    #edit-modal {
-        position: fixed;
-        background-color: #FFF;
-        box-shadow: 0 0 5px rgba(0,0,0,.12);
-        width: 500px;
-        max-height: 500px;
-        place-self: center;
-        padding: 35px;
-        z-index: 999;
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-        border-radius: 2px;
-        user-select: none;
-    }
-
-    #edit-modal svg {
-        position: absolute;
-        left: 20px;
-        top: 20px;
-        width: 25px;
-        height: 25px;
-        fill: #6244DB;
-        cursor: pointer;
-        transition: fill .3s cubic-bezier(0.24,0.07,0.09,0.99);
-    }
-
-    #edit-modal svg:hover {
-        fill: #F44534;
-    }
-
-    #modal-content .content {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-    }
-
-    .content h2 {
-        text-align: center;
-        color: #231D2B;
-    }
-
-    .content textarea {
-        resize: none;
-        outline: none;
-        border: 1px solid #DDD;
-        height: 300px;
-        font-size: 15px;
-    }
-
-    .content #skills {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-        overflow-y: auto;
-        height: 400px;
-    }
-
-    #add-skill {
-        display: flex;
-        gap: 12px;
-    }
-
-    #add-skill input {
-        flex: 1;
-        border: 1px solid #DDD;
-        outline: none;
-        padding-left: 5px;
-    }
-
-    #add-skill button {
-        width: 150px;
-        padding: 12px 15px;
-        cursor: pointer;
-        font-size: 15px;
-        background-color: #6244DB;
-        color: #FFF;
-    }
-
-    #edit-modal button#save {
-        background-color: #6244DB;
-        color: #FFF;
-        font-size: 20px;
-        padding: 12px 0;
-        cursor: pointer;
-    }
-
     .v-enter-active,
     .v-leave-active {
         transition: all .3s cubic-bezier(0.24,0.07,0.09,0.99);
