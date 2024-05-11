@@ -1,17 +1,19 @@
 <template>
-    <div id="background" v-show="isVisible">
-        <Transition>
-            <div id="modal" v-if="isVisible">
-                <svg @click="$emit('close')" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc. -->
-                    <path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/>
-                </svg>
+    <Transition name="fade">
+        <div id="background" v-show="isVisible">
+            <Transition>
+                <div id="modal" v-if="isVisible">
+                    <svg @click="$emit('close')" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc. -->
+                        <path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/>
+                    </svg>
 
-                <div id="content">
-                    <slot />
+                    <div id="content">
+                        <slot />
+                    </div>
                 </div>
-            </div>
-        </Transition>
-    </div>
+            </Transition>
+        </div>
+    </Transition>
 </template>
 
 <script setup>
@@ -75,5 +77,15 @@
         transform: scale(.8);
         opacity: 0;
         transform-origin: center;
+    }
+
+    .fade-enter-active,
+    .fade-leave-active {
+        transition: opacity .3s cubic-bezier(0.24,0.07,0.09,0.99);
+    }
+
+    .fade-enter-from,
+    .fade-leave-to {
+        opacity: 0;
     }
 </style>

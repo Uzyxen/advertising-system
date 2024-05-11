@@ -29,8 +29,11 @@
                                     </div>
                                 </div>
                             </div>
-                            <h2 id="user-name">{{ userData.imie }} {{ userData.nazwisko }}</h2>
-                            <h3 id="user-position">{{ userData.stanowisko }}</h3>
+
+                            <div id="user-basic-info">
+                                <h2 id="user-name">{{ userData.imie }} {{ userData.nazwisko }}</h2>
+                                <h3 id="user-position">{{ userData.stanowisko }}</h3>
+                            </div>
                         </div>
 
                         <div id="user-alt">
@@ -117,7 +120,7 @@
     }
 
     #root-inner {
-        margin: 40px 150px 50px;
+        margin: 40px 250px 50px;
         display: flex;
         flex-direction: column;
         gap: 22px;
@@ -172,23 +175,27 @@
     main #user-top {
         background-color: #FFF;
         width: 100%;
-        height: 300px;
+        height: 250px;
         display: flex;
-    }
-
-    #left-side #user-main {
-        display: flex;
-        flex-direction: column;
-        height: 300px;
         border-bottom: 1px solid #DDD;
     }
 
+    #user-main {
+        display: flex;
+        align-items: center;
+    }
+
     #user-main #image {
-        width: 300px;
+        width: 220px;
         display: flex;
         justify-content: center;
         align-items: center;
-        padding-top: 40px;
+    }
+
+    #user-basic-info {
+        display: flex;
+        flex-direction: column;
+        height: 150px;
     }
 
     #user-main #image #img {
@@ -227,19 +234,17 @@
     }
 
     h2#user-name {
-        text-align: center;
         font-weight: 700;
-        color: #231D2B;
+        color: var(--asc-txt-sec);
         padding-top: 13px;
         font-size: 25px;
     }
 
     h3#user-position {
-        text-align: center;
-        color: #6244DB;
+        color: var(--asc-txt);
         font-size: 15px;
         padding-top: 6px;
-        font-weight: 700;
+        font-weight: 600;
     }
 
     section#main-section {

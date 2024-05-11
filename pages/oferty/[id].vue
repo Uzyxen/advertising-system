@@ -1,5 +1,6 @@
 <template>
     <div id="main">
+        <div id="background-baner"></div>
         <div id="main-top">
             <div id="offer-detail">
                 <div id="image">
@@ -26,13 +27,56 @@
         </div>
 
         <div id="main-content">
+            <div id="description">
+                <h2>Opis</h2>
+                <hr>
 
+                <p>
+                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it 
+                    to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. 
+                    It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software 
+                    like Aldus PageMaker including versions of Lorem Ipsum.
+                </p>
+            </div>
+
+            <div id="duties">
+                <h2>Zakres obowiązków</h2>
+                <hr>
+
+                <div>
+                    <p v-for="duty in duties">
+                        {{ duty.title }}
+                    </p>
+                </div>
+            </div>
+
+            <div id="requirements">
+                <h2>Wymagania</h2>
+                <hr>
+
+                <div>
+                    <p v-for="requirment in requirements">
+                        {{ requirment.title }}
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 </template>
 
 <script setup>
-    
+    const duties = ref([
+        { title: 'Inicjowanie i utrzymywanie współpracy z firmami na podległym terenie' },
+        { title: 'Realizacja planów sprzedażowych firmy' },
+        { title: 'Budowa wizerunku firmy na powierzonym terenie działania' } 
+    ]);
+
+    const requirements = ref([
+        { title: 'Bardzo dobra znajomość Vue2/Vue3.' },
+        { title: 'Minimum 2-letnie doświadczenie w pracy na podobnym stanowisku.' },
+        { title: 'Umiejętność rozwiązywania złożonych problemów projektowych przy użyciu logicznego i kreatywnego podejścia.' } 
+    ]);
 </script>
 
 <style scoped>
@@ -40,8 +84,25 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        gap: 22px;
-        padding: 50px 250px;
+        margin: 50px 300px;
+    }
+
+    #background-baner {
+        width: 100%;
+        height: 300px;
+        background-color: #6244DB;
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: -1;
+        background-image: url('steps.svg');
+    }
+
+    hr {
+        background-color: #DDD;
+        height: 1px;
+        border: none;
+        margin: 0;
     }
 
     #main-top {
@@ -121,9 +182,24 @@
     }
 
     #main-content {
-        width: 100%;
-        height: 500px;
+        width: calc(100% - 2px);
+        min-height: 500px;
+        padding-top: 10px;
         background-color: var(--asc-bg-alt);
         border: 1px solid #DDD;
+        border-top: none;
+    }
+
+    #main-content h2 {
+        display: inline-block;
+        color: var(--asc-txt-sec);
+        font-size: 25px;
+        margin: 22px 0 13px 22px;
+    }
+
+    p {
+        margin: 22px 13px;
+        line-height: 150%;
+        color: var(--asc-txt-sec);
     }
 </style>
