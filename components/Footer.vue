@@ -84,6 +84,7 @@
         background-color: #fff;
         z-index: 1;
         position: relative;
+        margin-top: 50px;
     }
 
     #root{
