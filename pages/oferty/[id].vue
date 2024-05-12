@@ -1,5 +1,5 @@
 <template>
-    <div id="main">
+    <div id="main" v-if="offerData != false">
         <div id="main-top">
             <div id="offer-detail">
                 <div id="image">
@@ -9,7 +9,7 @@
                 <div id="offer-title">
                     <div>
                         <h2 id="title">{{ offerData.tytul }}</h2>
-                        <a id="company" href>Gizlomar</a>
+                        <a id="company" href>{{ offerData.nazwa_firmy }}</a>
                     </div>
                 </div>
             </div>
@@ -22,11 +22,7 @@
                     <hr>
 
                     <p>
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-                        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it 
-                        to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. 
-                        It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software 
-                        like Aldus PageMaker including versions of Lorem Ipsum.
+                        {{ offerData.opis }}
                     </p>
                 </div>
 
@@ -54,23 +50,23 @@
             </div>
 
             <div id="offer-action">
-                <h2>12 000 - 16 000 zł / mies.</h2>
-                <h3>Umowa B2B</h3>
+                <h2>{{ offerData.wynagrodzenie_min.toLocaleString() }} - {{ offerData.wynagrodzenie_max.toLocaleString() }} zł / mies.</h2>
+                <h3>Umowa {{ offerData.umowa }}</h3>
 
                 <PurpleButton>Aplikuj</PurpleButton>
                 <h3 id="ask-question">Zapytaj o ogłoszenie</h3>
             </div>
         </div>
     </div>
+
+    <div v-else>
+        <Page404 />
+    </div>
 </template>
 
 <script setup>
     const route = useRoute();
     const { data: offerData } = await useFetch('http://localhost/advertising-system/backend/api/offer/GetOfferData.php', { credentials: 'include', responseType: 'json', method: 'post', body: { 'id': route.params.id } });
-
-    if(offerData.value === false) {
-        navigateTo('/404');
-    }
 
     const duties = ref([
         { title: 'Inicjowanie i utrzymywanie współpracy z firmami na podległym terenie' },

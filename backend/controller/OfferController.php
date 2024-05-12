@@ -12,5 +12,9 @@
         public function fetchOfferData() {
             return $this->getOfferData($this->id);
         }
+
+        public function fetchOffers() {
+            return $this->getOffers();
+        }
     }
 ?>
