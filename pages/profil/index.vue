@@ -194,7 +194,6 @@
         display: flex;
         flex-direction: column;
         width: calc(100% - 300px);
-        gap: 22px;
     }
 
     main #user-top {
@@ -215,7 +214,7 @@
     #user-alt {
         width: 300px;
         height: 150px;
-        padding: 13px 20px 0;
+        padding: 13px 40px 0 20px;
         gap: 10px;
         display: flex;
         flex-direction: column;

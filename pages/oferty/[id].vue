@@ -8,7 +8,7 @@
 
                 <div id="offer-title">
                     <div>
-                        <h2 id="title">vuejs developer</h2>
+                        <h2 id="title">{{ offerData.tytul }}</h2>
                         <a id="company" href>Gizlomar</a>
                     </div>
                 </div>
@@ -65,6 +65,13 @@
 </template>
 
 <script setup>
+    const route = useRoute();
+    const { data: offerData } = await useFetch('http://localhost/advertising-system/backend/api/offer/GetOfferData.php', { credentials: 'include', responseType: 'json', method: 'post', body: { 'id': route.params.id } });
+
+    if(offerData.value === false) {
+        navigateTo('/404');
+    }
+
     const duties = ref([
         { title: 'Inicjowanie i utrzymywanie współpracy z firmami na podległym terenie' },
         { title: 'Realizacja planów sprzedażowych firmy' },
