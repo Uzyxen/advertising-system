@@ -4,7 +4,7 @@
     </div>
 </template>
 
-<style>
+<style scoped>
     #filters {
         height: 600px;
         width: 30%;
