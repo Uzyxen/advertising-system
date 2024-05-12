@@ -7,7 +7,7 @@
             <EditExperience v-if="modalType === 3" />
         </EditModal>
 
-        <div id="background-baner"></div>
+        <AbstractBlock />
         <div id="root-inner">
             <nav id="top-nav">
                 <ul>
@@ -142,17 +142,6 @@
 <style scoped>
     #root{  
         min-height: 100vh;
-    }
-
-    #background-baner {
-        width: 100%;
-        height: 300px;
-        background-color: #6244DB;
-        position: absolute;
-        left: 0;
-        top: 0;
-        z-index: -1;
-        background-image: url('steps.svg');
     }
 
     #root-inner {
