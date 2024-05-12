@@ -13,7 +13,7 @@
 
 <style scoped>
     #offer-list {
-        width: 60%;
+        width: 100%;
         display: flex;
         flex-direction: column;
         row-gap: 15px;

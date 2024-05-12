@@ -2,10 +2,11 @@
     <LoadingScreen :is-loading="loading" />
 
     <section>
-        <SectionTitle>Oferty pracy</SectionTitle>
-
-        <OfferSort @loading="loading = true" />
-        <OffersList />
+        <Filters />
+        <div id="offers-flex">
+            <OfferSort @loading="loading = true" />
+            <OffersList />
+        </div>
     </section>
 </template>
 
@@ -16,9 +17,15 @@
 <style scoped>
     section {
         display: flex;
-        flex-direction: column;
-        align-items: center;
         gap: 15px;
-        height: 100vh;
+        width: calc(100% - 300px);
+        padding: 80px 150px 0;
+    }
+
+    #offers-flex {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
     }
 </style>

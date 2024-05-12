@@ -4,7 +4,7 @@
 
         <div class="offer-content">
             <div class="image">
-                <img :src="'/src/assets/company/'" alt="logo firmy">
+                <img src="/company/gizlomar.png" alt="logo firmy">
             </div>
 
             <div>

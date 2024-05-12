@@ -46,7 +46,7 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        width: calc(60% - 40px);
+        width: calc(100% - 40px);
         background-color: var(--asc-bg-alt);
     }
 
