@@ -3,7 +3,7 @@
         protected function connect() {
             try {
                 $host = 'localhost';
-                $database = 'system_ogloszeniowy';
+                $database = 'advertising_system';
                 $username = 'root';
                 $password = '';
 
