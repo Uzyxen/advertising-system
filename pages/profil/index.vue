@@ -145,7 +145,7 @@
     }
 
     #root-inner {
-        margin: 40px 250px 50px;
+        margin: 40px 150px 50px;
         display: flex;
         flex-direction: column;
         gap: 22px;
