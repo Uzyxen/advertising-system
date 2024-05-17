@@ -9,15 +9,17 @@
                 </svg>
             </h3>
 
-            <FilterDropdown v-if="filter.isDropdownVisible">
-                <FilterElement v-for="jobLevel in jobLevels" v-if="filter.id === 0">
-                    {{ jobLevel.name }}
-                </FilterElement>
+            <KeepAlive>
+                <FilterDropdown v-if="filter.isDropdownVisible">
+                    <FilterElement v-for="jobLevel in jobLevels" v-if="filter.id === 0">
+                        {{ jobLevel.name }}
+                    </FilterElement>
 
-                <FilterElement v-for="contractType in contractTypes" v-if="filter.id === 1">
-                    {{ contractType.name }}
-                </FilterElement>
-            </FilterDropdown>
+                    <FilterElement v-for="contractType in contractTypes" v-if="filter.id === 1">
+                        {{ contractType.name }}
+                    </FilterElement>
+                </FilterDropdown>
+            </KeepAlive>
         </section>
     </div>
 </template>
