@@ -1,6 +1,6 @@
 <?php
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
-        include('../controller/JobController.php');
+        include('../../controller/JobController.php');
 
         $job = new JobController();
 

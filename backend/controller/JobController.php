@@ -5,5 +5,9 @@
         public function fetchJobLevels() {
             return $this->getJobLevels();
         }
+
+        public function fetchJobContractTypes() {
+            return $this->getJobContractTypes();
+        }
     }
 ?>

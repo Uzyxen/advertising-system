@@ -13,13 +13,18 @@
                 <FilterElement v-for="jobLevel in jobLevels" v-if="filter.id === 0">
                     {{ jobLevel.name }}
                 </FilterElement>
+
+                <FilterElement v-for="contractType in contractTypes" v-if="filter.id === 1">
+                    {{ contractType.name }}
+                </FilterElement>
             </FilterDropdown>
         </section>
     </div>
 </template>
 
 <script setup>
-    const { data: jobLevels } = await useFetch('http://localhost/advertising-system/backend/api/GetJobLevels.php', { responseType: 'json', method: 'post' });
+    const { data: jobLevels } = await useFetch('http://localhost/advertising-system/backend/api/job/GetJobLevels.php', { responseType: 'json', method: 'post' });
+    const { data: contractTypes } = await useFetch('http://localhost/advertising-system/backend/api/job/GetContractTypes.php', { responseType: 'json', method: 'post' });
 
     const filters = ref([
         { id: 0, title: 'Poziom stanowiska', isDropdownVisible: true },
