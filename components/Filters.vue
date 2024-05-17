@@ -1,7 +1,7 @@
 <template>
     <div id="filters">
-        <section v-for="filter in filters" :key="filter.id" @click="toggleDropdown(filter.id)">
-            <h3>
+        <section v-for="filter in filters" :key="filter.id">
+            <h3 @click="toggleDropdown(filter.id)">
                 {{ filter.title }}
 
                 <svg :class="{ opened: filter.isDropdownVisible }" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc. -->
@@ -47,15 +47,13 @@
         background-color: var(--asc-bg-alt);
     }
 
-    section {
-        cursor: pointer;
-    }
-
     section h3 {
         display: flex;
         align-items: center;
+        cursor: pointer;
         justify-content: space-between;
         padding: 20px 25px;
+        margin-bottom: 10px;
         color: var(--asc-txt-sec);
         border-bottom: 1px solid var(--asc-bg-border);
     }

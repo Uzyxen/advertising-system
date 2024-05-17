@@ -7,6 +7,7 @@
     --asc-txt-alt:              var( --mol-white );
     --asc-txt-sec:              var( --mol-purple-dark );
     --asc-txt-ui-sec:           var( --mol-purple-trans );
+    --asc-txt-ui-sec-alt:       var( --mol-purple-trans-10 );
     --asc-txt-alt-inverted:     var( --mol-black );
 
     --asc-txt-ui:               var( --mol-black-light );

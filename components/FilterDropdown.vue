@@ -8,7 +8,6 @@
     .dropdown {
         display: flex;
         flex-direction: column;
-        gap: 10px;
-        padding: 20px 30px;
+        padding: 5px 20px;
     }
 </style>
