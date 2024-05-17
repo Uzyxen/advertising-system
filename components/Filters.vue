@@ -1,6 +1,6 @@
 <template>
     <div id="filters">
-        <section v-for="filter in filters" :key="filter.id">
+        <section v-for="filter in filters" :key="filter.id" @click="toggleDropdown(filter.id)">
             <h3>
                 {{ filter.title }}
 
@@ -27,6 +27,12 @@
         { id: 2, title: 'Tryb pracy', isDropdownVisible: false },
         { id: 3, title: 'Wymiar pracy', isDropdownVisible: false }
     ]);
+
+    // functions
+
+    function toggleDropdown(id) {
+        filters.value[id].isDropdownVisible = !filters.value[id].isDropdownVisible;
+    }
 </script>
 
 <style scoped>
