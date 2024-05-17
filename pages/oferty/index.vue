@@ -1,7 +1,6 @@
 <template>
     <LoadingScreen :is-loading="loading" />
 
-    <AbstractBlock />
     <section>
         <Filters />
         <div id="offers-flex">
