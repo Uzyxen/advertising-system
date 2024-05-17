@@ -2,7 +2,9 @@
     <div id="filters">
         <section v-for="filter in filters" :key="filter.id">
             <h3 @click="toggleDropdown(filter.id)">
-                {{ filter.title }}
+                <div>
+                    {{ filter.title }} <p v-if="filter.numberOfSelected != 0 && filter.isDropdownVisible === false">{{ filter.numberOfSelected }}</p>
+                </div>
 
                 <svg :class="{ opened: filter.isDropdownVisible }" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc. -->
                     <path d="M233.4 105.4c12.5-12.5 32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L256 173.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l192-192z"/>
@@ -11,12 +13,8 @@
 
             <KeepAlive>
                 <FilterDropdown v-if="filter.isDropdownVisible">
-                    <FilterElement v-for="jobLevel in jobLevels" v-if="filter.id === 0">
-                        {{ jobLevel.name }}
-                    </FilterElement>
-
-                    <FilterElement v-for="contractType in contractTypes" v-if="filter.id === 1">
-                        {{ contractType.name }}
+                    <FilterElement v-for="filter_element in filter.filter_elements">
+                        {{ filter_element.name }}
                     </FilterElement>
                 </FilterDropdown>
             </KeepAlive>
@@ -29,17 +27,17 @@
     const { data: contractTypes } = await useFetch('http://localhost/advertising-system/backend/api/job/GetContractTypes.php', { responseType: 'json', method: 'post' });
 
     const filters = ref([
-        { id: 0, title: 'Poziom stanowiska', isDropdownVisible: true },
-        { id: 1, title: 'Rodzaj umowy', isDropdownVisible: false },
-        { id: 2, title: 'Tryb pracy', isDropdownVisible: false },
-        { id: 3, title: 'Wymiar pracy', isDropdownVisible: false }
+        { id: 0, title: 'Poziom stanowiska', filter_elements: jobLevels.value, numberOfSelected: 0, isDropdownVisible: true },
+        { id: 1, title: 'Rodzaj umowy', filter_elements: contractTypes.value, numberOfSelected: 0, isDropdownVisible: false },
+        { id: 2, title: 'Tryb pracy', numberOfSelected: 0, isDropdownVisible: false },
+        { id: 3, title: 'Wymiar pracy', numberOfSelected: 0, isDropdownVisible: false }
     ]);
 
     // functions
 
     function toggleDropdown(id) {
         filters.value[id].isDropdownVisible = !filters.value[id].isDropdownVisible;
-    }
+    } 
 </script>
 
 <style scoped>
@@ -57,7 +55,27 @@
         padding: 20px 25px;
         margin-bottom: 10px;
         color: var(--asc-txt-sec);
+        font-size: 18px;
         border-bottom: 1px solid var(--asc-bg-border);
+    }
+
+    section h3 > div {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+
+    section h3 div p {
+        margin: 0;
+        background-color: var(--asc-bg);
+        color: var(--asc-txt-alt);
+        width: 20px;
+        height: 20px;
+        font-size: 14px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 2px;
     }
 
     section h3 svg {
