@@ -25,7 +25,7 @@
                 <Nuxt-link to="/firma/rejestracja">Zarejestruj swoją firmę</Nuxt-link>
             </div>
 
-            <p id="for-companies">
+            <p id="for-users">
                 <Nuxt-link to="/logowanie">Logowanie dla użytkowników</Nuxt-link>
             </p>
         </div>
@@ -72,16 +72,15 @@
         }
 
         if(success.value === true) {
-            //const response = await $fetch('http://localhost/advertising-system/backend/api/user/LogInUser.php', { body: data.value, method: 'post', credentials: 'include', responseType: 'json' });
+            const response = await $fetch('http://localhost/advertising-system/backend/api/company/LogInCompany.php', { body: data.value, method: 'post', credentials: 'include', responseType: 'json' });
 
             if(response) {
                 if(response == 'success') {
                     error_message.value = '';
-                    const router = useRouter();
-                    
-                    router.push({ path: '/profil' });
+
+                    navigateTo('/firma/profil');
                 } else {
-                    error_message.value = 'Nie znaleziono użytkownika o takich danych!';
+                    error_message.value = 'Nie znaleziono firmy o takich danych!';
                 }
             }
         }
@@ -198,12 +197,12 @@
         cursor: pointer;
     }
 
-    #login-box p#for-companies{
+    #login-box p#for-users{
         text-align: center;
         margin: 40px 0 20px 0;
     }
     
-    #login-box p#for-companies a{
+    #login-box p#for-users a{
         text-decoration: none;
         color: #6244DB;
     }

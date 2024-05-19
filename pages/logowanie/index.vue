@@ -82,9 +82,7 @@
             if(response) {
                 if(response == 'success') {
                     error_message.value = '';
-                    const router = useRouter();
-                    
-                    router.push({ path: '/profil' });
+                    navigateTo('/profil');
                 } else {
                     error_message.value = 'Nie znaleziono użytkownika o takich danych!';
                 }

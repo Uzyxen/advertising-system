@@ -13,7 +13,7 @@
         }
 
         public function fetchUser() {
-            if($this->emptyInput() == false) {
+            if($this->emptyInput() == true) {
                 exit();
             }
 
@@ -24,12 +24,24 @@
             }
         }
 
+        public function fetchCompany() {
+            if($this->emptyInput() == true) {
+                exit();
+            }
+
+            if($this->getCompany($this->email, $this->password)) {
+                return 'success';
+            } else {
+                return 'failure';
+            }
+        }
+
         private function emptyInput() {
             if(empty($this->email) || empty($this->password)) {
-                return false;
+                return true;
             } 
             else {
-                return true;
+                return false;
             }
         }
     }

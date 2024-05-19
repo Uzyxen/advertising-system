@@ -49,7 +49,7 @@
         padding: 20px;
         background-color: #FFF;
         display: grid;
-        grid-template-columns: repeat(3, 1fr);;
+        grid-template-columns: repeat(2, 1fr);;
         gap: 10px;
         padding-bottom: 200px;
     }
@@ -87,7 +87,7 @@
     }
 
     .main-info h5 {
-        font-size: 20px;
+        font-size: 15px;
     }
 
     .user-application {
