@@ -142,7 +142,7 @@
     }
 
     #email-exists svg {
-        fill: rgb(255, 204, 0);
+        fill: #ffcc00;
         width: 50px;
     }
 

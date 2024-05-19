@@ -9,7 +9,9 @@
             </nav>
 
             <main>
-                <component :is="view"/>
+                <KeepAlive>
+                    <component :is="view"/>
+                </KeepAlive>
             </main>
         </div>
     </div>
