@@ -1,5 +1,5 @@
 <template>
-    <div id="wrapper">
+    <div class="wrapper" v-if="response === false">
         <section id="user-data">
             <div class="image">
                 <img src="/user/pexels-photo-771742.webp" alt="Zdjęcie profilowe użytkownika">
@@ -25,26 +25,57 @@
         </section>
     </div>
 
-    <ModalSaveButton @button-clicked="">Potwierdź</ModalSaveButton>
+    <div class="wrapper" v-else>
+        <svg id="success-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc. -->
+            <path d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-111 111-47-47c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l64 64c9.4 9.4 24.6 9.4 33.9 0L369 209z"/>
+        </svg>
+
+        <h2 id="success-header">Pomyślnie zaaplikowano!</h2>
+    </div>
+
+    <ModalSaveButton @button-clicked="applyForAJob" v-if="response === false">Potwierdź</ModalSaveButton>
 </template>
 
 <script setup>
     const { data: userData } = await useFetch('http://localhost/advertising-system/backend/api/user/GetUserData.php', { credentials: 'include', responseType: 'json', method: 'post' });
 
     // props
-    defineProps(['offer']);
+    const props = defineProps(['offer']);
+    const response = ref(false);
+
+    // functions
+
+    async function applyForAJob() {
+        if(response.value === false) {
+            response.value = await $fetch('http://localhost/advertising-system/backend/api/application/CreateApplication.php', { method: 'post', credentials: 'include', responseType: 'json', body: { 'offer_id': props.offer.ogloszenie_id } });
+        }
+    }
 </script>
 
 <style scoped>
-    #wrapper {
+    .wrapper {
         display: flex;
         flex-direction: column;
         width: 100%;
         gap: 20px;
     }
 
+    #success-header {
+        text-align: center;
+        padding-bottom: 20px;
+        font-size: 25px;
+    }
+
+    #success-svg {
+        width: 30%;
+        margin-top: 80px;
+        padding-bottom: 5px;
+        fill: #4BB543;
+    }
+
     #user-data {
         margin-top: 80px;
+        color: var(--asc-txt-sec);
     }
 
     section {

@@ -34,5 +34,12 @@
                 return false;
             }
         }
+
+        protected function setOfferApply($user_id, $offer_id) {
+            $sql = "INSERT INTO applications (user_id, offer_id) VALUES (?, ?)";
+            $stmt = $this->connect()->prepare($sql);
+
+            $stmt->execute([$user_id, $offer_id]);
+        }
     }
 ?>
