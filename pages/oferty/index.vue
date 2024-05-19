@@ -19,7 +19,7 @@
         display: flex;
         gap: 15px;
         width: calc(100% - 300px);
-        padding: 80px 150px 0;
+        padding: 40px 150px 0;
     }
 
     #offers-flex {

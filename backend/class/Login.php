@@ -6,7 +6,7 @@
         private $session;
 
         protected function getUser($email, $password) {
-            $sql = "SELECT uzytkownik_id, password FROM uzytkownicy WHERE email = ?";
+            $sql = "SELECT uzytkownik_id, password FROM users WHERE email = ?";
             $stmt = $this->connect()->prepare($sql);
 
             $stmt->execute([$email]);
