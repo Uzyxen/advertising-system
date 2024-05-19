@@ -24,6 +24,10 @@
                 $this->user_id = $this->session->get('user_id');
             }
 
+            if($this->getApplicationStatus($this->user_id, $this->offer_id) == true) {
+                exit();
+            }
+            
             return $this->setApplication($this->user_id, $this->offer_id);
         }
 

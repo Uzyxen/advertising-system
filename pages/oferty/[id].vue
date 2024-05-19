@@ -1,6 +1,6 @@
 <template>
     <EditModal @close="isModalVisible = false" :isVisible="isModalVisible" >
-        <ConfirmApply :offer="offerData" />
+        <ConfirmApply :offer="offerData" @applied="applied = true"/>
     </EditModal>
 
     <div id="main" v-if="offerData != false">

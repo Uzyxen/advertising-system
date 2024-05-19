@@ -41,13 +41,19 @@
 
     // props
     const props = defineProps(['offer']);
-    const response = ref(false);
+    const { data: response } = await useFetch('http://localhost/advertising-system/backend/api/application/GetApplicationStatus.php', { credentials: 'include', responseType: 'json', method: 'post', body: { 'offer_id': props.offer.ogloszenie_id } });
+
+    // emits
+
+    const emit = defineEmits(['applied']);
 
     // functions
 
     async function applyForAJob() {
         if(response.value === false) {
             response.value = await $fetch('http://localhost/advertising-system/backend/api/application/CreateApplication.php', { method: 'post', credentials: 'include', responseType: 'json', body: { 'offer_id': props.offer.ogloszenie_id } });
+
+            emit('applied');
         }
     }
 </script>

@@ -4,10 +4,6 @@
     </button>
 </template>
 
-<script setup>
-    defineProps('isDisabled');
-</script>
-
 <style scoped>
     button {
         align-self: flex-end;
