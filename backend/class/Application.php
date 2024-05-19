@@ -12,5 +12,19 @@
                 return false;
             }
         }
+
+        protected function getApplicationStatus($user_id, $offer_id) {
+            $sql = "SELECT application_id FROM applications WHERE user_id = ? AND offer_id = ?";
+            $stmt = $this->connect()->prepare($sql);
+
+            $stmt->execute([$user_id, $offer_id]);
+
+            if($stmt->rowCount() > 0) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
     }
 ?>

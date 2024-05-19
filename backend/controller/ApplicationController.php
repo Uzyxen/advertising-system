@@ -26,5 +26,19 @@
 
             return $this->setApplication($this->user_id, $this->offer_id);
         }
+
+        public function fetchApplicationStatus() {
+            if($this->session->check('user_logged') == false) {
+                exit();
+            }
+
+            if($this->session->check('user_id') == false) {
+                exit();
+            } else {
+                $this->user_id = $this->session->get('user_id');
+            }
+
+            return $this->getApplicationStatus($this->user_id, $this->offer_id);
+        }
     }
 ?>

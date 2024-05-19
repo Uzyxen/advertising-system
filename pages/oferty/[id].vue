@@ -59,7 +59,7 @@
                 <h2>{{ offerData.wynagrodzenie_min.toLocaleString() }} - {{ offerData.wynagrodzenie_max.toLocaleString() }} zł / mies.</h2>
                 <h3>Umowa {{ offerData.umowa }}</h3>
 
-                <PurpleButton @button-clicked="isModalVisible = true">Aplikuj</PurpleButton>
+                <PurpleButton @button-clicked="openModal" :class="{ disabled: applied }">Aplikuj</PurpleButton>
                 <h3 id="ask-question">Zapytaj o ogłoszenie</h3>
             </div>
         </div>
@@ -75,6 +75,7 @@
 
     const route = useRoute();
     const { data: offerData } = await useFetch('http://localhost/advertising-system/backend/api/offer/GetOfferData.php', { credentials: 'include', responseType: 'json', method: 'post', body: { 'id': route.params.id } });
+    const { data: applied } = await useFetch('http://localhost/advertising-system/backend/api/application/GetApplicationStatus.php', { credentials: 'include', responseType: 'json', method: 'post', body: { 'offer_id': route.params.id } });
 
     const duties = ref([
         { title: 'Inicjowanie i utrzymywanie współpracy z firmami na podległym terenie' },
@@ -87,6 +88,12 @@
         { title: 'Minimum 2-letnie doświadczenie w pracy na podobnym stanowisku.' },
         { title: 'Umiejętność rozwiązywania złożonych problemów projektowych przy użyciu logicznego i kreatywnego podejścia.' } 
     ]);
+
+    function openModal() {
+        if(applied.value === false) {
+            isModalVisible.value = true
+        }
+    }
 </script>
 
 <style scoped>
@@ -94,6 +101,12 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
+    }
+
+    .disabled {
+        cursor: not-allowed;
+        background-color: var(--asc-txt);
+        opacity: 0.3;
     }
 
     hr {
