@@ -7,10 +7,6 @@
                     Oferty pracy
                 </Nuxt-link>
 
-                <Nuxt-link to="/oferty-uzytkownikow" v-if="user_logged">
-                    Szukaj pracowników
-                </Nuxt-link>
-
                 <Nuxt-link to="/cv">Kreator CV</Nuxt-link>
             </nav>
 

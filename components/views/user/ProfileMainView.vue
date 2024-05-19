@@ -1,10 +1,10 @@
 <template>
-    <EditModal @close="isModalVisible = false" :isVisible="isModalVisible" >
+    <ModalBlock @close="isModalVisible = false" :isVisible="isModalVisible">
         <EditImage v-if="modalType === 0" />
         <EditDescription v-if="modalType === 1" :description="userData.opis" />
         <EditSkills v-if="modalType === 2" :skills="userSkills" />
         <EditExperience v-if="modalType === 3" />
-    </EditModal>
+    </ModalBlock>
 
     <div id="main-flex">
         <section id="user-top">
@@ -122,6 +122,7 @@
         display: flex;
         flex-direction: column;
         width: calc(100% - 300px);
+        border-right: 3px solid var(--asc-bg);
     }
 
     main #user-top {

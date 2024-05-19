@@ -1,15 +1,17 @@
 <template>
-    <div id="main-grid">
-        <div class="user-application" v-for="application in userApplications" v-if="userApplications != false">
-            <div class="status" :style="{ backgroundColor: getColor(application.status) }"></div>
+    <ModalBlock @close="isModalVisible = false" :isVisible="isModalVisible" >
+        <CancelApply :application="selectedApplication"/>
+    </ModalBlock>
 
+    <div id="main-grid">
+        <div class="user-application" v-for="application in userApplications" v-if="userApplications != false" @click="showApplication(application)">
             <div class="image">
                 <img src="/company/gizlomar.png" alt="Logo firmy">
             </div>
 
             <div class="main-info">
-                <h2>{{ application.tytul }}</h2>
-                <a>{{ application.nazwa_firmy }}</a>
+                <NuxtLink :to="'/oferty/' + application.ogloszenie_id" class="title">{{ application.tytul }}</NuxtLink>
+                <NuxtLink :to="'/firmy/' + application.firma_id">{{ application.nazwa_firmy }}</NuxtLink>
                 <h4>{{ application.wynagrodzenie_min.toLocaleString() }} - {{ application.wynagrodzenie_max.toLocaleString() }} zł / {{ application.czestotliwosc_wynagrodzenia }}</h4>
                 <h5 :style="{ color: getColor(application.status) }">{{ application.status }}</h5>
             </div>
@@ -22,12 +24,22 @@
 </template>
 
 <script setup>
+    // fetch data
     const { data: userApplications } = await useFetch('http://localhost/advertising-system/backend/api/application/GetUserApplications.php', { credentials: 'include', responseType: 'json', method: 'post' });
+
+    // variables
+    const isModalVisible = ref(false);
+    const selectedApplication = ref();
 
     function getColor(status) {
         if(status === 'oczekująca') return '#ffcc00';
         else if(status === 'odrzucona') return '#ff3333';
         else if(status === 'zaakceptowana') return '#4BB543';
+    }
+
+    function showApplication(application) {
+        selectedApplication.value = application;
+        isModalVisible.value = true;
     }
 </script>
 
@@ -37,17 +49,9 @@
         padding: 20px;
         background-color: #FFF;
         display: grid;
-        grid-template-columns: repeat(1, 1fr);;
+        grid-template-columns: repeat(3, 1fr);;
         gap: 10px;
         padding-bottom: 200px;
-    }
-
-    .status {
-        position: absolute;
-        bottom: -1px;
-        left: -1px;
-        width: 11px;
-        height: calc(100% + 1px);
     }
 
     .main-info {
@@ -56,8 +60,12 @@
         gap: 5px;
     }
 
-    .main-info h2 {
+    .main-info a.title {
         color: var(--asc-txt-sec);
+        font-weight: 700;
+        font-size: 20px;
+        width: -moz-fit-content;
+        width: fit-content;
     }
 
     .main-info a {
@@ -88,7 +96,11 @@
         gap: 10px;
         padding: 10px;
         position: relative;
-        padding-left: 30px;
+    }
+
+    .user-application:hover {
+        cursor: pointer;
+        background-color: #eee;
     }
 
     .image {

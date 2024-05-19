@@ -1,6 +1,5 @@
 <template>
     <div id="root">
-        <AbstractBlock />
         <div id="root-inner">
             <nav id="top-nav">
                 <ul>
@@ -25,8 +24,8 @@
     // nav
     const sections = ref([
         { title: 'Profil', component: ProfileMainView },
-        { title: 'CV', component: ProfileCVView },
-        { title: 'Aplikacje', component: ProfileApplicationsView }
+        { title: 'Aplikacje', component: ProfileApplicationsView },
+        { title: 'CV', component: ProfileCVView }
     ]); 
 
     // views
@@ -53,10 +52,9 @@
         margin: 40px 150px 50px;
         display: flex;
         flex-direction: column;
-        gap: 22px;
         -webkit-box-shadow: 0px 5px 100px -68px rgba(35, 29, 43, 1);
         -moz-box-shadow: 0px 5px 100px -68px rgba(35, 29, 43, 1);
-        box-shadow: 0px 5px 100px -68px rgba(35, 29, 43, 1);
+        box-shadow: 0px 5px 90px -78px rgba(35, 29, 43, 1);
     }
 
     nav#top-nav {
@@ -64,6 +62,7 @@
         height: 50px;
         background-color: #FFF;
         box-shadow: 0 0 5px rgba(0,0,0,.12);
+        border-bottom: 3px solid var(--asc-bg);
     }
 
     #top-nav ul {
@@ -92,7 +91,6 @@
 
     main {
         display: flex;
-        gap: 22px;
     }
 
     @media (min-width: 1920px){
