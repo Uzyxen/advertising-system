@@ -13,6 +13,7 @@
                 <ul>
                     <li class="current">Profil</li>
                     <li>CV</li>
+                    <li>Aplikacje</li>
                 </ul>
             </nav>
 

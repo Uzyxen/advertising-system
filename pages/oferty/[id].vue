@@ -1,4 +1,8 @@
 <template>
+    <EditModal @close="isModalVisible = false" :isVisible="isModalVisible" >
+        <ConfirmApply :offer="offerData" />
+    </EditModal>
+
     <div id="main" v-if="offerData != false">
         <div id="main-top">
             <div id="offer-detail">
@@ -31,7 +35,8 @@
                     <hr>
 
                     <div>
-                        <p v-for="duty in duties">
+                        <p class="list-element" v-for="duty in duties">
+                            <span></span>
                             {{ duty.title }}
                         </p>
                     </div>
@@ -42,7 +47,8 @@
                     <hr>
 
                     <div>
-                        <p v-for="requirment in requirements">
+                        <p class="list-element" v-for="requirment in requirements">
+                            <span></span>
                             {{ requirment.title }}
                         </p>
                     </div>
@@ -53,7 +59,7 @@
                 <h2>{{ offerData.wynagrodzenie_min.toLocaleString() }} - {{ offerData.wynagrodzenie_max.toLocaleString() }} zł / mies.</h2>
                 <h3>Umowa {{ offerData.umowa }}</h3>
 
-                <PurpleButton>Aplikuj</PurpleButton>
+                <PurpleButton @button-clicked="isModalVisible = true">Aplikuj</PurpleButton>
                 <h3 id="ask-question">Zapytaj o ogłoszenie</h3>
             </div>
         </div>
@@ -65,6 +71,8 @@
 </template>
 
 <script setup>
+    const isModalVisible = ref(false);
+
     const route = useRoute();
     const { data: offerData } = await useFetch('http://localhost/advertising-system/backend/api/offer/GetOfferData.php', { credentials: 'include', responseType: 'json', method: 'post', body: { 'id': route.params.id } });
 
@@ -93,6 +101,22 @@
         height: 1px;
         border: none;
         margin: 0;
+    }
+
+    .list-element {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .list-element span {
+        background-color: var(--asc-bg);
+        opacity: 0.5;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        left: 0;
     }
 
     #main-top {
@@ -183,7 +207,12 @@
         display: flex;
         flex-direction: column;
         gap: 10px;
-        height: 300px;
+        height: 200px;
+        padding: 20px;
+    }
+
+    #offer-action h2, #offer-action h3 {
+        color: var(--asc-txt-sec)
     }
 
     p {
