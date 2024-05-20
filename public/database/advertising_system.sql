@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Maj 14, 2024 at 10:19 PM
+-- Generation Time: Maj 20, 2024 at 07:38 AM
 -- Wersja serwera: 10.4.32-MariaDB
 -- Wersja PHP: 8.2.12
 
@@ -20,6 +20,55 @@ SET time_zone = "+00:00";
 --
 -- Database: `advertising_system`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `applications`
+--
+
+CREATE TABLE `applications` (
+  `application_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `offer_id` int(11) NOT NULL,
+  `status` enum('oczekująca','odrzucona','zaakceptowana') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `applications`
+--
+
+INSERT INTO `applications` (`application_id`, `user_id`, `offer_id`, `status`) VALUES
+(13, 30, 8, 'odrzucona'),
+(14, 30, 9, 'oczekująca'),
+(15, 30, 65, 'zaakceptowana'),
+(16, 30, 64, 'oczekująca'),
+(17, 30, 70, 'oczekująca');
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `companies`
+--
+
+CREATE TABLE `companies` (
+  `company_id` int(11) NOT NULL,
+  `zdjecie_url` varchar(255) NOT NULL,
+  `nazwa_firmy` varchar(90) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `haslo` varchar(40) NOT NULL,
+  `NIP` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `companies`
+--
+
+INSERT INTO `companies` (`company_id`, `zdjecie_url`, `nazwa_firmy`, `email`, `haslo`, `NIP`) VALUES
+(1, 'makolab.png', 'MakoLab', 'makolab@gmail.com', 'makomako', '1234567891'),
+(2, 'softiq.png', 'SOFTIQ SOFTWARE HOUSE', '', '', '2345215215'),
+(3, 'poloenergia.png', 'Polenergia Fotowoltaika S.A.', 'polo@gmail.com', 'polo', '2345215215'),
+(4, 'tmobile.png', 'T-Mobile', '', '', '2345215215');
 
 -- --------------------------------------------------------
 
@@ -49,27 +98,30 @@ INSERT INTO `doswiadczenie` (`doswiadczenie_id`, `data_poczatek`, `data_koniec`,
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `firmy`
+-- Struktura tabeli dla tabeli `job_levels`
 --
 
-CREATE TABLE `firmy` (
-  `firma_id` int(11) NOT NULL,
-  `zdjecie_url` varchar(255) NOT NULL,
-  `nazwa_firmy` varchar(90) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `haslo` varchar(40) NOT NULL,
-  `NIP` varchar(10) NOT NULL
+CREATE TABLE `job_levels` (
+  `job_level_id` int(11) NOT NULL,
+  `name` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `firmy`
+-- Dumping data for table `job_levels`
 --
 
-INSERT INTO `firmy` (`firma_id`, `zdjecie_url`, `nazwa_firmy`, `email`, `haslo`, `NIP`) VALUES
-(1, 'makolab.png', 'MakoLab', 'makolab@gmail.com', 'makomako', '1234567891'),
-(2, 'softiq.png', 'SOFTIQ SOFTWARE HOUSE', '', '', '2345215215'),
-(3, 'poloenergia.png', 'Polenergia Fotowoltaika S.A.', 'polo@gmail.com', 'polo', '2345215215'),
-(4, 'tmobile.png', 'T-Mobile', '', '', '2345215215');
+INSERT INTO `job_levels` (`job_level_id`, `name`) VALUES
+(1, 'praktykant / stażysta'),
+(2, 'asystent'),
+(3, 'młodszy specjalista'),
+(4, 'specjalista'),
+(5, 'starszy specjalista'),
+(6, 'ekspert'),
+(7, 'kierownik'),
+(8, 'menedżer'),
+(9, 'dyrektor'),
+(10, 'prezes'),
+(11, 'pracownik fizyczny');
 
 -- --------------------------------------------------------
 
@@ -216,6 +268,30 @@ INSERT INTO `powiadomienia` (`powiadomienie_id`, `tytul`, `opis`, `data_powiadom
 -- --------------------------------------------------------
 
 --
+-- Struktura tabeli dla tabeli `types_of_contract`
+--
+
+CREATE TABLE `types_of_contract` (
+  `type_of_contract_id` int(11) NOT NULL,
+  `name` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `types_of_contract`
+--
+
+INSERT INTO `types_of_contract` (`type_of_contract_id`, `name`) VALUES
+(1, 'umowa o pracę'),
+(2, 'umowa o dzieło'),
+(3, 'umowa o zlecenie'),
+(4, 'kontrakt B2B'),
+(5, 'umowa na zastępstwo'),
+(6, 'umowa agencyjna'),
+(7, 'umowa o staż / praktyki');
+
+-- --------------------------------------------------------
+
+--
 -- Struktura tabeli dla tabeli `umiejetnosci`
 --
 
@@ -299,6 +375,18 @@ CREATE TABLE `zapisane` (
 --
 
 --
+-- Indeksy dla tabeli `applications`
+--
+ALTER TABLE `applications`
+  ADD PRIMARY KEY (`application_id`);
+
+--
+-- Indeksy dla tabeli `companies`
+--
+ALTER TABLE `companies`
+  ADD PRIMARY KEY (`company_id`);
+
+--
 -- Indeksy dla tabeli `doswiadczenie`
 --
 ALTER TABLE `doswiadczenie`
@@ -306,10 +394,10 @@ ALTER TABLE `doswiadczenie`
   ADD KEY `uzytkownik_id` (`uzytkownik_id`);
 
 --
--- Indeksy dla tabeli `firmy`
+-- Indeksy dla tabeli `job_levels`
 --
-ALTER TABLE `firmy`
-  ADD PRIMARY KEY (`firma_id`);
+ALTER TABLE `job_levels`
+  ADD PRIMARY KEY (`job_level_id`);
 
 --
 -- Indeksy dla tabeli `kategorie`
@@ -349,6 +437,12 @@ ALTER TABLE `powiadomienia`
   ADD KEY `firma_id` (`firma_id`);
 
 --
+-- Indeksy dla tabeli `types_of_contract`
+--
+ALTER TABLE `types_of_contract`
+  ADD PRIMARY KEY (`type_of_contract_id`);
+
+--
 -- Indeksy dla tabeli `umiejetnosci`
 --
 ALTER TABLE `umiejetnosci`
@@ -381,16 +475,28 @@ ALTER TABLE `zapisane`
 --
 
 --
+-- AUTO_INCREMENT for table `applications`
+--
+ALTER TABLE `applications`
+  MODIFY `application_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
+--
+-- AUTO_INCREMENT for table `companies`
+--
+ALTER TABLE `companies`
+  MODIFY `company_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `doswiadczenie`
 --
 ALTER TABLE `doswiadczenie`
   MODIFY `doswiadczenie_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `firmy`
+-- AUTO_INCREMENT for table `job_levels`
 --
-ALTER TABLE `firmy`
-  MODIFY `firma_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+ALTER TABLE `job_levels`
+  MODIFY `job_level_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `kategorie`
@@ -421,6 +527,12 @@ ALTER TABLE `ogloszenia_uzytkownikow`
 --
 ALTER TABLE `powiadomienia`
   MODIFY `powiadomienie_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `types_of_contract`
+--
+ALTER TABLE `types_of_contract`
+  MODIFY `type_of_contract_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `umiejetnosci`
@@ -461,13 +573,13 @@ ALTER TABLE `doswiadczenie`
 --
 ALTER TABLE `konwersacje`
   ADD CONSTRAINT `konwersacje_ibfk_1` FOREIGN KEY (`uzytkownik_id`) REFERENCES `users` (`uzytkownik_id`),
-  ADD CONSTRAINT `konwersacje_ibfk_2` FOREIGN KEY (`firma_id`) REFERENCES `firmy` (`firma_id`);
+  ADD CONSTRAINT `konwersacje_ibfk_2` FOREIGN KEY (`firma_id`) REFERENCES `companies` (`company_id`);
 
 --
 -- Constraints for table `ogloszenia_firm`
 --
 ALTER TABLE `ogloszenia_firm`
-  ADD CONSTRAINT `ogloszenia_firm_ibfk_1` FOREIGN KEY (`firma_id`) REFERENCES `firmy` (`firma_id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `ogloszenia_firm_ibfk_1` FOREIGN KEY (`firma_id`) REFERENCES `companies` (`company_id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `ogloszenia_firm_ibfk_2` FOREIGN KEY (`kategoria_id`) REFERENCES `kategorie` (`kategoria_id`);
 
 --
@@ -481,7 +593,7 @@ ALTER TABLE `ogloszenia_uzytkownikow`
 --
 ALTER TABLE `powiadomienia`
   ADD CONSTRAINT `powiadomienia_ibfk_1` FOREIGN KEY (`uzytkownik_id`) REFERENCES `users` (`uzytkownik_id`),
-  ADD CONSTRAINT `powiadomienia_ibfk_2` FOREIGN KEY (`firma_id`) REFERENCES `firmy` (`firma_id`);
+  ADD CONSTRAINT `powiadomienia_ibfk_2` FOREIGN KEY (`firma_id`) REFERENCES `companies` (`company_id`);
 
 --
 -- Constraints for table `umiejetnosci`
