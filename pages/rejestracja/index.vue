@@ -255,4 +255,15 @@
     #login a {
         color: rgb(16, 125, 214);
     }
+
+    .v-enter-active,
+    .v-leave-active {
+        transition: all .3s cubic-bezier(0.83,0.04,0.17,1.28);
+    }
+
+    .v-enter-from,
+    .v-leave-to {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
 </style>
