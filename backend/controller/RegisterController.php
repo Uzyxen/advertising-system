@@ -6,14 +6,19 @@
         private $email;
         private $password;
         private $password_2;
+        private $NIP;
 
         private $response;
 
-        public function __construct($email, $password, $password_2)
+        public function __construct($email, $password, $password_2, $NIP = null)
         {
             $this->email = $email;
             $this->password = $password;
             $this->password_2 = $password_2;
+
+            if($NIP != null) {
+                $this->NIP = $NIP;
+            }
 
             $this->response = new Response();
         }
@@ -38,6 +43,28 @@
             }
 
             $this->setUser($this->email, $this->password);
+        }
+
+        public function createCompany() {
+            if($this->emptyInput() == false || empty($this->NIP)) {                
+                exit();
+            }
+
+            if($this->checkCompanyEmail($this->email) == false) {
+                return $this->response->getResponse('failure', 'Adres "' . $this->email . '" jest już używany');
+
+                exit();
+            }
+
+            if($this->validateEmail() == false) {
+                exit();
+            }
+
+            if($this->matchPassword() == false) {
+                exit();
+            }
+
+            $this->setCompany($this->email, $this->password, $this->NIP);
         }
 
         private function emptyInput() {

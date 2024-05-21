@@ -3,7 +3,7 @@
 
     class Offer extends Database {
         protected function getOfferData($id) {
-            $sql = 'SELECT ogloszenia_firm.*, firmy.nazwa_firmy FROM ogloszenia_firm INNER JOIN firmy ON firmy.firma_id = ogloszenia_firm.firma_id WHERE ogloszenie_id = ?';
+            $sql = 'SELECT ogloszenia_firm.*, companies.nazwa_firmy FROM ogloszenia_firm INNER JOIN companies ON companies.company_id = ogloszenia_firm.firma_id WHERE ogloszenie_id = ?';
             $stmt = $this->connect()->prepare($sql);
 
             $stmt->execute([$id]);
