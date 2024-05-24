@@ -49,9 +49,14 @@
 
     const error_message = ref('');
     const success = ref(false);
+    const email = useRoute().query.email;
+    
+    if(email !== undefined) {
+        data.value.email = email;
+    }
 
     async function Login() {
-        if(data.value.email == '') {
+        if(!data.value.email) {
             error.value.emailErr = true;
             success.value = false;
             error_message.value = 'Uzupełnij wymagane pola!';
@@ -61,7 +66,7 @@
             error_message.value = '';
         }
 
-        if(data.value.password == '') {
+        if(!data.value.password) {
             error.value.passwordErr = true;
             success.value = false;
             error_message.value = 'Uzupełnij wymagane pola!';

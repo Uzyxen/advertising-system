@@ -122,7 +122,7 @@
         display: flex;
         flex-direction: column;
         width: calc(100% - 300px);
-        border-right: 3px solid var(--asc-bg);
+        border-right: 1px solid #DDD;
     }
 
     main #user-top {

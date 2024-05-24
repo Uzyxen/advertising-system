@@ -2,16 +2,13 @@
     <div id="root">
         <div id="root-inner">
             <main>
-                <ProfileMainView />
+                
             </main>
         </div>
     </div>
 </template>
 
 <script setup>
-    definePageMeta({
-        middleware: 'auth-user'
-    });
 
 </script>
 

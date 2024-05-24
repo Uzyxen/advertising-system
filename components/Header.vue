@@ -105,7 +105,7 @@
     const account_dropdown_visible = ref(false);
 
     async function LogOut() {
-        const response = await $fetch('http://localhost/advertising-system/backend/api/user/LogOut.php', { method: 'post', credentials: 'include', responseType: 'json' });
+        const response = await $fetch('http://localhost/advertising-system/backend/api/LogOut.php', { method: 'post', credentials: 'include', responseType: 'json' });
 
         if (response == 'success') {
             const router = useRouter();
@@ -117,7 +117,7 @@
         }
     }
 
-    async function CheckIfLogged() {
+    async function CheckIfUserLogged() {
         const response = await $fetch('http://localhost/advertising-system/backend/api/user/CheckIfLogged.php', { credentials: 'include', responseType: 'json' });
 
         if(response) {
@@ -125,8 +125,17 @@
         }
     }
 
+    async function CheckIfCompanyLogged() {
+        const response = await $fetch('http://localhost/advertising-system/backend/api/company/CheckIfLogged.php', { credentials: 'include', responseType: 'json' });
+
+        if(response) {
+            company_logged.value = response.logged;
+        }
+    }
+
     onMounted(() => {
-        CheckIfLogged();
+        CheckIfUserLogged();
+        CheckIfCompanyLogged();
     });
 </script>
 

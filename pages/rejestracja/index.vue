@@ -18,24 +18,22 @@
 
         <div id="register-box">
             <h2>Zarejestruj się</h2>
+            <span class="error">{{ error_message }}</span>
 
             <form @submit.prevent="Register" method="post">
                 <div>
                     <label for="email">Email:</label>
                     <input :class="{ 'input-error': error.emailErr }" placeholder="Adres e-mail" type="text" name="email" v-model="data.email">
-                    <span class="error">{{ error.emailErr }}</span>
                 </div>
 
                 <div>
                     <label for="password">Hasło:</label>
                     <input :class="{ 'input-error': error.passwordErr }" placeholder="Hasło" type="password" name="password" v-model="data.password">
-                    <span class="error">{{ error.passwordErr }}</span>
                 </div>
 
                 <div>
                     <label for="password_2">Powtórz hasło:</label>
                     <input :class="{ 'input-error': error.password_2Err }" placeholder="Powtórz hasło" type="password" name="password_2" v-model="data.password_2">
-                    <span class="error">{{ error.password_2Err }}</span>
                 </div>
 
                 <button type="submit">Zarejestruj się</button>
@@ -61,58 +59,65 @@
     });
 
     const error = ref({
-        emailErr: '',
-        passwordErr: '',
-        password_2Err: ''
+        emailErr: false,
+        passwordErr: false,
+        password_2Err: false
     });
-
-    const success = ref(false);
 
     const status = ref('');
     const message = ref('');
+    const error_message = ref('');
 
-    function GoToLogin(email) {
+    function GoToLogin() {
         const router = useRouter();
 
         router.push({ path: '/logowanie', query: { email: data.value.email } });
     }
 
+    function validate() {
+        if(!error.value.emailErr && !error.value.passwordErr && !error.value.password_2Err) {
+            return true;
+        }
+        return false;
+    }
+
     async function Register() {
+
+        // validate email
+
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
         if(data.value.email == '') {
-            error.value.emailErr = 'Wypełnij pole!';
-            success.value = false;
+            error.value.emailErr = true;
+            error_message.value = 'Uzupełnij wymagane pola!';
+
+        } else if(!regex.test(data.value.email)) {
+            error.value.emailErr = true;
+            error_message.value = 'Podaj poprawny e-mail';
         } else {
-            error.value.emailErr = '';
-            success.value = true;
-
-            const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-            if(!regex.test(data.value.email)) {
-                error.value.emailErr = 'Niepoprawny adres e-mail';
-                success.value = false;
-            } else {
-                error.value.emailErr = '';
-                success.value = true;
-            }
+            error.value.emailErr = false;
+            error_message.value = '';
         }
 
-        if(data.value.password == '') {
-            error.value.passwordErr = 'Wypełnij pole!';
-            success.value = false;
+        // validate password
+
+        if(!data.value.password) {
+            error.value.passwordErr = true;
+            error_message.value = 'Uzupełnij wymagane pola!';
         } else {
-            error.value.passwordErr = '';
-            success.value = true;
+            error.value.passwordErr = false;
+            error_message.value = '';
         }
 
-        if(data.value.password_2 == '') {
-            error.value.password_2Err = 'Wypełnij pole!';
-            success.value = false;
+        if(!data.value.password_2) {
+            error.value.password_2Err = true;
+            error_message.value = 'Uzupełnij wymagane pola!';
         } else {
-            error.value.password_2Err = '';
-            success.value = true;
+            error.value.password_2Err = false;
+            error_message.value = '';
         }
 
-        if(success.value === true) {
+        if(validate()) {
             const response = await $fetch('http://localhost/advertising-system/backend/api/user/RegisterUser.php' , { body: data.value, method: 'post', responseType: 'json' });
 
             if(response) {
@@ -155,10 +160,10 @@
     }
 
     .error{
-        font-size: 14px;
+        font-size: 16px;
         color: #FA4132;
-        padding-bottom: 10px;
-        text-align: right;
+        padding-bottom: 30px;
+        text-align: center;
     }
 
     .input-error {
@@ -184,6 +189,12 @@
         box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.15);
         border-radius: 2px;
         background-color: #FFF;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
     }
 
     #register-box form div {
