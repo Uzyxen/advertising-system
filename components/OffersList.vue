@@ -1,12 +1,15 @@
 <template>
-    <div id="offer-list">
+    <div id="offer-list" v-if="offers">
         <Offer v-for="offer in offers" :key="offer.ogloszenie_id" :offer="offer" />
+    </div>
+
+    <div v-else>
+        <h2>Brak ofert</h2>
     </div>
 </template>
 
 <script setup>
-    // fetch
-    const { data: offers } = await useFetch('http://localhost/advertising-system/backend/api/offer/GetOffers.php', { responseType: 'json', method: 'post' });
+    defineProps(['offers']);
 </script>
 
 <style scoped>

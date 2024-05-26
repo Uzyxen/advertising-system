@@ -2,9 +2,9 @@
     <section id="search-for-offers-section">
         <SectionTitle>Szukanie ofert</SectionTitle>
         <div id="search-box">
-            <form action="">
+            <form @submit.prevent="search">
                 <div id="inputs">
-                    <input type="text" id="search" placeholder="stanowisko">
+                    <input type="text" id="search" placeholder="stanowisko" v-model="searchValue">
                     <div id="category">Kategoria</div>
                     <input type="text" id="location" placeholder="Lokalizacja">
                     <div id="distance">Odległość</div>
@@ -40,7 +40,7 @@
                         </span>
                     </div>
 
-                    <button>Szukaj</button>
+                    <input type="submit" value="Szukaj">
                 </div>
             </form>
         </div>
@@ -48,7 +48,13 @@
 </template>
 
 <script setup>
+    const searchValue = ref('');
 
+    async function search() {
+        if(searchValue.value) {
+            await navigateTo('/oferty/szukaj/' + searchValue.value);
+        }
+    }
 </script>
 
 <style scoped>
@@ -77,13 +83,22 @@
         flex-direction: column;
         gap: 25px;
         align-items: end;
+        color: var(--asc-txt-ui-sec);
+    }
+
+    form input {
+        font-size: 14px;
     }
 
     form #inputs{
         display: flex;
     }
 
-    form button{
+    input[type='text'] {
+        border: 1px solid #DDD;
+    }
+
+    form input[type='submit']{
         color: #FFF;
         background-color: #6244DB;
         font-size: 20px;
@@ -137,24 +152,25 @@
         align-items: center;
         width: 200px;
         height: 40px;
-        border: 1px solid #A3A3A3;
         border-left: none;
+        border-top: 1px solid #DDD;
+        border-bottom: 1px solid #DDD;
     }
 
     input#location{
         width: 200px;
         height: 40px;
-        border-left: none;
     }
 
     #distance{
         font-size: 14px;
         width: 200px;
         height: 40px;
-        border: 1px solid #A3A3A3;
         border-left: none;
         display: flex;
         align-items: center;
+        border: 1px solid #DDD;
+        border-left: none
     }
 
 </style>

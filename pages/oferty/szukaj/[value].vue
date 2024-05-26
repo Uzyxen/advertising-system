@@ -11,9 +11,10 @@
 </template>
 
 <script setup>
-    const loading = ref(false);
+    const route = useRoute();
+    const { data: offers } = await useFetch('http://localhost/advertising-system/backend/api/offer/GetSearchedOffers.php', { responseType: 'json', method: 'post', body: { 'value': route.params.value } });
 
-    const { data: offers } = await useFetch('http://localhost/advertising-system/backend/api/offer/GetOffers.php', { responseType: 'json', method: 'post' });
+    const loading = ref(false);
 </script>
 
 <style scoped>
