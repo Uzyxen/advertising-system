@@ -5,7 +5,7 @@
         <Filters />
         <div id="offers-flex">
             <OfferSort @loading="loading = true" />
-            <OffersList :offers="offers" />
+            <OffersList :edit-mode="false" :offers="offers" />
         </div>
     </section>
 </template>

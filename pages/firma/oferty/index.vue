@@ -1,6 +1,10 @@
 <template>
+    <ModalBlock @close="isModalVisible = false" :isVisible="isModalVisible">
+        
+    </ModalBlock>
+
     <div id="container">
-        <SectionTitle>Ogłoszenia firm</SectionTitle>
+        <SectionTitle>Oferty firm</SectionTitle>
 
         <div id="offers">
             <div id="add-new">
@@ -13,19 +17,27 @@
                 </div>
             </div>
 
-            
+            <h4>
+                <span>Aktualne oferty</span>
+            </h4>
+
+            <div id="offers-flex">
+                <OffersList @offer-clicked="isModalVisible = true" :offers="offers" :edit-mode="true" />
+            </div>
         </div>
     </div>
 </template>
 
 <script setup>
+    const isModalVisible = ref(false);
 
+    const { data: offers } = await useFetch('http://localhost/advertising-system/backend/api/offer/GetCompanyOffers.php', { credentials: 'include', responseType: 'json', method: 'post' });
 </script>
 
 <style scoped>
     #container {
         padding: 20px 150px 0;
-        height: 100vh;
+        min-height: 100vh;
         display: flex;
         flex-direction: column;
     }
@@ -33,8 +45,8 @@
     #offers {
         box-shadow: 0 0 5px rgba(0,0,0,.12);
         background-color: var(--asc-bg-alt);
-        height: 500px;
-        padding: 5px;
+        margin-top: 10px;
+        padding: 15px;
     }
 
     #add-new {
@@ -42,6 +54,7 @@
         display: flex;
         justify-content: center;
         cursor: pointer;
+        margin-bottom: 15px;
     }
 
     #add-new:hover {
@@ -62,5 +75,27 @@
 
     #add-new h3 {
         color: var(--asc-txt-sec);
+    }
+
+    #offers-flex {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    h4 {
+        font-size: 20px;
+        width: 100%; 
+        text-align: center; 
+        border-bottom: 2px solid var(--asc-txt-ui-sec); 
+        line-height: 0.1em;
+        margin: 50px 0 30px; 
+    } 
+
+    h4 span { 
+        background: #fff; 
+        padding: 0 10px; 
+        color: var(--asc-txt-ui-sec)
     }
 </style>

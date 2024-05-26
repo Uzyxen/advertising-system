@@ -37,7 +37,7 @@
     #modal {
         background-color: var(--asc-bg-alt);
         height: auto;
-        width: 500px;
+        min-width: 500px;
         position: relative;
         padding: 0 20px 20px;
         border-radius: 2px;

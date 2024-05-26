@@ -46,7 +46,7 @@
                             </li>
 
                             <li>
-                                <Nuxt-link to="/firma/ogloszenia">Ogłoszenia firmy</Nuxt-link>
+                                <Nuxt-link to="/firma/oferty">Oferty firmy</Nuxt-link>
                             </li>
 
                             <li>
