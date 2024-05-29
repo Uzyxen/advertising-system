@@ -1,13 +1,14 @@
 <template>
     <ModalBlock @close="isModalVisible = false" :isVisible="isModalVisible">
-        <OfferInfo :id="selectedOfferId" />
+        <OfferInfo :id="selectedOfferId" v-if="type === 0" />
+        <AddOffer v-if="type === 1" />
     </ModalBlock>
 
     <div id="container">
         <SectionTitle>Oferty firm</SectionTitle>
 
         <div id="offers">
-            <div id="add-new">
+            <div id="add-new" @click="type = 1; isModalVisible = true">
                 <div>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc. -->
                         <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/>
@@ -30,12 +31,14 @@
 
 <script setup>
     const isModalVisible = ref(false);
+    const type = ref(0);
     const selectedOfferId = ref();
 
     const { data: offers } = await useFetch('http://localhost/advertising-system/backend/api/offer/GetCompanyOffers.php', { credentials: 'include', responseType: 'json', method: 'post' });
 
     function offerClicked(id) {
         isModalVisible.value = true;
+        type.value = 0;
         selectedOfferId.value = id;
     }
 </script>

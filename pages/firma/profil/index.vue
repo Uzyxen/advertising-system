@@ -1,6 +1,7 @@
 <template>
     <div id="root">
         <div id="root-inner">
+            <SectionTitle>Profil firmy</SectionTitle>
             <main>
                 
             </main>
@@ -18,7 +19,7 @@
     }
 
     #root-inner {
-        margin: 40px 150px 50px;
+        margin: 20px 150px 50px;
         display: flex;
         flex-direction: column;
         -webkit-box-shadow: 0px 5px 100px -68px rgba(35, 29, 43, 1);

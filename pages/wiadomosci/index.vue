@@ -1,6 +1,6 @@
 <template>
-    <div>
-
+    <div id="container">
+        <SectionTitle>Wiadomości</SectionTitle>
     </div>
 </template>
 
@@ -9,5 +9,7 @@
 </script>
 
 <style scoped>
-
+    #container {
+        padding: 20px 150px;
+    }
 </style>
