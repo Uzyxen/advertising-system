@@ -59,5 +59,12 @@
 
             $stmt->execute([$user_id, $offer_id]);
         }
+
+        protected function removeOffer($offer_id) {
+            $sql = "DELETE FROM offers WHERE ogloszenie_id = ?";
+            $stmt = $this->connect()->prepare($sql);
+
+            $stmt->execute([$offer_id]);
+        }
     }
 ?>

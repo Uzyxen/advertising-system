@@ -1,6 +1,6 @@
 <template>
     <div id="offer-list" v-if="offers">
-        <Offer :edit-mode="editMode" @offer-clicked="$emit('offer-clicked')" v-for="offer in offers" :key="offer.ogloszenie_id" :offer="offer" />
+        <Offer :edit-mode="editMode" @offer-clicked="$emit('offer-clicked', offer.ogloszenie_id)" v-for="offer in offers" :key="offer.ogloszenie_id" :offer="offer" />
     </div>
 
     <div v-else>

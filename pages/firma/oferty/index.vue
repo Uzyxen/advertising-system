@@ -1,6 +1,6 @@
 <template>
     <ModalBlock @close="isModalVisible = false" :isVisible="isModalVisible">
-        
+        <OfferInfo :id="selectedOfferId" />
     </ModalBlock>
 
     <div id="container">
@@ -22,7 +22,7 @@
             </h4>
 
             <div id="offers-flex">
-                <OffersList @offer-clicked="isModalVisible = true" :offers="offers" :edit-mode="true" />
+                <OffersList @offer-clicked="offerClicked" :offers="offers" :edit-mode="true" />
             </div>
         </div>
     </div>
@@ -30,8 +30,14 @@
 
 <script setup>
     const isModalVisible = ref(false);
+    const selectedOfferId = ref();
 
     const { data: offers } = await useFetch('http://localhost/advertising-system/backend/api/offer/GetCompanyOffers.php', { credentials: 'include', responseType: 'json', method: 'post' });
+
+    function offerClicked(id) {
+        isModalVisible.value = true;
+        selectedOfferId.value = id;
+    }
 </script>
 
 <style scoped>

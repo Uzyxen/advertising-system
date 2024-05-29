@@ -21,6 +21,10 @@
             return $this->getOffers();
         }
 
+        public function deleteOffer() {
+            return $this->removeOffer($this->id);
+        }
+
         public function fetchCompanyOffers() {
             if($this->session->check('company_logged') == false) {
                 exit();
