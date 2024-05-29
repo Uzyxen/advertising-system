@@ -2,8 +2,8 @@
     <ModalHeader>Zarządzaj ofertą</ModalHeader>
 
     <div>
-        <ColorButton @button-clicked="deleteOffer" :background-color="'#ff3333'">Usuń</ColorButton>
         <ColorButton @button-clicked="offerDetails" :background-color="'var(--asc-bg)'">Szczegóły</ColorButton>
+        <ColorButton @button-clicked="deleteOffer" :background-color="'#ff3333'">Usuń</ColorButton>
     </div>
 </template>
 

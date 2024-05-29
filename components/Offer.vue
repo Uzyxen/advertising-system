@@ -53,6 +53,10 @@
         background-color: var(--asc-bg-alt);
     }
 
+    .offer:hover {
+        background-color: #f7f7f7;
+    }
+
     .offer p{
         display: flex;
         gap: 7px;
