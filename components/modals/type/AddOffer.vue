@@ -5,7 +5,7 @@
         <section>
             <h3>Kategoria: </h3>
             
-            <SelectBox :source="jobCategories"/>
+            <SelectBox :source="jobCategories" @selectionChanged="(value) => { offerData.category = value }"/>
         </section>
 
         <section>
@@ -21,7 +21,7 @@
         <section>
             <h3>Poziom stanowiska</h3>
 
-            <SelectBox :source="jobLevels"/>
+            <SelectBox :source="jobLevels" @selectionChanged="(value) => { offerData.level = value }"/>
         </section>
 
         <section>
@@ -33,14 +33,14 @@
 
                 <span>/</span>
 
-                <SelectBox :source="[{ name: 'miesiąc' }, { name: 'godzinę' }]"/>
+                <SelectBox :source="[{ name: 'miesiąc' }, { name: 'godzinę' }]" @selectionChanged="(value) => { offerData.frequency = value }" />
             </div>
         </section>
 
         <section>
             <h3>Kontrakt</h3>
 
-            <SelectBox :source="contractTypes" />
+            <SelectBox :source="contractTypes" @selectionChanged="(value) => { offerData.contractType = value }" />
         </section>
 
         <section>
@@ -76,6 +76,8 @@
 
             <button @click="requirements++">Dodaj nowy</button>
         </section>
+
+        <ModalSaveButton @buttonClicked="createOffer">Dodaj</ModalSaveButton>
     </div>
 </template>
 
@@ -85,8 +87,27 @@
     const { data: jobLevels } = await useFetch('http://localhost/advertising-system/backend/api/job/GetJobLevels.php', { responseType: 'json', method: 'post' });
     const { data: contractTypes } = await useFetch('http://localhost/advertising-system/backend/api/job/GetContractTypes.php', { responseType: 'json', method: 'post' });
 
+    // data
     const duties = ref(0);
     const requirements = ref(0);
+
+    const offerData = ref({
+        category: '',
+        level: '',
+        frequency: '',
+        contractType: ''
+    });
+
+    // functions
+    function validate() {
+        return true;
+    }
+
+    function createOffer() {
+        if(validate()) {
+            console.log(offerData.value);
+        }
+    }
 </script>
 
 <style scoped>
@@ -120,7 +141,7 @@
     section {
         display: flex;
         flex-direction: column;
-        gap: 5px;
+        gap: 10px;
     }
 
     #salary {
@@ -134,6 +155,10 @@
         gap: 5px;
         align-items: center;
         position: relative;
+    }
+
+    .duty input, .requirement input {
+        padding-right: 30px;
     }
 
     .duty span, .requirement span {
@@ -154,14 +179,14 @@
     }
 
 
-    button {
+    section button {
         font-size: 16px;
         background-color: #eee;
         padding: 10px;
         cursor: pointer;
     }
 
-    button:hover {
+    section button:hover {
         background-color: #ddd;
     }
 </style>    

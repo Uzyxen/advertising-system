@@ -12,13 +12,20 @@
 </template>
 
 <script setup>
+    //props 
+
     defineProps(['source']);
+
+    // emits
+    const emit = defineEmits(['selectionChanged']);
 
     const selected = ref('');
     const isCollapsed = ref(false);
 
     function selectItem(item) {
         selected.value = item.name;
+
+        emit('selectionChanged', selected.value);
     }
 </script>
 
