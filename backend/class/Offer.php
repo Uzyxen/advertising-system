@@ -60,6 +60,25 @@
             $stmt->execute([$user_id, $offer_id]);
         }
 
+        protected function setOffer($data, $company_id) {  
+            $categories_sql = "SELECT kategoria_id FROM kategorie WHERE name = ?";
+            $categories_stmt = $this->connect()->prepare($categories_sql);
+            $categories_stmt->execute([$data['category']]);
+
+            $result = $categories_stmt->fetch();
+
+            if($result) {
+                $sql = "INSERT INTO offers (tytul, opis, umowa, lokalizacja, wynagrodzenie_min, wynagrodzenie_max, czestotliwosc_wynagrodzenia, data_dodania, kategoria_id, firma_id) VALUES (?, ?, ?, ?, ?, ?, ?, now(), ?, ?)";
+                $stmt = $this->connect()->prepare($sql);
+    
+                $stmt->execute([$data['title'], $data['description'], $data['contractType'], $data['location'], $data['salaryMin'], $data['salaryMax'], $data['frequency'], $result['kategoria_id'], $company_id]);
+
+                return true;
+            } else {
+                return false;
+            }
+        }
+
         protected function removeOffer($offer_id) {
             $sql = "DELETE FROM offers WHERE ogloszenie_id = ?";
             $stmt = $this->connect()->prepare($sql);

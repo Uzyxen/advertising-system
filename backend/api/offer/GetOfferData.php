@@ -6,7 +6,7 @@
             $offer_id = $_POST['id'];
 
             include('../../controller/OfferController.php');
-            $offer = new OfferController($offer_id);
+            $offer = new OfferController($offer_id, null);
     
             echo json_encode($offer->fetchOfferData());
         }
