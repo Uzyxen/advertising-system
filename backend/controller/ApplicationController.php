@@ -5,6 +5,7 @@
     class ApplicationController extends Application {
         private $session;
         private $user_id;
+        private $company_id;
         private $offer_id;
 
         public function __construct($offer_id)
@@ -57,6 +58,20 @@
             }
 
             return $this->getUserApplications($this->user_id);
+        }
+
+        public function fetchApplyingUsers() {
+            if($this->session->check('company_logged') == false) {
+                exit();
+            }
+
+            if($this->session->check('company_id') == false) {
+                exit();
+            } else {
+                $this->company_id = $this->session->get('company_id');
+            }
+
+            return $this->getApplyingUsers($this->offer_id, $this->company_id);
         }
     }
 ?>

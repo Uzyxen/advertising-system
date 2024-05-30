@@ -101,6 +101,9 @@
     const { data: jobLevels } = await useFetch('http://localhost/advertising-system/backend/api/job/GetJobLevels.php', { responseType: 'json', method: 'post' });
     const { data: contractTypes } = await useFetch('http://localhost/advertising-system/backend/api/job/GetContractTypes.php', { responseType: 'json', method: 'post' });
 
+    // emits
+    const emit = defineEmits(['created']);
+
     // data
 
     const offerData = ref({
@@ -132,6 +135,10 @@
     async function createOffer() {
         if(validate()) {
             response.value = await $fetch('http://localhost/advertising-system/backend/api/offer/CreateOffer.php', { method: 'post', credentials: 'include', responseType: 'json', body: { 'data': offerData.value } });
+
+            if(response.value) {
+                emit('created', offerData.value);
+            }
         }
     }
 

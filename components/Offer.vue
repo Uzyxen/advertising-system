@@ -49,7 +49,7 @@
         cursor: pointer;
         box-shadow: 0 0 5px rgba(0,0,0,.12);
         border-radius: 2px;
-        position: relative;
+        width: 100%;
         background-color: var(--asc-bg-alt);
     }
 

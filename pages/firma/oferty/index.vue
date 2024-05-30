@@ -1,7 +1,7 @@
 <template>
     <ModalBlock @close="isModalVisible = false" :isVisible="isModalVisible">
         <OfferInfo :id="selectedOfferId" v-if="type === 0" @deleted="offerDeleted"/>
-        <AddOffer v-if="type === 1" />
+        <AddOffer v-if="type === 1" @created="offerCreated" />
     </ModalBlock>
 
     <div id="container">
@@ -44,6 +44,10 @@
 
     function offerDeleted(id) {
         offers.value = offers.value.filter(offer => offer.ogloszenie_id !== id);
+    }
+
+    async function offerCreated(data) {
+        offers.value = await $fetch('http://localhost/advertising-system/backend/api/offer/GetCompanyOffers.php', { credentials: 'include', responseType: 'json', method: 'post' });
     }
 </script>
 

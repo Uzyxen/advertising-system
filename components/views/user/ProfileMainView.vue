@@ -54,13 +54,13 @@
 
         <section id="main-section">
             <div>
-                <EditHeader @edit="isModalVisible = true; modalType = 1">Podsumowanie zawodowe</EditHeader>
+                <EditHeader :is-edit-mode="true" @edit="isModalVisible = true; modalType = 1">Podsumowanie zawodowe</EditHeader>
                 <hr>
                 <p>{{ userData.opis }}</p>
             </div>
 
             <div>
-                <EditHeader @edit="isModalVisible = true; modalType = 2">Umiejętności</EditHeader>
+                <EditHeader :is-edit-mode="true" @edit="isModalVisible = true; modalType = 2">Umiejętności</EditHeader>
                 <hr>
 
                 <div id="skills">
@@ -69,7 +69,7 @@
             </div>
 
             <div>
-                <EditHeader @edit="isModalVisible = true; modalType = 3">Doświadczenie</EditHeader>
+                <EditHeader :is-edit-mode="true" @edit="isModalVisible = true; modalType = 3">Doświadczenie</EditHeader>
                 <hr>
 
                 <div id="experience">
@@ -88,7 +88,7 @@
 
     <section id="right-side">
         <div id="languages">
-            <EditHeader style="font-size: 20px;">Języki</EditHeader>
+            <EditHeader :is-edit-mode="true" style="font-size: 20px;">Języki</EditHeader>
             <hr>
 
             <div v-for="language in languages">

@@ -42,5 +42,25 @@
                 return false;
             }
         }
+
+        protected function getApplyingUsers($offer_id, $company_id) {
+            $sql = "SELECT users.uzytkownik_id, users.nazwisko, users.numer_telefonu, users.stanowisko, users.email, users.wiek, users.kraj, users.imie FROM users".
+            " JOIN applications ON users.uzytkownik_id = applications.user_id".
+            " JOIN offers ON applications.offer_id = offers.ogloszenie_id".
+            " JOIN companies ON offers.firma_id = companies.company_id".
+            " WHERE offers.ogloszenie_id = ? AND companies.company_id = ?";
+
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->execute([$offer_id, $company_id]);
+
+            if($stmt->rowCount() > 0) {
+                $result = $stmt->fetchAll();
+
+                return $result;
+            }
+            else {
+                return false;
+            }
+        }
     }
 ?>
