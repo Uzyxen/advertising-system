@@ -1,6 +1,6 @@
 <template>
     <ModalBlock @close="isModalVisible = false" :isVisible="isModalVisible">
-        <OfferInfo :id="selectedOfferId" v-if="type === 0" />
+        <OfferInfo :id="selectedOfferId" v-if="type === 0" @deleted="offerDeleted"/>
         <AddOffer v-if="type === 1" />
     </ModalBlock>
 
@@ -40,6 +40,10 @@
         isModalVisible.value = true;
         type.value = 0;
         selectedOfferId.value = id;
+    }
+
+    function offerDeleted(id) {
+        offers.value = offers.value.filter(offer => offer.ogloszenie_id !== id);
     }
 </script>
 

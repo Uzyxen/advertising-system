@@ -8,10 +8,19 @@
 </template>
 
 <script setup>
+
+    // props
     const props = defineProps(['id']);
+
+    // emits
+    const emit = defineEmits(['deleted']); 
 
     async function deleteOffer() {
         const response = await $fetch('http://localhost/advertising-system/backend/api/offer/DeleteOffer.php', { method: 'post', credentials: 'include', responseType: 'json', body: { 'id': props.id } });
+
+        if(response) {
+            emit('deleted', props.id);
+        }
     }
 
     async function offerDetails() {

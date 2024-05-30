@@ -83,7 +83,11 @@
             $sql = "DELETE FROM offers WHERE ogloszenie_id = ?";
             $stmt = $this->connect()->prepare($sql);
 
-            $stmt->execute([$offer_id]);
+            if($stmt->execute([$offer_id])) {
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 ?>
