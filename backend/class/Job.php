@@ -27,5 +27,18 @@
                 return $result;
             }
         }
+
+        protected function getJobCategories() {
+            $sql = "SELECT * FROM kategorie";
+            $stmt = $this->connect()->prepare($sql);
+
+            $stmt->execute();
+
+            $result = $stmt->fetchAll();
+
+            if($result) {
+                return $result;
+            }
+        }
     }
 ?>

@@ -5,7 +5,7 @@
 
         <div id="list" v-if="isCollapsed">
             <div class="item" v-for="item in source" @click="selectItem(item)">
-                {{ item }}
+                {{ item.name }}
             </div>
         </div>
     </div>
@@ -18,7 +18,7 @@
     const isCollapsed = ref(false);
 
     function selectItem(item) {
-        selected.value = item;
+        selected.value = item.name;
     }
 </script>
 

@@ -5,7 +5,7 @@
         <section>
             <h3>Kategoria: </h3>
             
-            <SelectBox :source="['IT', 'Marketing', 'Praca zdalna']"/>
+            <SelectBox :source="jobCategories"/>
         </section>
 
         <section>
@@ -21,7 +21,7 @@
         <section>
             <h3>Poziom stanowiska</h3>
 
-            <SelectBox :source="['pracownik fizyczny', 'prezes']"/>
+            <SelectBox :source="jobLevels"/>
         </section>
 
         <section>
@@ -33,14 +33,14 @@
 
                 <span>/</span>
 
-                <SelectBox :source="['miesiąc', 'godzinę']"/>
+                <SelectBox :source="[{ name: 'miesiąc' }, { name: 'godzinę' }]"/>
             </div>
         </section>
 
         <section>
             <h3>Kontrakt</h3>
 
-            <SelectBox :source="['Kontrakt B2B', 'Umowa o pracę']" />
+            <SelectBox :source="contractTypes" />
         </section>
 
         <section>
@@ -80,6 +80,11 @@
 </template>
 
 <script setup>
+    // fetch from db
+    const { data: jobCategories } = await useFetch('http://localhost/advertising-system/backend/api/job/GetJobCategories.php', { responseType: 'json', method: 'post' });
+    const { data: jobLevels } = await useFetch('http://localhost/advertising-system/backend/api/job/GetJobLevels.php', { responseType: 'json', method: 'post' });
+    const { data: contractTypes } = await useFetch('http://localhost/advertising-system/backend/api/job/GetContractTypes.php', { responseType: 'json', method: 'post' });
+
     const duties = ref(0);
     const requirements = ref(0);
 </script>

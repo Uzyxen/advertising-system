@@ -9,5 +9,9 @@
         public function fetchJobContractTypes() {
             return $this->getJobContractTypes();
         }
+
+        public function fetchJobCategories() {
+            return $this->getJobCategories();
+        }
     }
 ?>
