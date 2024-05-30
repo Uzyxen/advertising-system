@@ -35,6 +35,7 @@
     #list {
         width: 100%;
         background-color: var(--asc-bg-alt);
+        z-index: 9;
         position: absolute;
         left: -1px;
         top: 36px;

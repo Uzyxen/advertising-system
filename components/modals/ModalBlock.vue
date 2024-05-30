@@ -17,7 +17,23 @@
 </template>
 
 <script setup>
-    defineProps(['isVisible']);
+    const props = defineProps(['isVisible']);
+
+    const disableScroll = () => {
+        document.body.style.overflowY = 'hidden';
+    };
+
+    const enableScroll = () => {
+        document.body.style.overflowY = '';
+    };
+
+    watch(() => props.isVisible, (newVal) => {
+        if (newVal) {
+            disableScroll();
+        } else {
+            enableScroll();
+        }
+    });
 </script>
 
 <style scoped>
