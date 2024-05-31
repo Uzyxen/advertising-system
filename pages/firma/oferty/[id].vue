@@ -10,7 +10,14 @@
             <div id="applications">
                 <NuxtLink v-for="user in applyingUsers" :to="'/uzytkownicy/' + user.uzytkownik_id">
                     <div class="applying-user">
-                        {{ user.imie }} {{ user.nazwisko }}
+                        <div class="image">
+                            <img src="/user/pexels-photo-771742.webp">
+                        </div>
+
+                        <div class="info">
+                            <h2>{{ user.imie }} {{ user.nazwisko }}</h2>
+                            <p>{{ user.stanowisko }}</p>
+                        </div>
                     </div>
                 </NuxtLink>
             </div>
@@ -31,10 +38,39 @@
     #applications {
         display: flex;
         flex-direction: column;
+        gap: 20px;
     }
     
     .applying-user {
         background-color: var(--asc-bg-alt);
         padding: 20px;
+        display: flex;
+        gap: 20px;
+        border-left: 10px solid var(--asc-bg);
+        border-bottom: 1px solid #DDD;
+    }
+
+    .image {
+        width: 150px;
+        height: 150px;
+    }
+
+    .image img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .info {
+        display: flex;
+        flex-direction: column;
+        margin-top: 20px;
+        gap: 5px;
+    }
+
+    p {
+        color: var(--asc-txt);
+        flex: 1;
     }
 </style>
