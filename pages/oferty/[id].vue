@@ -7,7 +7,7 @@
         <div id="main-top"> 
             <div id="offer-detail">
                 <div id="image">
-                    <img src="/company/gizlomar.png" alt="Logo firmy">
+                    <img loading="lazy" src="/company/gizlomar.png" alt="Logo firmy">
                 </div>
 
                 <div id="offer-title">

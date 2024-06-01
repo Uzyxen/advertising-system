@@ -2,6 +2,17 @@
     include('Database.php');
 
     class User extends Database {
+        protected function updateBasicData($imie, $nazwisko, $stanowisko, $user_id) {
+            $sql = "UPDATE users SET imie = ?, nazwisko = ?, stanowisko = ? WHERE uzytkownik_id = ?"; 
+            $stmt = $this->connect()->prepare($sql);
+
+            if($stmt->execute([$imie, $nazwisko, $stanowisko, $user_id])) {
+                return true;
+            }
+
+            return false;
+        }
+
         protected function getUserData($user_id) {
             $sql = "SELECT * FROM users WHERE uzytkownik_id = ?"; 
             $stmt = $this->connect()->prepare($sql);

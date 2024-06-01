@@ -6,6 +6,21 @@
         <EditExperience v-if="modalType === 3" />
     </ModalBlock>
 
+    <Transition>
+        <div id="unsaved" v-if="unsaved">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                <!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc. -->
+                <path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z"/>
+            </svg>
+
+            <h2>
+                Masz niezapisane zmiany!
+            </h2>
+
+            <PurpleButton @button-clicked="saveChanges">Zapisz</PurpleButton>
+        </div>
+    </Transition>
+
     <div id="main-flex">
         <section id="user-top">
             <div id="user-main">
@@ -21,8 +36,13 @@
 
                 <div id="user-basic-info">
                     <div>
-                        <h2 id="user-name">{{ userData.imie }} {{ userData.nazwisko }}</h2>
-                        <h3 id="user-position">{{ userData.stanowisko }}</h3>
+                        <h2 id="user-name">
+                            <input spellcheck="false" type="text" placeholder="Imię: " @input="inputChanged" class="user-input" v-model="newUserData.firstName">
+                            <input spellcheck="false" type="text" placeholder="Nazwisko: " @input="inputChanged" class="user-input" v-model="newUserData.lastName">
+                        </h2>
+                        <h3 id="user-position">
+                            <input spellcheck="false" type="text" placeholder="Stanowisko: " @input="inputChanged" class="user-input" v-model="newUserData.position">
+                        </h3>
                     </div>
 
                     <PurpleButton style="margin-bottom: 10px;">Udostępnij profil</PurpleButton>
@@ -107,6 +127,12 @@
     // --------
     // data
 
+    const newUserData = ref({
+        firstName: userData.value.imie,
+        lastName: userData.value.nazwisko,
+        position: userData.value.stanowisko
+    });
+
     const languages = ref([
         { lang: 'Polski', level: 'Ojczysty' },
         { lang: 'Angielski', level: 'Zaawansowany' },
@@ -115,14 +141,76 @@
 
     const isModalVisible = ref(false);
     const modalType = ref(0);
+    const unsaved = ref(false);
+
+    // functions
+
+    function inputChanged() {
+        if(newUserData.value.firstName != userData.value.imie || newUserData.value.lastName != userData.value.nazwisko || newUserData.value.position != userData.value.stanowisko) {
+            unsaved.value = true;
+        } else {
+            unsaved.value = false;
+        }
+    }
+
+    async function saveChanges() {
+        const response = await $fetch('http://localhost/advertising-system/backend/api/user/UpdateBasicData.php', { credentials: 'include', responseType: 'json', method: 'post', body: { 'data': newUserData.value } });
+
+        if(response) {
+            if(response === true) {
+                unsaved.value = false;
+            } else {
+                unsaved.value = true;
+            }
+        }
+    }
 </script>
 
 <style scoped>
+    #unsaved {
+        position: absolute;
+        left: calc(50% - 200px);
+        padding: 20px;
+        top: 20px;
+        width: 400px;
+        background-color: var(--asc-bg-alt);
+        box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.15);
+        display: flex; 
+        flex-direction: column;
+        gap: 20px;
+        border-radius: 2px;
+        z-index: 9999;
+        align-items: center;
+    }
+
+    #unsaved svg {
+        fill: #ffcc00;
+        width: 50px;
+    }
+
+    #unsaved h2 {
+        font-size: 18px;
+    }
+
     #main-flex {
         display: flex;
         flex-direction: column;
         width: calc(100% - 300px);
         border-right: 1px solid #DDD;
+    }
+
+    .user-input {
+        border-bottom: 1px solid #DDD;
+        padding: 5px;
+        font-size: 18px;
+    }
+
+    .user-input:focus {
+        border-color: var(--asc-bg-border-alt);
+    }
+
+    h3#user-position .user-input {
+        margin: 20px 0;
     }
 
     main #user-top {
@@ -205,7 +293,6 @@
     #upload-image svg {
         width: 30%;
         fill: #ddd;
-        
     }
 
     h2#user-name {
@@ -213,13 +300,8 @@
         color: var(--asc-txt-sec);
         padding-top: 13px;
         font-size: 25px;
-    }
-
-    h3#user-position {
-        color: var(--asc-txt);
-        font-size: 15px;
-        padding-top: 6px;
-        font-weight: 600;
+        display: flex;
+        gap: 10px;
     }
 
     section#main-section {
@@ -289,5 +371,16 @@
         display: flex;
         justify-content: space-between;
         padding: 10px 13px
+    }
+
+    .v-enter-active,
+    .v-leave-active {
+        transition: all .3s cubic-bezier(0.83,0.04,0.17,1.28);
+    }
+
+    .v-enter-from,
+    .v-leave-to {
+        transform: translateY(-50px);
+        opacity: 0;
     }
 </style>
