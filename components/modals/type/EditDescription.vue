@@ -3,12 +3,24 @@
 
     <textarea spellcheck="false" v-model="newDescription"></textarea>
 
-    <ModalSaveButton @button-clicked="">Zapisz</ModalSaveButton>
+    <ModalSaveButton @button-clicked="saveDescription">Zapisz</ModalSaveButton>
 </template>
 
 <script setup>
     const props = defineProps(['description']);
     const newDescription = ref(props.description);
+
+    // emits 
+    const emit = defineEmits(['saved']);
+
+    // functions
+    async function saveDescription() {
+        const response = await $fetch('http://localhost/advertising-system/backend/api/user/UpdateDescription.php', { credentials: 'include', responseType: 'json', method: 'post', body: { 'description': newDescription.value } });
+
+        if(response) {
+            emit('saved', response);
+        }
+    }
 </script>
 
 <style scoped>

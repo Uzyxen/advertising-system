@@ -13,6 +13,17 @@
             return false;
         }
 
+        protected function updateDescription($description, $user_id) {
+            $sql = "UPDATE users SET opis = ? WHERE uzytkownik_id = ?"; 
+            $stmt = $this->connect()->prepare($sql);
+
+            if($stmt->execute([$description, $user_id])) {
+                return $description;
+            }
+
+            return false;
+        }
+
         protected function getUserData($user_id) {
             $sql = "SELECT * FROM users WHERE uzytkownik_id = ?"; 
             $stmt = $this->connect()->prepare($sql);

@@ -1,7 +1,7 @@
 <template>
     <ModalBlock @close="isModalVisible = false" :isVisible="isModalVisible">
         <EditImage v-if="modalType === 0" />
-        <EditDescription v-if="modalType === 1" :description="userData.opis" />
+        <EditDescription v-if="modalType === 1" :description="userData.opis" @saved="(value) => { userData.opis = value; isModalVisible = false}" />
         <EditSkills v-if="modalType === 2" :skills="userSkills" />
         <EditExperience v-if="modalType === 3" />
     </ModalBlock>
