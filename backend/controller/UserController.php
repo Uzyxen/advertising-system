@@ -7,12 +7,18 @@
         private $first_name;
         private $last_name;
         private $position;
+        private $country;
+        private $age;
+        private $phone_number;
         private $user_id;
 
-        public function __construct($first_name, $last_name, $position) {
+        public function __construct($first_name, $last_name, $position, $country, $age, $phone_number) {
             $this->first_name = $first_name;
             $this->last_name = $last_name;
             $this->position = $position;
+            $this->country = $country;
+            $this->age = $age;
+            $this->phone_number = $phone_number;
             $this->session = new Session();
         }
 
@@ -27,7 +33,7 @@
                 $this->user_id = $this->session->get('user_id');
             }
 
-            return $this->updateBasicData($this->first_name, $this->last_name, $this->position, $this->user_id);
+            return $this->updateBasicData($this->first_name, $this->last_name, $this->position, $this->country, $this->age, $this->phone_number, $this->user_id);
         }
 
         public function fetchUserData() {

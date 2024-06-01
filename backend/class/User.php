@@ -2,11 +2,11 @@
     include('Database.php');
 
     class User extends Database {
-        protected function updateBasicData($imie, $nazwisko, $stanowisko, $user_id) {
-            $sql = "UPDATE users SET imie = ?, nazwisko = ?, stanowisko = ? WHERE uzytkownik_id = ?"; 
+        protected function updateBasicData($first_name, $last_name, $position, $country, $age, $phone_number, $user_id) {
+            $sql = "UPDATE users SET imie = ?, nazwisko = ?, stanowisko = ?, kraj = ?, wiek = ?, numer_telefonu = ? WHERE uzytkownik_id = ?"; 
             $stmt = $this->connect()->prepare($sql);
 
-            if($stmt->execute([$imie, $nazwisko, $stanowisko, $user_id])) {
+            if($stmt->execute([$first_name, $last_name, $position, $country, $age, $phone_number, $user_id])) {
                 return true;
             }
 

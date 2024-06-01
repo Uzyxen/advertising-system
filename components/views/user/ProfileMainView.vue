@@ -37,11 +37,17 @@
                 <div id="user-basic-info">
                     <div>
                         <h2 id="user-name">
-                            <input spellcheck="false" type="text" placeholder="Imię: " @input="inputChanged" class="user-input" v-model="newUserData.firstName">
-                            <input spellcheck="false" type="text" placeholder="Nazwisko: " @input="inputChanged" class="user-input" v-model="newUserData.lastName">
+                            <span class="required">
+                                <input spellcheck="false" type="text" placeholder="Imię: " @input="inputChanged" class="user-input" v-model="newUserData.firstName">
+                            </span>
+                            <span class="required">
+                                <input spellcheck="false" type="text" placeholder="Nazwisko: " @input="inputChanged" class="user-input" v-model="newUserData.lastName">
+                            </span>
                         </h2>
                         <h3 id="user-position">
-                            <input spellcheck="false" type="text" placeholder="Stanowisko: " @input="inputChanged" class="user-input" v-model="newUserData.position">
+                            <span class="required">
+                                <input spellcheck="false" type="text" placeholder="Stanowisko: " @input="inputChanged" class="user-input required" v-model="newUserData.position">
+                            </span>
                         </h3>
                     </div>
 
@@ -52,17 +58,19 @@
             <div id="user-alt">
                 <div>
                     <h4>Kraj: </h4>
-                    <h4>{{ userData.kraj }}</h4>
+                    <input type="text" placeholder="Kraj: " class="user-input-mini" @input="inputChanged" v-model="newUserData.country">
                 </div>
 
                 <div>
                     <h4>Wiek: </h4>
-                    <h4>{{ userData.wiek }}</h4>
+                    <input type="text" placeholder="Wiek: " class="user-input-mini" @input="inputChanged" v-model="newUserData.age">
                 </div>
 
                 <div>
                     <h4>Numer kontaktowy: </h4>
-                    <h4>{{ userData.numer_telefonu }}</h4>
+                    <span class="required">
+                        <input maxlength="11" type="text" placeholder="Numer kontaktowy: " class="user-input-mini" @input="inputChanged(); formatPhoneNumber()" v-model="newUserData.phoneNumber">
+                    </span>
                 </div>
 
                 <div>
@@ -130,7 +138,10 @@
     const newUserData = ref({
         firstName: userData.value.imie,
         lastName: userData.value.nazwisko,
-        position: userData.value.stanowisko
+        position: userData.value.stanowisko,
+        country: userData.value.kraj,
+        age: userData.value.wiek,
+        phoneNumber: userData.value.numer_telefonu
     });
 
     const languages = ref([
@@ -146,8 +157,15 @@
     // functions
 
     function inputChanged() {
-        if(newUserData.value.firstName != userData.value.imie || newUserData.value.lastName != userData.value.nazwisko || newUserData.value.position != userData.value.stanowisko) {
+        if(newUserData.value.firstName != userData.value.imie || 
+        newUserData.value.lastName != userData.value.nazwisko || 
+        newUserData.value.position != userData.value.stanowisko ||
+        newUserData.value.country != userData.value.kraj ||
+        newUserData.value.age != userData.value.wiek ||
+        newUserData.value.phoneNumber != userData.value.numer_telefonu) {
             unsaved.value = true;
+
+            console.log(newUserData.value.phoneNumber);
         } else {
             unsaved.value = false;
         }
@@ -163,6 +181,15 @@
                 unsaved.value = true;
             }
         }
+    }
+
+    function formatPhoneNumber() {
+        let cleaned = ('' + newUserData.value.phoneNumber).replace(/\D/g, '');
+        let match = cleaned.match(/^(\d{0,3})(\d{0,3})(\d{0,3})$/);
+
+        if (match) {
+            newUserData.value.phoneNumber = [match[1], match[2], match[3]].filter(Boolean).join('-');
+        }   
     }
 </script>
 
@@ -205,7 +232,26 @@
         font-size: 18px;
     }
 
-    .user-input:focus {
+    .user-input-mini {
+        border-bottom: 1px solid #DDD;
+        padding: 5px 0px;
+        font-size: 16px;
+    }
+
+    .required {
+        position: relative;
+    }
+
+    .required::after{
+        content: '*';
+        position: absolute;
+        right: 5px;
+        top: 0;
+        font-size: 15px;
+        color: #ff3333;
+    }
+
+    .user-input:focus, .user-input-mini:focus {
         border-color: var(--asc-bg-border-alt);
     }
 
@@ -216,10 +262,11 @@
     main #user-top {
         background-color: #FFF;
         width: 100%;
-        height: 250px;
+        height: 270px;
         display: flex;
         align-items: center;
         border-bottom: 1px solid #DDD;
+        position: relative;
     }
 
     #user-main {
@@ -229,7 +276,7 @@
     }
 
     #user-alt {
-        width: 300px;
+        width: 350px;
         height: 150px;
         padding: 13px 40px 0 20px;
         gap: 10px;
@@ -240,11 +287,13 @@
     #user-alt > div {
         display: flex;
         justify-content: space-between;
+        gap: 40px;
     }
 
-    #user-alt > div h4:first-child {
+    #user-alt > div h4 {
         color: var(--asc-txt-ui-sec);
         font-weight: 600;
+        font-size: 15px;
     }
 
     #user-main #image {
