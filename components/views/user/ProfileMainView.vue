@@ -2,7 +2,7 @@
     <ModalBlock @close="isModalVisible = false" :isVisible="isModalVisible">
         <EditImage v-if="modalType === 0" />
         <EditDescription v-if="modalType === 1" :description="userData.opis" @saved="(value) => { userData.opis = value; isModalVisible = false}" />
-        <EditSkills v-if="modalType === 2" :skills="userSkills" />
+        <EditSkills v-if="modalType === 2" :skills="userSkills" @added="(value) => { userSkills.push({ skill: value }) }" />
         <EditExperience v-if="modalType === 3" />
     </ModalBlock>
 
@@ -92,7 +92,7 @@
                 <hr>
 
                 <div id="skills">
-                    <UserSkill v-for="skill in userSkills" :skill="skill.umiejetnosc" />
+                    <UserSkill v-for="skill in userSkills" :skill="skill.skill" />
                 </div>
             </div>
 

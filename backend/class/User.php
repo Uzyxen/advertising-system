@@ -24,6 +24,17 @@
             return false;
         }
 
+        protected function setSkill($value, $user_id) {
+            $sql = "INSERT INTO skills (skill, user_id) VALUES (?, ?)"; 
+            $stmt = $this->connect()->prepare($sql);
+
+            if($stmt->execute([$value, $user_id])) {
+                return $value;
+            }
+
+            return false;
+        }
+
         protected function getUserData($user_id) {
             $sql = "SELECT * FROM users WHERE uzytkownik_id = ?"; 
             $stmt = $this->connect()->prepare($sql);
@@ -35,7 +46,7 @@
         }
 
         protected function getUserSkills($user_id) {
-            $sql = "SELECT umiejetnosc FROM umiejetnosci WHERE uzytkownik_id = ?"; 
+            $sql = "SELECT skill FROM skills WHERE user_id = ?"; 
             $stmt = $this->connect()->prepare($sql);
 
             $stmt->execute([$user_id]);

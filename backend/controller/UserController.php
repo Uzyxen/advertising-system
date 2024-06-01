@@ -50,6 +50,20 @@
             return $this->updateDescription($description, $this->user_id);
         }
 
+        public function setUserSkill($value) {
+            if($this->session->check('user_logged') == false) {
+                exit();
+            }
+
+            if($this->session->check('user_id') == false) {
+                exit();
+            } else {
+                $this->user_id = $this->session->get('user_id');
+            }
+
+            return $this->setSkill($value, $this->user_id);
+        }
+
         public function fetchUserData() {
             if($this->session->check('user_logged') == false) {
                 exit();
