@@ -1,5 +1,7 @@
 <template>
     <div id="container">
+        <PrevPageButton />
+
         <SectionTitle>Oferta {{ $route.params.id }}</SectionTitle>
 
         <div id="content">
@@ -8,18 +10,18 @@
             <hr>
 
             <div id="applications">
-                <NuxtLink v-for="user in applyingUsers" :to="'/uzytkownicy/' + user.uzytkownik_id">
-                    <div class="applying-user">
-                        <div class="image">
-                            <img src="/user/pexels-photo-771742.webp">
-                        </div>
-
-                        <div class="info">
-                            <h2>{{ user.imie }} {{ user.nazwisko }}</h2>
-                            <p>{{ user.stanowisko }}</p>
-                        </div>
+                <div class="applying-user" v-for="user in applyingUsers">
+                    <div class="image">
+                        <img src="/user/pexels-photo-771742.webp">
                     </div>
-                </NuxtLink>
+
+                    <div class="info">
+                        <h2>{{ user.imie }} {{ user.nazwisko }}</h2>
+                        <p>{{ user.stanowisko }}</p>
+
+                        <PurpleButton @button-clicked="navigateTo('/uzytkownicy/' + user.uzytkownik_id)">Zobacz profil</PurpleButton>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -33,6 +35,7 @@
 <style scoped>
     #container {
         padding: 20px 150px;
+        min-height: 100vh;
     }
 
     #applications {
