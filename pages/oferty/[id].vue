@@ -4,7 +4,7 @@
     </ModalBlock>
 
     <div id="main" v-if="offerData != false">
-        <div id="main-top">
+        <div id="main-top"> 
             <div id="offer-detail">
                 <div id="image">
                     <img src="/company/gizlomar.png" alt="Logo firmy">

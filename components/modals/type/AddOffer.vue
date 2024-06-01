@@ -55,7 +55,6 @@
 
                 <div v-for="(duty, i) in offerData.duties" :key="i">
                     <div class="duty">
-                        <span>{{ i + 1 }}.</span>
                         <input type="text" v-model="duty.text">
 
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc. -->
@@ -72,7 +71,6 @@
 
                 <div v-for="(requirement, i) in offerData.requirements">
                     <div class="requirement">
-                        <span>{{ i + 1 }}.</span>
                         <input type="text" v-model="requirement.text">
 
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc. -->

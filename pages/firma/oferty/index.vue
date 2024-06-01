@@ -5,7 +5,9 @@
     </ModalBlock>
 
     <div id="container">
-        <SectionTitle>Oferty firm</SectionTitle>
+        <PrevPageButton />
+
+        <SectionTitle>Oferty firmy</SectionTitle>
 
         <div id="offers">
             <div id="add-new" @click="type = 1; isModalVisible = true">
@@ -55,8 +57,7 @@
     #container {
         padding: 20px 150px 0;
         min-height: 100vh;
-        display: flex;
-        flex-direction: column;
+
     }
 
     #offers {
