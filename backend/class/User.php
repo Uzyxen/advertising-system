@@ -45,8 +45,19 @@
             return $result;
         }
 
+        protected function removeSkill($id, $user_id) {
+            $sql = "DELETE FROM skills WHERE skill_id = ? AND user_id = ?"; 
+            $stmt = $this->connect()->prepare($sql);
+
+            if($stmt->execute([$id, $user_id])) {
+                return $id;
+            } else {
+                return false;
+            }
+        }
+
         protected function getUserSkills($user_id) {
-            $sql = "SELECT skill FROM skills WHERE user_id = ?"; 
+            $sql = "SELECT skill, skill_id FROM skills WHERE user_id = ?"; 
             $stmt = $this->connect()->prepare($sql);
 
             $stmt->execute([$user_id]);

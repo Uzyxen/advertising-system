@@ -92,6 +92,20 @@
             return $this->getUserSkills($this->user_id);
         }
 
+        public function deleteUserSkill($id) {
+            if($this->session->check('user_logged') == false) {
+                exit();
+            }
+
+            if($this->session->check('user_id') == false) {
+                exit();
+            } else {
+                $this->user_id = $this->session->get('user_id');
+            }
+
+            return $this->removeSkill($id, $this->user_id);
+        }
+
         public function fetchUserExperience() {
             if($this->session->check('user_logged') == false) {
                 exit();
