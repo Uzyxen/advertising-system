@@ -37,7 +37,7 @@
                     <div>
                         <p class="list-element" v-for="duty in duties">
                             <span></span>
-                            {{ duty.title }}
+                            {{ duty.duty }}
                         </p>
                     </div>
                 </div>
@@ -49,7 +49,7 @@
                     <div>
                         <p class="list-element" v-for="requirment in requirements">
                             <span></span>
-                            {{ requirment.title }}
+                            {{ requirment.requirement }}
                         </p>
                     </div>
                 </div>
@@ -76,18 +76,8 @@
     const route = useRoute();
     const { data: offerData } = await useFetch('http://localhost/advertising-system/backend/api/offer/GetOfferData.php', { credentials: 'include', responseType: 'json', method: 'post', body: { 'id': route.params.id } });
     const { data: applied } = await useFetch('http://localhost/advertising-system/backend/api/application/GetApplicationStatus.php', { credentials: 'include', responseType: 'json', method: 'post', body: { 'offer_id': route.params.id } });
-
-    const duties = ref([
-        { title: 'Inicjowanie i utrzymywanie współpracy z firmami na podległym terenie' },
-        { title: 'Realizacja planów sprzedażowych firmy' },
-        { title: 'Budowa wizerunku firmy na powierzonym terenie działania' } 
-    ]);
-
-    const requirements = ref([
-        { title: 'Bardzo dobra znajomość Vue2/Vue3.' },
-        { title: 'Minimum 2-letnie doświadczenie w pracy na podobnym stanowisku.' },
-        { title: 'Umiejętność rozwiązywania złożonych problemów projektowych przy użyciu logicznego i kreatywnego podejścia.' } 
-    ]);
+    const { data: requirements } = await useFetch('http://localhost/advertising-system/backend/api/offer/GetOfferRequirements.php', { credentials: 'include', responseType: 'json', method: 'post', body: { 'offer_id': route.params.id } });
+    const { data: duties } = await useFetch('http://localhost/advertising-system/backend/api/offer/GetOfferDuties.php', { credentials: 'include', responseType: 'json', method: 'post', body: { 'offer_id': route.params.id } });
 
     function openModal() {
         if(applied.value === false) {

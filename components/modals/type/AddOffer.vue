@@ -135,8 +135,6 @@
             response.value = await $fetch('http://localhost/advertising-system/backend/api/offer/CreateOffer.php', { method: 'post', credentials: 'include', responseType: 'json', body: { 'data': offerData.value } });
 
             if(response.value) {
-                console.log(response.value);
-
                 emit('created', offerData.value);
             }
         }

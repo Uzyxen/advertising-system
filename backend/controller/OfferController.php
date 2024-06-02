@@ -41,6 +41,14 @@
             return $this->setOffer($this->data, $this->company_id);
         }
 
+        public function fetchOfferRequirements() {
+            return $this->getOfferRequirements($this->id);
+        }
+
+        public function fetchOfferDuties() {
+            return $this->getOfferDuties($this->id);
+        }
+
         public function fetchCompanyOffers() {
             if($this->session->check('company_logged') == false) {
                 exit();

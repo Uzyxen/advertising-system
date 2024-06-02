@@ -105,6 +105,36 @@
             }
         }
 
+        protected function getOfferRequirements($offer_id) {
+            $sql = "SELECT requirement, requirement_id FROM requirements WHERE offer_id = ?";
+            $stmt = $this->connect()->prepare($sql);
+
+            $stmt->execute([$offer_id]);
+
+            if($stmt->rowCount() > 0) {
+                $result = $stmt->fetchAll();
+
+                return $result;
+            } else {
+                return false;
+            }
+        }
+
+        protected function getOfferDuties($offer_id) {
+            $sql = "SELECT duty, duty_id FROM duties WHERE offer_id = ?";
+            $stmt = $this->connect()->prepare($sql);
+
+            $stmt->execute([$offer_id]);
+
+            if($stmt->rowCount() > 0) {
+                $result = $stmt->fetchAll();
+
+                return $result;
+            } else {
+                return false;
+            }
+        }
+
         protected function removeOffer($offer_id) {
             $sql = "DELETE FROM offers WHERE ogloszenie_id = ?";
             $stmt = $this->connect()->prepare($sql);
