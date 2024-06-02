@@ -1,5 +1,7 @@
 <template>
-    <ModalHeader>Podsumowanie zawodowe</ModalHeader>
+    <ModalHeader>
+        <slot />
+    </ModalHeader>
 
     <textarea spellcheck="false" v-model="newDescription"></textarea>
 

@@ -3,7 +3,7 @@
         <div id="root-inner">
             <SectionTitle>Profil firmy</SectionTitle>
             <main>
-                
+                <CompanyProfileMainView />
             </main>
         </div>
     </div>
@@ -22,12 +22,10 @@
         margin: 20px 150px 50px;
         display: flex;
         flex-direction: column;
-        -webkit-box-shadow: 0px 5px 100px -68px rgba(35, 29, 43, 1);
-        -moz-box-shadow: 0px 5px 100px -68px rgba(35, 29, 43, 1);
-        box-shadow: 0px 5px 90px -78px rgba(35, 29, 43, 1);
     }
 
     main {
+        box-shadow: rgba(87, 32, 58, 0.08) 0px 0px 1.2rem;
         display: flex;
     }
 
