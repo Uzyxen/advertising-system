@@ -37,5 +37,47 @@
 
             return $this->getCompanyData($this->company_id);
         }
+
+        public function fetchCompanyTechnologies() {
+            if($this->session->check('company_logged') == false) {
+                exit();
+            }
+
+            if($this->session->check('company_id') == false) {
+                exit();
+            } else {
+                $this->company_id = $this->session->get('company_id');
+            }
+
+            return $this->getCompanyTechnologies($this->company_id);
+        }
+
+        public function setCompanyTechnology($value) {
+            if($this->session->check('company_logged') == false) {
+                exit();
+            }
+
+            if($this->session->check('company_id') == false) {
+                exit();
+            } else {
+                $this->company_id = $this->session->get('company_id');
+            }
+
+            return $this->setTechnology($value, $this->company_id);
+        }
+
+        public function deleteCompanyTechnology($id) {
+            if($this->session->check('company_logged') == false) {
+                exit();
+            }
+
+            if($this->session->check('company_id') == false) {
+                exit();
+            } else {
+                $this->company_id = $this->session->get('company_id');
+            }
+
+            return $this->removeTechnology($id, $this->company_id);
+        }
     }
 ?>

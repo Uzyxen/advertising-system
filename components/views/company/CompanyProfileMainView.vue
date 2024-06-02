@@ -4,7 +4,7 @@
         <EditDescription v-if="modalType === 1" :is-company="true" :description="companyData.description" @saved="(value) => { companyData.description = value; isModalVisible = false}">
             Opis firmy
         </EditDescription>
-        <EditTechnologies v-if="modalType === 2" :skills="userSkills" @added="(value) => { userSkills.push({ skill: value }) }" />
+        <EditTechnologies v-if="modalType === 2" :technologies="technologies" @added="(value) => { technologies.push({ technology: value }) }" />
     </ModalBlock>
 
     <Transition>
@@ -45,7 +45,7 @@
 
                         <h3>
                             <div id="offer-counter">
-                                20 ofert pracy
+                                {{ companyData.quantity }} oferty pracy
                             </div>
 
                             <div id="remote-work">
@@ -83,7 +83,7 @@
                 <hr>
 
                 <div id="skills">
-                    <UserSkill v-for="skill in userSkills" :skill="skill.skill" />
+                    <UserSkill v-for="technology in technologies" :skill="technology.technology" />
                 </div>
             </div>
 
@@ -101,7 +101,9 @@
 
 <script setup>
     const { data: companyData } = await useFetch('http://localhost/advertising-system/backend/api/company/GetCompanyData.php', { credentials: 'include', responseType: 'json', method: 'post' });
+    const { data: technologies } = await useFetch('http://localhost/advertising-system/backend/api/company/GetCompanyTechnologies.php', { credentials: 'include', responseType: 'json', method: 'post' });
     const { data: offers } = await useFetch('http://localhost/advertising-system/backend/api/offer/GetCompanyOffers.php', { credentials: 'include', responseType: 'json', method: 'post' });
+    
 
     // --------
     // data

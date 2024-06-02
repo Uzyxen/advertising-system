@@ -35,16 +35,6 @@
             return false;
         }
 
-        protected function getUserData($user_id) {
-            $sql = "SELECT * FROM users WHERE uzytkownik_id = ?"; 
-            $stmt = $this->connect()->prepare($sql);
-
-            $stmt->execute([$user_id]);
-            $result = $stmt->fetch();
-
-            return $result;
-        }
-
         protected function removeSkill($id, $user_id) {
             $sql = "DELETE FROM skills WHERE skill_id = ? AND user_id = ?"; 
             $stmt = $this->connect()->prepare($sql);
@@ -54,6 +44,16 @@
             } else {
                 return false;
             }
+        }
+
+        protected function getUserData($user_id) {
+            $sql = "SELECT * FROM users WHERE uzytkownik_id = ?"; 
+            $stmt = $this->connect()->prepare($sql);
+
+            $stmt->execute([$user_id]);
+            $result = $stmt->fetch();
+
+            return $result;
         }
 
         protected function getUserSkills($user_id) {

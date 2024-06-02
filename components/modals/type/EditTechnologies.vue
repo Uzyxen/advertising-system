@@ -1,19 +1,19 @@
 <template>
     <ModalHeader>Technologie</ModalHeader>
-    <div id="add-skill">
+    <div id="add-technology">
         <input type="text" placeholder="Nazwa technologii, np. PHP" v-model="newTechnology">
-        <button @click="addSkill">Dodaj</button>
+        <button @click="addTechnology">Dodaj</button>
     </div>
 
-    <div id="skills">
+    <div id="technologies">
         <TransitionGroup name="list">
-            <UserSkill style="position: relative;" v-for="(skill, i) in skills" :key="i" :skill="skill.skill" :is-edit-mode="true" @delete-skill="deleteSkill(skill.skill_id)" />
+            <UserSkill style="position: relative;" v-for="(technology, i) in technologies" :key="i" :skill="technology.technology" :is-edit-mode="true" @delete-skill="deleteTechnology(technology.technology_id)" />
         </TransitionGroup>
     </div>
 </template>
 
 <script setup>
-    defineProps(['skills']);
+    defineProps(['technologies']);
 
     // emits
     const emit = defineEmits(['added', 'deleted']);
@@ -22,18 +22,18 @@
     const newTechnology = ref();
 
     // functions
-    async function addSkill() {
-        const response = await $fetch('http://localhost/advertising-system/backend/api/user/SetUserSkill.php', { credentials: 'include', responseType: 'json', method: 'post', body: { 'skill': newSkill.value } });
+    async function addTechnology() {
+        const response = await $fetch('http://localhost/advertising-system/backend/api/company/SetCompanyTechnology.php', { credentials: 'include', responseType: 'json', method: 'post', body: { 'technology': newTechnology.value } });
 
         if(response) {
-            newSkill.value = '';
+            newTechnology.value = '';
 
             emit('added', response);
         }
     }
 
-    async function deleteSkill(id) {
-        const response = await $fetch('http://localhost/advertising-system/backend/api/user/DeleteUserSkill.php', { credentials: 'include', responseType: 'json', method: 'post', body: { 'id': id } });
+    async function deleteTechnology(id) {
+        const response = await $fetch('http://localhost/advertising-system/backend/api/company/DeleteCompanyTechnology.php', { credentials: 'include', responseType: 'json', method: 'post', body: { 'id': id } });
 
         if(response) {
             emit('deleted', response);
@@ -42,7 +42,7 @@
 </script>
 
 <style scoped>
-    #skills {
+    #technologies {
         display: flex;
         flex-direction: column;
         gap: 5px;
@@ -51,20 +51,20 @@
         position: relative;
     }
 
-    #add-skill {
+    #add-technology {
         display: flex;
         gap: 12px;
         width: 100%;
     }
 
-    #add-skill input {
+    #add-technology input {
         flex: 1;
         border: 1px solid #DDD;
         outline: none;
         padding-left: 5px;
     }
 
-    #add-skill button {
+    #add-technology button {
         width: 150px;
         padding: 12px 15px;
         cursor: pointer;
