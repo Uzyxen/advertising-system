@@ -28,7 +28,7 @@
         }
 
         protected function getUserApplications($user_id) {
-            $sql = "SELECT o.*, f.*, a.status FROM ogloszenia_firm o JOIN applications a ON o.ogloszenie_id = a.offer_id JOIN companies f ON o.firma_id = f.company_id WHERE a.user_id = ?";
+            $sql = "SELECT o.*, f.*, a.status FROM offers o JOIN applications a ON o.ogloszenie_id = a.offer_id JOIN companies f ON o.firma_id = f.company_id WHERE a.user_id = ?";
             $stmt = $this->connect()->prepare($sql);
 
             $stmt->execute([$user_id]);

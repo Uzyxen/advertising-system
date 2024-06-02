@@ -5,7 +5,7 @@
             Podsumowanie zawodowe
         </EditDescription>
         <EditSkills v-if="modalType === 2" :skills="userSkills" @added="(value) => { userSkills.push({ skill: value }) }" />
-        <EditExperience v-if="modalType === 3" />
+        <EditExperience v-if="modalType === 3" :experience="userExperience" />
     </ModalBlock>
 
     <Transition>
@@ -113,7 +113,7 @@
                             <div id="line"></div>
                         </div>
 
-                        <UserExperience :experience="experience"/>
+                        <UserExperience :experience="experience" :is-edit-mode="false"/>
                     </div>
                 </div>
             </div>

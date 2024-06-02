@@ -1,15 +1,35 @@
 <template>
-    <div class="experience-block">
-        <div class="header">{{ experience.data_poczatek }} - {{ experience.data_koniec }}</div>
-        <div class="info">
-            <h3>{{ experience.stanowisko }}</h3>
+    <div class="experience-block" :class="{ edit: isEditMode }">
+        <div class="header">
+            <span v-if="!isEditMode">
+                {{ experience.data_poczatek }}
+            </span>
 
-            <p>{{ experience.opis }}</p>
+            <input type="date" placeholder="Początek: " v-else>
+            - 
+            <span v-if="!isEditMode">
+                {{ experience.data_koniec }}
+            </span>
+
+            <input type="date" placeholder="Koniec: " v-else>
+        </div>
+        <div class="info">
+            <h3 v-if="!isEditMode">
+                {{ experience.stanowisko }}
+            </h3>
+
+            <input type="text" placeholder="Stanowisko: " v-else>
+
+            <p v-if="!isEditMode">
+                {{ experience.opis }}
+            </p>
+
+            <input type="text" placeholder="Opis: " v-else>
         </div>
 
         <hr>
 
-        <div class="company-location">
+        <div class="company-location" v-if="experience">
             {{ experience.firma }}
             <div class="dot"></div>
             {{ experience.lokalizacja }}
@@ -18,7 +38,7 @@
 </template>
 
 <script setup>
-    defineProps(['experience']);
+    defineProps(['experience', 'isEditMode']);
 </script>
 
 <style scoped>
@@ -31,6 +51,10 @@
         flex-direction: column;
     }
 
+    .experience-block.edit {
+        width: 100%;
+    }
+
     .header {
         background-color: #6244DB;
         display: flex;
@@ -40,6 +64,7 @@
         align-items: center;
         height: 35px;
         font-size: 15px;
+        gap: 5px;
     }
 
     .info {
