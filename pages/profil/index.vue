@@ -27,6 +27,7 @@
     }
 
     main {
+        box-shadow: rgba(87, 32, 58, 0.08) 0px 0px 1.2rem;
         display: flex;
     }
 

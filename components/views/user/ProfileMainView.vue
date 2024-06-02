@@ -1,7 +1,7 @@
 <template>
     <ModalBlock @close="isModalVisible = false" :isVisible="isModalVisible">
         <EditImage v-if="modalType === 0" />
-        <EditDescription v-if="modalType === 1" :description="userData.opis" @saved="(value) => { userData.opis = value; isModalVisible = false}">
+        <EditDescription v-if="modalType === 1" :is-company="false" :description="userData.opis" @saved="(value) => { userData.opis = value; isModalVisible = false}">
             Podsumowanie zawodowe
         </EditDescription>
         <EditSkills v-if="modalType === 2" :skills="userSkills" @added="(value) => { userSkills.push({ skill: value }) }" />
@@ -166,8 +166,6 @@
         newUserData.value.age != userData.value.wiek ||
         newUserData.value.phoneNumber != userData.value.numer_telefonu) {
             unsaved.value = true;
-
-            console.log(newUserData.value.phoneNumber);
         } else {
             unsaved.value = false;
         }

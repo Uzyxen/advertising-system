@@ -9,7 +9,7 @@
 </template>
 
 <script setup>
-    const props = defineProps(['description']);
+    const props = defineProps(['description', 'isCompany']);
     const newDescription = ref(props.description);
 
     // emits 
@@ -17,7 +17,13 @@
 
     // functions
     async function saveDescription() {
-        const response = await $fetch('http://localhost/advertising-system/backend/api/user/UpdateDescription.php', { credentials: 'include', responseType: 'json', method: 'post', body: { 'description': newDescription.value } });
+        let response;
+
+        if(props.isCompany) {
+            response = await $fetch('http://localhost/advertising-system/backend/api/company/UpdateDescription.php', { credentials: 'include', responseType: 'json', method: 'post', body: { 'description': newDescription.value } });
+        } else {
+            response = await $fetch('http://localhost/advertising-system/backend/api/user/UpdateDescription.php', { credentials: 'include', responseType: 'json', method: 'post', body: { 'description': newDescription.value } });
+        }
 
         if(response) {
             emit('saved', response);

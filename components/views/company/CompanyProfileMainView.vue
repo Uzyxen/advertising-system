@@ -1,7 +1,7 @@
 <template>
     <ModalBlock @close="isModalVisible = false" :isVisible="isModalVisible">
         <EditImage v-if="modalType === 0" />
-        <EditDescription v-if="modalType === 1" :description="companyData.opis" @saved="(value) => { companyData.opis = value; isModalVisible = false}">
+        <EditDescription v-if="modalType === 1" :is-company="true" :description="companyData.description" @saved="(value) => { companyData.description = value; isModalVisible = false}">
             Opis firmy
         </EditDescription>
         <EditTechnologies v-if="modalType === 2" :skills="userSkills" @added="(value) => { userSkills.push({ skill: value }) }" />
@@ -39,7 +39,7 @@
                     <div>
                         <h2 id="user-name">
                             <span class="required">
-                                <input spellcheck="false" type="text" placeholder="Nazwa firmy: " @input="inputChanged" class="user-input">
+                                <input spellcheck="false" type="text" placeholder="Nazwa firmy: " @input="inputChanged" class="user-input" v-model="newCompanyData.name">
                             </span>
                         </h2>
 
@@ -59,13 +59,13 @@
             <div id="user-alt">
                 <div>
                     <h4>Kraj: </h4>
-                    <input type="text" placeholder="Kraj: " class="user-input-mini" @input="inputChanged">
+                    <input type="text" placeholder="Kraj: " class="user-input-mini" @input="inputChanged" v-model="newCompanyData.country">
                 </div>
 
                 <div>
                     <h4>NIP: </h4>
                     <span class="required">
-                        <input type="text" placeholder="NIP: " class="user-input-mini" @input="inputChanged">
+                        <input maxlength="13" type="text" placeholder="NIP: " class="user-input-mini"  @input="inputChanged(); formatPhoneNumber()" v-model="newCompanyData.nip">
                     </span>
                 </div>
             </div>
@@ -75,7 +75,7 @@
             <div>
                 <EditHeader :is-edit-mode="true" @edit="isModalVisible = true; modalType = 1">Opis firmy</EditHeader>
                 <hr>
-                <p>opis firmy</p>
+                <p>{{ companyData.description }}</p>
             </div>
 
             <div>
@@ -92,7 +92,7 @@
                 <hr>
                 
                 <div id="offers-flex">
-                    <OffersList @offer-clicked="offerClicked" :offers="offers" :edit-mode="true" />
+                    <OffersList @offer-clicked="offerClicked" :offers="offers" :edit-mode="false" />
                 </div>
             </div>
         </section>
@@ -100,21 +100,17 @@
 </template>
 
 <script setup>
-    const { data: companyData } = await useFetch('http://localhost/advertising-system/backend/api/user/GetUserData.php', { credentials: 'include', responseType: 'json', method: 'post' });
+    const { data: companyData } = await useFetch('http://localhost/advertising-system/backend/api/company/GetCompanyData.php', { credentials: 'include', responseType: 'json', method: 'post' });
     const { data: offers } = await useFetch('http://localhost/advertising-system/backend/api/offer/GetCompanyOffers.php', { credentials: 'include', responseType: 'json', method: 'post' });
 
     // --------
     // data
 
     const newCompanyData = ref({
-
+        name: companyData.value.nazwa_firmy,
+        country: companyData.value.country,
+        nip: companyData.value.NIP
     });
-
-    const languages = ref([
-        { lang: 'Polski', level: 'Ojczysty' },
-        { lang: 'Angielski', level: 'Zaawansowany' },
-        { lang: 'Niemiecki', level: 'Komunikatywny' }
-    ]);
 
     const isModalVisible = ref(false);
     const modalType = ref(0);
@@ -123,15 +119,10 @@
     // functions
 
     function inputChanged() {
-        if(newUserData.value.firstName != userData.value.imie || 
-        newUserData.value.lastName != userData.value.nazwisko || 
-        newUserData.value.position != userData.value.stanowisko ||
-        newUserData.value.country != userData.value.kraj ||
-        newUserData.value.age != userData.value.wiek ||
-        newUserData.value.phoneNumber != userData.value.numer_telefonu) {
+        if(newCompanyData.value.name != companyData.value.nazwa_firmy || 
+        newCompanyData.value.country != companyData.value.country || 
+        newCompanyData.value.nip != companyData.value.NIP) {
             unsaved.value = true;
-
-            console.log(newUserData.value.phoneNumber);
         } else {
             unsaved.value = false;
         }
@@ -147,6 +138,15 @@
                 unsaved.value = true;
             }
         }
+    }
+
+    function formatPhoneNumber() {
+        let cleaned = ('' + newCompanyData.value.nip).replace(/\D/g, '');
+        let match = cleaned.match(/^(\d{0,3})(\d{0,3})(\d{0,2})(\d{0,2})$/);
+
+        if (match) {
+            newCompanyData.value.nip = [match[1], match[2], match[3], match[4], match[5]].filter(Boolean).join('-');
+        }   
     }
 </script>
 
