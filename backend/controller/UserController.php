@@ -36,6 +36,20 @@
             return $this->updateBasicData($this->first_name, $this->last_name, $this->position, $this->country, $this->age, $this->phone_number, $this->user_id);
         }
 
+        public function setUserImage($image) {
+            if($this->session->check('user_logged') == false) {
+                exit();
+            }
+
+            if($this->session->check('user_id') == false) {
+                exit();
+            } else {
+                $this->user_id = $this->session->get('user_id');
+            }
+
+            return $this->setImage($image, $this->user_id);
+        }
+
         public function setUserDescription($description) {
             if($this->session->check('user_logged') == false) {
                 exit();

@@ -4,6 +4,6 @@
 
         $company = new CompanyController();
 
-        echo json_encode($company->fetchUserData());
+        echo json_encode($company->fetchCompanyData());
     }
 ?>

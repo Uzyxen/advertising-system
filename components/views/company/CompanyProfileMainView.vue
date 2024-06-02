@@ -1,6 +1,6 @@
 <template>
     <ModalBlock @close="isModalVisible = false" :isVisible="isModalVisible">
-        <EditImage v-if="modalType === 0" />
+        <EditImage v-if="modalType === 0" :is-company="true" />
         <EditDescription v-if="modalType === 1" :is-company="true" :description="companyData.description" @saved="(value) => { companyData.description = value; isModalVisible = false}">
             Opis firmy
         </EditDescription>
@@ -32,6 +32,10 @@
                                 <path d="M288 109.3V352c0 17.7-14.3 32-32 32s-32-14.3-32-32V109.3l-73.4 73.4c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l128-128c12.5-12.5 32.8-12.5 45.3 0l128 128c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L288 109.3zM64 352H192c0 35.3 28.7 64 64 64s64-28.7 64-64H448c35.3 0 64 28.7 64 64v32c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V416c0-35.3 28.7-64 64-64zM432 456a24 24 0 1 0 0-48 24 24 0 1 0 0 48z"/>
                             </svg>
                         </div>
+
+                        <div v-if="companyData.zdjecie_url">
+                            <img :src="'/company/' + companyData.zdjecie_url" alt="Logo firmy">
+                        </div>
                     </div>
                 </div>
 
@@ -48,7 +52,7 @@
                                 {{ companyData.quantity }} oferty pracy
                             </div>
 
-                            <div id="remote-work">
+                            <div id="remote-work" v-if="companyData.remote">
                                 Możliwość pracy zdalnej
                             </div>
                         </h3>
@@ -66,6 +70,13 @@
                     <h4>NIP: </h4>
                     <span class="required">
                         <input maxlength="13" type="text" placeholder="NIP: " class="user-input-mini"  @input="inputChanged(); formatPhoneNumber()" v-model="newCompanyData.nip">
+                    </span>
+                </div>
+
+                <div>
+                    <h4>e-mail: </h4>
+                    <span class="required">
+                        <input type="text" placeholder="e-mail: " class="user-input-mini"  @input="inputChanged()" v-model="newCompanyData.email">
                     </span>
                 </div>
             </div>
@@ -103,7 +114,6 @@
     const { data: companyData } = await useFetch('http://localhost/advertising-system/backend/api/company/GetCompanyData.php', { credentials: 'include', responseType: 'json', method: 'post' });
     const { data: technologies } = await useFetch('http://localhost/advertising-system/backend/api/company/GetCompanyTechnologies.php', { credentials: 'include', responseType: 'json', method: 'post' });
     const { data: offers } = await useFetch('http://localhost/advertising-system/backend/api/offer/GetCompanyOffers.php', { credentials: 'include', responseType: 'json', method: 'post' });
-    
 
     // --------
     // data
@@ -111,7 +121,9 @@
     const newCompanyData = ref({
         name: companyData.value.nazwa_firmy,
         country: companyData.value.country,
-        nip: companyData.value.NIP
+        nip: companyData.value.NIP,
+        email: companyData.value.email,
+        remote: companyData.value.remote
     });
 
     const isModalVisible = ref(false);
@@ -123,7 +135,8 @@
     function inputChanged() {
         if(newCompanyData.value.name != companyData.value.nazwa_firmy || 
         newCompanyData.value.country != companyData.value.country || 
-        newCompanyData.value.nip != companyData.value.NIP) {
+        newCompanyData.value.nip != companyData.value.NIP ||
+        newCompanyData.value.email != companyData.value.email) {
             unsaved.value = true;
         } else {
             unsaved.value = false;
@@ -131,7 +144,7 @@
     }
 
     async function saveChanges() {
-        const response = await $fetch('http://localhost/advertising-system/backend/api/user/UpdateBasicData.php', { credentials: 'include', responseType: 'json', method: 'post', body: { 'data': newUserData.value } });
+        const response = await $fetch('http://localhost/advertising-system/backend/api/company/UpdateBasicData.php', { credentials: 'include', responseType: 'json', method: 'post', body: { 'data': newCompanyData.value } });
 
         if(response) {
             if(response === true) {
@@ -186,17 +199,22 @@
     }
 
     #offer-counter {
-        background-color: #ddd;
+        background-color: #eee;
         padding: 10px;
         width: fit-content;
         border-radius: 2px;
     }
 
     #remote-work {
-        background-color: #ddd;
+        background-color: #eee;
         padding: 10px;
         width: fit-content;
         border-radius: 2px;
+        cursor: pointer;
+    }
+
+    #remote-work:hover {
+        background-color: #ddd;
     }
 
     #offers-flex {
@@ -311,22 +329,30 @@
     #img {
         border: 1px solid #DDD;
         cursor: pointer;
+        position: relative;
     }
 
     #img #upload-image {
+        position: absolute;
+        left: 0;
+        top: 0;
         display: flex;
         justify-content: center;
         align-items: center;
         background-color: #fff;
         width: 100%;
         height: 100%;
-        border-radius: 50%;
         opacity: 0;
         transition: opacity .3s cubic-bezier(0.24,0.07,0.09,0.99);
     }
 
     #img:hover #upload-image {
         opacity: 1;
+    }
+
+    #img img {
+        width: 100%;
+        height: 100%;
     }
 
     #upload-image svg {

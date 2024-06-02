@@ -2,6 +2,17 @@
     include('Database.php');
 
     class Company extends Database {
+        protected function updateBasicData($name, $email, $country, $nip, $remote, $company_id) {
+            $sql = "UPDATE companies SET nazwa_firmy = ?, email = ?, country = ?, NIP = ?, remote = ? WHERE company_id = ?"; 
+            $stmt = $this->connect()->prepare($sql);
+
+            if($stmt->execute([$name, $email, $country, $nip, $remote, $company_id])) {
+                return true;
+            }
+
+            return false;
+        }
+
         protected function updateDescription($description, $company_id) {
             $sql = "UPDATE companies SET description = ? WHERE company_id = ?"; 
             $stmt = $this->connect()->prepare($sql);
@@ -13,8 +24,30 @@
             return false;
         }
 
+        protected function setImage($image, $company_id) {
+            $sql = "UPDATE companies SET zdjecie_url = ? WHERE company_id = ?"; 
+            $stmt = $this->connect()->prepare($sql);
+
+            $uploadDirectory = __DIR__ . '/../../public/company/';
+            $uploadFile = $uploadDirectory . basename($image['name']);
+
+            if (!is_dir($uploadDirectory)) {
+                mkdir($uploadDirectory, 0777, true);
+            }
+
+            if (move_uploaded_file($image['tmp_name'], $uploadFile)) { 
+                $fileName = basename($image['name']);
+
+                if($stmt->execute([$fileName, $company_id])) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        }
+
         protected function getCompanyData($company_id) {
-            $sql = "SELECT *, COUNT(ogloszenie_id) as quantity FROM companies JOIN offers ON companies.company_id = offers.firma_id WHERE company_id = ?"; 
+            $sql = "SELECT companies.*, COUNT(ogloszenie_id) as quantity FROM companies JOIN offers ON companies.company_id = offers.firma_id WHERE company_id = ?"; 
             $stmt = $this->connect()->prepare($sql);
 
             $stmt->execute([$company_id]);

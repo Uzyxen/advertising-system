@@ -10,6 +10,34 @@
             $this->session = new Session();
         }
 
+        public function setCompanyBasicData($name, $email, $country, $nip, $remote) {
+            if($this->session->check('company_logged') == false) {
+                exit();
+            }
+
+            if($this->session->check('company_id') == false) {
+                exit();
+            } else {
+                $this->company_id = $this->session->get('company_id');
+            }
+
+            return $this->updateBasicData($name, $email, $country, $nip, $remote, $this->company_id);
+        }
+
+        public function setCompanyImage($image) {
+            if($this->session->check('company_logged') == false) {
+                exit();
+            }
+
+            if($this->session->check('company_id') == false) {
+                exit();
+            } else {
+                $this->company_id = $this->session->get('company_id');
+            }
+
+            return $this->setImage($image, $this->company_id);
+        }
+
         public function setCompanyDescription($description) {
             if($this->session->check('company_logged') == false) {
                 exit();
@@ -24,7 +52,7 @@
             return $this->updateDescription($description, $this->company_id);
         }
 
-        public function fetchUserData() {
+        public function fetchCompanyData() {
             if($this->session->check('company_logged') == false) {
                 exit();
             }

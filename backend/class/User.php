@@ -12,6 +12,28 @@
 
             return false;
         }
+        
+        protected function setImage($image, $user_id) {
+            $sql = "UPDATE users SET image_url = ? WHERE uzytkownik_id = ?"; 
+            $stmt = $this->connect()->prepare($sql);
+
+            $uploadDirectory = __DIR__ . '/../../public/user/';
+            $uploadFile = $uploadDirectory . basename($image['name']);
+
+            if (!is_dir($uploadDirectory)) {
+                mkdir($uploadDirectory, 0777, true);
+            }
+
+            if (move_uploaded_file($image['tmp_name'], $uploadFile)) { 
+                $fileName = basename($image['name']);
+
+                if($stmt->execute([$fileName, $user_id])) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        }
 
         protected function updateDescription($description, $user_id) {
             $sql = "UPDATE users SET opis = ? WHERE uzytkownik_id = ?"; 

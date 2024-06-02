@@ -25,10 +25,16 @@
         </svg>
     </div>
 
-    <ModalSaveButton v-if="uploaded === true">Zapisz zdjęcie</ModalSaveButton>
+    <ModalSaveButton v-if="uploaded === true" @click="saveImage">Zapisz zdjęcie</ModalSaveButton>
 </template>
 
 <script setup>
+    // props
+    const props = defineProps(['isCompany']);
+
+    // emits 
+    const emit = defineEmits(['uploaded']);
+
     const file = ref();
     const uploaded = ref(false);
     const allowedTypes = ref(['image/jpeg', 'image/png']);
@@ -55,6 +61,25 @@
             return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
         } else {
             return `${(bytes / 1024).toFixed(2)} KB`;
+        }
+    }
+
+    async function saveImage() {
+        let response;
+
+        if(file.value) {
+            const formData = new FormData();
+            formData.append('file', file.value);
+
+            if(props.isCompany) {
+                response = await $fetch('http://localhost/advertising-system/backend/api/company/UpdateImage.php', { credentials: 'include', responseType: 'json', method: 'post', body: formData });
+            } else {
+                response = await $fetch('http://localhost/advertising-system/backend/api/user/UpdateImage.php', { credentials: 'include', responseType: 'json', method: 'post', body: formData });
+            }   
+
+            if(response) {
+                emit('uploaded');
+            }
         }
     }
 
