@@ -78,9 +78,25 @@
                     $sql = "INSERT INTO offers (zdjecie_url, tytul, opis, umowa, lokalizacja, wynagrodzenie_min, wynagrodzenie_max, czestotliwosc_wynagrodzenia, data_dodania, kategoria_id, firma_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, now(), ?, ?)";
                     $stmt = $this->connect()->prepare($sql);
     
-                    $stmt->execute([$image_result['zdjecie_url'], $data['title'], $data['description'], $data['contractType'], $data['location'], $data['salaryMin'], $data['salaryMax'], $data['frequency'], $result['kategoria_id'], $company_id]);
-    
-                    return true;
+                    if($stmt->execute([$image_result['zdjecie_url'], $data['title'], $data['description'], $data['contractType'], $data['location'], $data['salaryMin'], $data['salaryMax'], $data['frequency'], $result['kategoria_id'], $company_id])) {
+                        $last_id = $this->connect()->lastInsertId();
+
+                        $duties_sql = "INSERT INTO duties (duty, offer_id) VALUES (?, ?)";
+                        $duties_stmt = $this->connect()->prepare($duties_sql);
+
+                        foreach($data['duties'] as $duty) {
+                            $duties_stmt->execute([$duty['text'], $last_id]);
+                        }
+
+                        $requirements_sql = "INSERT INTO requirements (requirement, offer_id) VALUES (?, ?)";
+                        $requirements_stmt = $this->connect()->prepare($requirements_sql);
+
+                        foreach($data['requirements'] as $requirement) {
+                            $requirements_stmt->execute([$requirement['text'], $last_id]);
+                        }
+
+                       return true;
+                    }
                 }
             } else {
                 return false;

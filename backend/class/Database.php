@@ -1,21 +1,25 @@
 <?php
     class Database {
-        protected function connect() {
-            try {
-                $host = 'localhost';
-                $database = 'advertising_system';
-                $username = 'root';
-                $password = '';
+        private $pdo;
 
-                $pdo = new PDO("mysql:host=$host; dbname=$database; charset=UTF8", $username, $password); // connection with db
-                $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-             
-                return $pdo;
-            } 
-            catch (PDOException $e) {
-                print "Error: " . $e->getMessage() . "<br />";
-                die();
+        protected function connect() {
+            if($this->pdo == null) {
+                try {
+                    $host = 'localhost';
+                    $database = 'advertising_system';
+                    $username = 'root';
+                    $password = '';
+    
+                    $this->pdo = new PDO("mysql:host=$host; dbname=$database; charset=UTF8", $username, $password); // connection with db
+                    $this->pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+                } 
+                catch (PDOException $e) {
+                    print "Error: " . $e->getMessage() . "<br />";
+                    die();
+                }
             }
+
+            return $this->pdo;
         }
     }
 ?>
