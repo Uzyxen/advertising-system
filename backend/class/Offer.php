@@ -85,14 +85,16 @@
                         $duties_stmt = $this->connect()->prepare($duties_sql);
 
                         foreach($data['duties'] as $duty) {
-                            $duties_stmt->execute([$duty['text'], $last_id]);
+                            if(!empty($duty['text']))
+                                $duties_stmt->execute([$duty['text'], $last_id]);
                         }
 
                         $requirements_sql = "INSERT INTO requirements (requirement, offer_id) VALUES (?, ?)";
                         $requirements_stmt = $this->connect()->prepare($requirements_sql);
 
                         foreach($data['requirements'] as $requirement) {
-                            $requirements_stmt->execute([$requirement['text'], $last_id]);
+                            if(!empty($requirement['text']))
+                                $requirements_stmt->execute([$requirement['text'], $last_id]);
                         }
 
                        return true;
