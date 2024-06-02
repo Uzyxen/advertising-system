@@ -47,7 +47,17 @@
         }
 
         protected function getCompanyData($company_id) {
-            $sql = "SELECT companies.*, COUNT(ogloszenie_id) as quantity FROM companies JOIN offers ON companies.company_id = offers.firma_id WHERE company_id = ?"; 
+            $sql = "SELECT * FROM companies WHERE company_id = ?"; 
+            $stmt = $this->connect()->prepare($sql);
+
+            $stmt->execute([$company_id]);
+            $result = $stmt->fetch();
+
+            return $result;
+        }
+
+        protected function getCompanyOfferQuantity($company_id) {
+            $sql = "SELECT COUNT(*) as value FROM offers WHERE firma_id = ?"; 
             $stmt = $this->connect()->prepare($sql);
 
             $stmt->execute([$company_id]);

@@ -39,10 +39,10 @@
             $l_stmt = $this->connect()->prepare('SET lc_time_names = "pl_PL"');
             $l_stmt->execute();
 
-            $sql = 'SELECT zdjecie_url, ogloszenie_id, tytul, opis, umowa, lokalizacja, wynagrodzenie_min, wynagrodzenie_max, czestotliwosc_wynagrodzenia, DATE_FORMAT(data_dodania, "%e %M %Y") AS data_dodania, data_dodania AS data_sort, (SELECT nazwa_firmy FROM companies WHERE company_id = ?) AS firma FROM offers';
+            $sql = 'SELECT zdjecie_url, ogloszenie_id, tytul, opis, umowa, lokalizacja, wynagrodzenie_min, wynagrodzenie_max, czestotliwosc_wynagrodzenia, DATE_FORMAT(data_dodania, "%e %M %Y") AS data_dodania, data_dodania AS data_sort, (SELECT nazwa_firmy FROM companies WHERE company_id = ?) AS firma FROM offers WHERE firma_id = ?';
             $stmt = $this->connect()->prepare($sql);
 
-            $stmt->execute([$company_id]);
+            $stmt->execute([$company_id, $company_id]);
 
             if($stmt->rowCount() > 0) {
                 $result = $stmt->fetchAll();
@@ -68,12 +68,20 @@
             $result = $categories_stmt->fetch();
 
             if($result) {
-                $sql = "INSERT INTO offers (tytul, opis, umowa, lokalizacja, wynagrodzenie_min, wynagrodzenie_max, czestotliwosc_wynagrodzenia, data_dodania, kategoria_id, firma_id) VALUES (?, ?, ?, ?, ?, ?, ?, now(), ?, ?)";
-                $stmt = $this->connect()->prepare($sql);
-    
-                $stmt->execute([$data['title'], $data['description'], $data['contractType'], $data['location'], $data['salaryMin'], $data['salaryMax'], $data['frequency'], $result['kategoria_id'], $company_id]);
+                $image_sql = "SELECT zdjecie_url FROM companies WHERE company_id = ?";
+                $image_stmt = $this->connect()->prepare($image_sql);
 
-                return true;
+                $image_stmt->execute([$company_id]);
+                $image_result = $image_stmt->fetch();
+    
+                if($image_result) {
+                    $sql = "INSERT INTO offers (zdjecie_url, tytul, opis, umowa, lokalizacja, wynagrodzenie_min, wynagrodzenie_max, czestotliwosc_wynagrodzenia, data_dodania, kategoria_id, firma_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, now(), ?, ?)";
+                    $stmt = $this->connect()->prepare($sql);
+    
+                    $stmt->execute([$image_result['zdjecie_url'], $data['title'], $data['description'], $data['contractType'], $data['location'], $data['salaryMin'], $data['salaryMax'], $data['frequency'], $result['kategoria_id'], $company_id]);
+    
+                    return true;
+                }
             } else {
                 return false;
             }

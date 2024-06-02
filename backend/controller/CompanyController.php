@@ -66,6 +66,20 @@
             return $this->getCompanyData($this->company_id);
         }
 
+        public function fetchCompanyOfferQuantity() {
+            if($this->session->check('company_logged') == false) {
+                exit();
+            }
+
+            if($this->session->check('company_id') == false) {
+                exit();
+            } else {
+                $this->company_id = $this->session->get('company_id');
+            }
+
+            return $this->getCompanyOfferQuantity($this->company_id);
+        }
+
         public function fetchCompanyTechnologies() {
             if($this->session->check('company_logged') == false) {
                 exit();

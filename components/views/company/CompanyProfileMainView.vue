@@ -49,7 +49,7 @@
 
                         <h3>
                             <div id="offer-counter">
-                                {{ companyData.quantity }} oferty pracy
+                                {{ quantity.value }} oferty pracy
                             </div>
 
                             <div id="remote-work" v-if="companyData.remote">
@@ -114,6 +114,8 @@
     const { data: companyData } = await useFetch('http://localhost/advertising-system/backend/api/company/GetCompanyData.php', { credentials: 'include', responseType: 'json', method: 'post' });
     const { data: technologies } = await useFetch('http://localhost/advertising-system/backend/api/company/GetCompanyTechnologies.php', { credentials: 'include', responseType: 'json', method: 'post' });
     const { data: offers } = await useFetch('http://localhost/advertising-system/backend/api/offer/GetCompanyOffers.php', { credentials: 'include', responseType: 'json', method: 'post' });
+    const { data: quantity } = await useFetch('http://localhost/advertising-system/backend/api/company/GetQuantity.php', { credentials: 'include', responseType: 'json', method: 'post' });
+
 
     // --------
     // data
