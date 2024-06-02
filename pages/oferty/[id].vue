@@ -13,7 +13,7 @@
                 <div id="offer-title">
                     <div>
                         <h2 id="title">{{ offerData.tytul }}</h2>
-                        <a id="company" href>{{ offerData.nazwa_firmy }}</a>
+                        <NuxtLink id="company" :to="'/firmy/' + offerData.firma_id">{{ offerData.nazwa_firmy }}</NuxtLink>
                     </div>
                 </div>
             </div>
@@ -57,7 +57,7 @@
 
             <div id="offer-action">
                 <h2>{{ offerData.wynagrodzenie_min.toLocaleString() }} - {{ offerData.wynagrodzenie_max.toLocaleString() }} zł / mies.</h2>
-                <h3>Umowa {{ offerData.umowa }}</h3>
+                <h3>{{ offerData.umowa }}</h3>
 
                 <PurpleButton @button-clicked="openModal" :class="{ disabled: applied }">Aplikuj</PurpleButton>
                 <h3 id="ask-question">Zapytaj o ogłoszenie</h3>
