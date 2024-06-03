@@ -24,5 +24,9 @@
         public function fetchCompanyOffers() {
             return $this->getCompanyOffers($this->company_id);
         }
+
+        public function fetchRecomendedCompanies() {
+            return $this->getRecomendedCompanies();
+        }
     }
 ?>

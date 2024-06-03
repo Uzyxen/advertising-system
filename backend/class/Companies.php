@@ -54,5 +54,20 @@
                 return false;
             }
         }
+
+        protected function getRecomendedCompanies() {
+            $sql = 'SELECT company_id, zdjecie_url, nazwa_firmy FROM companies LIMIT 4';
+            $stmt = $this->connect()->prepare($sql);
+
+            $stmt->execute();
+
+            if($stmt->rowCount() > 0) {
+                $result = $stmt->fetchAll();
+
+                return $result;
+            } else {
+                return false;
+            }
+        }
     }
 ?>

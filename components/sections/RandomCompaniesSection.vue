@@ -18,12 +18,7 @@
 </template>
 
 <script setup>
-    const companies = ref([
-        { id: 0, photo_url: '', company_name: 'moltaro test' }, 
-        { id: 0, photo_url: '', company_name: 'moltaro test' },
-        { id: 0, photo_url: '', company_name: 'moltaro test' }, 
-        { id: 0, photo_url: '', company_name: 'moltaro test' },  
-    ]);
+    const { data: companies } = await useFetch('http://localhost/advertising-system/backend/api/companies/GetRecomendedCompanies.php', { responseType: 'json', method: 'post' });
 </script>
 
 <style scoped>
