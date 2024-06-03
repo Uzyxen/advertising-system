@@ -13,6 +13,7 @@
             return false;
         }
         
+        
         protected function setImage($image, $user_id) {
             $sql = "UPDATE users SET image_url = ? WHERE uzytkownik_id = ?"; 
             $stmt = $this->connect()->prepare($sql);

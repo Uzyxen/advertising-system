@@ -60,6 +60,20 @@
             return $this->getUserApplications($this->user_id);
         }
 
+        public function deleteUserApplication($application_id) {
+            if($this->session->check('user_logged') == false) {
+                exit();
+            }
+
+            if($this->session->check('user_id') == false) {
+                exit();
+            } else {
+                $this->user_id = $this->session->get('user_id');
+            }
+
+            return $this->removeApplication($application_id, $this->user_id);
+        }
+
         public function fetchApplyingUsers() {
             if($this->session->check('company_logged') == false) {
                 exit();

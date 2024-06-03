@@ -13,6 +13,17 @@
             }
         }
 
+        protected function removeApplication($application_id, $user_id) {
+            $sql = "DELETE FROM applications WHERE application_id = ? AND user_id = ?";
+            $stmt = $this->connect()->prepare($sql);
+
+            if($stmt->execute([$application_id, $user_id])) {
+                return $application_id;
+            } else {
+                return false;
+            }
+        }
+
         protected function getApplicationStatus($user_id, $offer_id) {
             $sql = "SELECT application_id FROM applications WHERE user_id = ? AND offer_id = ?";
             $stmt = $this->connect()->prepare($sql);
@@ -28,7 +39,7 @@
         }
 
         protected function getUserApplications($user_id) {
-            $sql = "SELECT o.*, f.*, a.status FROM offers o JOIN applications a ON o.ogloszenie_id = a.offer_id JOIN companies f ON o.firma_id = f.company_id WHERE a.user_id = ?";
+            $sql = "SELECT o.*, f.*, a.application_id, a.status FROM offers o JOIN applications a ON o.ogloszenie_id = a.offer_id JOIN companies f ON o.firma_id = f.company_id WHERE a.user_id = ?";
             $stmt = $this->connect()->prepare($sql);
 
             $stmt->execute([$user_id]);
