@@ -2,6 +2,7 @@
      <HomeSection />
      <SearchForOffersSection />
      <RandomCompaniesSection />
+     <PopularCategories />
 </template>
 
 <script setup>
