@@ -4,8 +4,8 @@
     </ModalBlock>
 
     <div id="main-grid">
-        <TransitionGroup name="list" v-if="userApplications != false">
-            <div style="position: relative;" class="user-application" v-for="application in userApplications" @click="showApplication(application)">
+        <TransitionGroup style="position: relative;" name="list" v-if="userApplications != false">
+            <div class="user-application" v-for="application in userApplications" :key="application.application_id" @click="showApplication(application)">
                 <div class="delete">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
                         <!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc. -->
@@ -57,9 +57,6 @@
         width: 100%;
         padding: 20px;
         background-color: #FFF;
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);;
-        gap: 10px;
         padding-bottom: 200px;
     }
 
@@ -100,11 +97,13 @@
     }
 
     .user-application {
+        background-color: var(--asc-bg-alt);
         border: 1px solid #DDD;
         display: flex;
         gap: 10px;
         padding: 10px;
         position: relative;
+        margin: 10px 0
     }
 
     .user-application .delete {

@@ -59,7 +59,7 @@
                 <h2>{{ offerData.wynagrodzenie_min.toLocaleString() }} - {{ offerData.wynagrodzenie_max.toLocaleString() }} zł / mies.</h2>
                 <h3>{{ offerData.umowa }}</h3>
 
-                <PurpleButton @button-clicked="openModal" :class="{ disabled: applied }">Aplikuj</PurpleButton>
+                <PurpleButton @button-clicked="openModal" :class="{ disabled: applied }">{{ applied ? 'zaaplikowano' : 'aplikuj' }}</PurpleButton>
                 <h3 id="ask-question">Zapytaj o ogłoszenie</h3>
             </div>
         </div>
