@@ -11,7 +11,24 @@
 </template>
 
 <script setup>
-    defineProps(['offers', 'editMode']);
+    const props = defineProps(['offers', 'editMode', 'sortMethod']);
+
+    watch(() => props.sortMethod, (newValue) => {
+        if (newValue) {
+            if(props.sortMethod == '1'){
+                props.offers.sort((a, b) => a.ogloszenie_id - b.ogloszenie_id);
+            }
+            if(props.sortMethod == '2'){
+                props.offers.sort((a, b) => new Date(b.data_sort) - new Date(a.data_sort));
+            }
+            if(props.sortMethod == '3'){
+                props.offers.sort((a, b) => new Date(a.data_sort) - new Date(b.data_sort));
+            }
+            if(props.sortMethod == '4'){
+                props.offers.sort((a, b) => b.wynagrodzenie_max - a.wynagrodzenie_max);
+            }
+        }
+    });
 </script>
 
 <style scoped>

@@ -4,15 +4,16 @@
     <section>
         <Filters />
         <div id="offers-flex">
-            <OfferSort @loading="loading = true" />
-            <OffersList :edit-mode="false" :offers="offers" />
+            <OfferSort @loading="loading = true" @selection-changed="(id) => selected = id" />
+            <OffersList :edit-mode="false" :offers="offers" :sort-method="selected" />
         </div>
     </section>
 </template>
 
 <script setup>
     const loading = ref(false);
-
+    const selected = ref();
+    
     const { data: offers } = await useFetch('http://localhost/advertising-system/backend/api/offer/GetOffers.php', { responseType: 'json', method: 'post' });
 </script>
 

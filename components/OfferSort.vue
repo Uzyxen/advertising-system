@@ -15,7 +15,7 @@
 </template>
 
 <script setup>
-    const emit = defineEmits(['loading']);
+    const emit = defineEmits(['loading', 'selectionChanged']);
 
     function ShowSortMethods() {
         isSortMethodsVisible.value = !isSortMethodsVisible.value;
@@ -25,6 +25,7 @@
         selected.value = id;
 
         emit('loading');
+        emit('selectionChanged', selected.value);
     }
 
     const isSortMethodsVisible = ref(false);
