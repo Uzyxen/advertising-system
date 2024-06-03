@@ -1,5 +1,5 @@
 <template>
-    <LoadingScreen :is-loading="loading" />
+    <LoadingScreen :is-loading="loading" @loaded="loading = false" />
 
     <section>
         <Filters />

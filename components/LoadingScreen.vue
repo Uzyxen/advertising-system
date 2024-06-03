@@ -5,7 +5,18 @@
 </template>
 
 <script setup>
-    defineProps(['isLoading']);
+    const props = defineProps(['isLoading']);
+
+    // emits
+    const emit = defineEmits(['loaded']);
+
+    watch(() => props.isLoading, (newValue) => {
+        if (newValue) {
+            setTimeout(() => {
+                emit('loaded');
+            }, 1000);
+        }
+    });
 </script>
 
 <style scoped>
