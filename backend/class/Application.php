@@ -24,6 +24,17 @@
             }
         }
 
+        protected function rejectApplication($application_id, $user_id) {
+            $sql = "UPDATE applications SET status = ? WHERE application_id = ? AND user_id = ?";
+            $stmt = $this->connect()->prepare($sql);
+
+            if($stmt->execute(['Odrzucona', $application_id, $user_id])) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
         protected function getApplicationStatus($user_id, $offer_id) {
             $sql = "SELECT application_id FROM applications WHERE user_id = ? AND offer_id = ?";
             $stmt = $this->connect()->prepare($sql);
@@ -55,14 +66,14 @@
         }
 
         protected function getApplyingUsers($offer_id, $company_id) {
-            $sql = "SELECT users.uzytkownik_id, users.nazwisko, users.numer_telefonu, users.stanowisko, users.email, users.wiek, users.kraj, users.imie FROM users".
+            $sql = "SELECT users.uzytkownik_id, users.nazwisko, users.numer_telefonu, users.stanowisko, users.email, users.wiek, users.kraj, users.imie, applications.application_id FROM users".
             " JOIN applications ON users.uzytkownik_id = applications.user_id".
             " JOIN offers ON applications.offer_id = offers.ogloszenie_id".
             " JOIN companies ON offers.firma_id = companies.company_id".
-            " WHERE offers.ogloszenie_id = ? AND companies.company_id = ?";
+            " WHERE offers.ogloszenie_id = ? AND companies.company_id = ? AND applications.status != ?";
 
             $stmt = $this->connect()->prepare($sql);
-            $stmt->execute([$offer_id, $company_id]);
+            $stmt->execute([$offer_id, $company_id, 'odrzucona']);
 
             if($stmt->rowCount() > 0) {
                 $result = $stmt->fetchAll();

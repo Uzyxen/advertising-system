@@ -74,6 +74,14 @@
             return $this->removeApplication($application_id, $this->user_id);
         }
 
+        public function rejectUserApplication($application_id, $user_id) {
+            if($this->session->check('company_logged') == false) {
+                exit();
+            }
+
+            return $this->rejectApplication($application_id, $user_id);
+        }
+
         public function fetchApplyingUsers() {
             if($this->session->check('company_logged') == false) {
                 exit();

@@ -1,4 +1,8 @@
 <template>
+    <ModalBlock :is-visible="isModalVisible" @close="isModalVisible = false">
+        <ManageApplication :user="selectedUser" />
+    </ModalBlock>
+
     <div id="container">
         <PrevPageButton />
 
@@ -19,7 +23,10 @@
                         <h2>{{ user.imie }} {{ user.nazwisko }}</h2>
                         <p>{{ user.stanowisko }}</p>
 
-                        <PurpleButton @button-clicked="navigateTo('/uzytkownicy/' + user.uzytkownik_id)">Zobacz profil</PurpleButton>
+                        <div style="display: flex; gap: 10px;">
+                            <PurpleButton @button-clicked="isModalVisible = true; selectedUser = user">Rozpatrz</PurpleButton>
+                            <ColorButton @button-clicked="navigateTo('/uzytkownicy/' + user.uzytkownik_id)" :background-color="'#aaa'">Zobacz profil</ColorButton>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -30,6 +37,10 @@
 <script setup>
     const route = useRoute();
     const { data: applyingUsers } = await useFetch('http://localhost/advertising-system/backend/api/application/GetApplyingUsers.php', { credentials: 'include', responseType: 'json', method: 'post', body: { 'offer_id': route.params.id } });
+
+    // data
+    const isModalVisible = ref(false);
+    const selectedUser = ref();
 </script>
 
 <style scoped>
