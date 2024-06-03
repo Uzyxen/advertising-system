@@ -82,6 +82,14 @@
             return $this->rejectApplication($application_id, $user_id);
         }
 
+        public function confirmUserApplication($application_id, $user_id) {
+            if($this->session->check('company_logged') == false) {
+                exit();
+            }
+
+            return $this->confirmApplication($application_id, $user_id);
+        }
+
         public function fetchApplyingUsers() {
             if($this->session->check('company_logged') == false) {
                 exit();

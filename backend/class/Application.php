@@ -28,7 +28,18 @@
             $sql = "UPDATE applications SET status = ? WHERE application_id = ? AND user_id = ?";
             $stmt = $this->connect()->prepare($sql);
 
-            if($stmt->execute(['Odrzucona', $application_id, $user_id])) {
+            if($stmt->execute(['odrzucona', $application_id, $user_id])) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        
+        protected function confirmApplication($application_id, $user_id) {
+            $sql = "UPDATE applications SET status = ? WHERE application_id = ? AND user_id = ?";
+            $stmt = $this->connect()->prepare($sql);
+
+            if($stmt->execute(['zatwierdzona', $application_id, $user_id])) {
                 return true;
             } else {
                 return false;

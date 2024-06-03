@@ -43,7 +43,7 @@
     function getColor(status) {
         if(status === 'oczekująca') return '#ffcc00';
         else if(status === 'odrzucona') return '#ff3333';
-        else if(status === 'zaakceptowana') return '#4BB543';
+        else if(status === 'zatwierdzona') return '#4BB543';
     }
 
     function showApplication(application) {
