@@ -14,7 +14,7 @@
         if (newValue) {
             setTimeout(() => {
                 emit('loaded');
-            }, 1000);
+            }, 500);
         }
     });
 </script>
