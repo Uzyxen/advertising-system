@@ -1,59 +1,61 @@
 <template>
     <div class="wrapper" v-if="response === false">
-        <ModalHeader>Dodaj ofertę</ModalHeader>
+        <ModalHeader>
+            <slot />
+        </ModalHeader>
 
         <div id="content">
             <section>
                 <h3>Kategoria: </h3>
                 
-                <SelectBox :source="jobCategories" @selectionChanged="(value) => { offerData.category = value }"/>
+                <SelectBox :source="jobCategories" @selectionChanged="(value) => { newOfferData.category = value }"/>
             </section>
 
             <section>
                 <h3>Tytuł: </h3>
-                <input type="text" placeholder="Tytuł" v-model="offerData.title">
+                <input type="text" placeholder="Tytuł" v-model="newOfferData.title">
             </section>
             
             <section>
                 <h3>Opis: </h3>
-                <textarea placeholder="Opis" v-model="offerData.description"></textarea>
+                <textarea placeholder="Opis" v-model="newOfferData.description"></textarea>
             </section>
 
             <section>
                 <h3>Poziom stanowiska</h3>
 
-                <SelectBox :source="jobLevels" @selectionChanged="(value) => { offerData.level = value }"/>
+                <SelectBox :source="jobLevels" @selectionChanged="(value) => { newOfferData.level = value }"/>
             </section>
 
             <section>
                 <h3>Wynagrodzenie: </h3>
                 <div id="salary">
-                    <input type="text" v-model.number="offerData.salaryMin">
+                    <input type="text" v-model.number="newOfferData.salaryMin">
                     <span>-</span>
-                    <input type="text" v-model.number="offerData.salaryMax"> zł
+                    <input type="text" v-model.number="newOfferData.salaryMax"> zł
 
                     <span>/</span>
 
-                    <SelectBox :source="[{ name: 'miesiąc' }, { name: 'godzinę' }]" @selectionChanged="(value) => { offerData.frequency = value }" />
+                    <SelectBox :source="[{ name: 'miesiąc' }, { name: 'godzinę' }]" @selectionChanged="(value) => { newOfferData.frequency = value }" />
                 </div>
             </section>
 
             <section>
                 <h3>Kontrakt</h3>
 
-                <SelectBox :source="contractTypes" @selectionChanged="(value) => { offerData.contractType = value }" />
+                <SelectBox :source="contractTypes" @selectionChanged="(value) => { newOfferData.contractType = value }" />
             </section>
 
             <section>
                 <h3>Lokalizacja</h3>
 
-                <input type="text" placeholder="Lokalizacja" v-model="offerData.location">
+                <input type="text" placeholder="Lokalizacja" v-model="newOfferData.location">
             </section>
 
             <section>
                 <h3>Zakres obowiązków</h3>
 
-                <div v-for="(duty, i) in offerData.duties" :key="i">
+                <div v-for="(duty, i) in newOfferData.duties" :key="i">
                     <div class="duty">
                         <input type="text" v-model="duty.text">
 
@@ -63,13 +65,13 @@
                     </div>
                 </div>
 
-                <button @click="offerData.duties.push({ text: '' })">Dodaj nowy</button>
+                <button @click="newOfferData.duties.push({ text: '' })">Dodaj nowy</button>
             </section>
 
             <section>
                 <h3>Wymagania</h3>
 
-                <div v-for="(requirement, i) in offerData.requirements">
+                <div v-for="(requirement, i) in newOfferData.requirements">
                     <div class="requirement">
                         <input type="text" v-model="requirement.text">
 
@@ -79,7 +81,7 @@
                     </div>
                 </div>
 
-                <button @click="offerData.requirements.push({ text: '' })">Dodaj nowy</button>
+                <button @click="newOfferData.requirements.push({ text: '' })">Dodaj nowy</button>
             </section>
 
             <ModalSaveButton @buttonClicked="createOffer">Dodaj</ModalSaveButton>
@@ -99,12 +101,15 @@
     const { data: jobLevels } = await useFetch('http://localhost/advertising-system/backend/api/job/GetJobLevels.php', { responseType: 'json', method: 'post' });
     const { data: contractTypes } = await useFetch('http://localhost/advertising-system/backend/api/job/GetContractTypes.php', { responseType: 'json', method: 'post' });
 
+    // props
+    const props = defineProps(['offerId']);
+
     // emits
     const emit = defineEmits(['created']);
 
     // data
 
-    const offerData = ref({
+    const newOfferData = ref({
         category: '',
         level: '',
         frequency: '',
@@ -121,6 +126,16 @@
             { text: '' }
         ]
     });
+
+    if(props.offerId) {
+        const { data: offerData } = await useFetch('http://localhost/advertising-system/backend/api/offer/GetOfferData.php', { credentials: 'include', responseType: 'json', method: 'post', body: { 'id': props.offerId } });
+
+        newOfferData.value.title = offerData.value.tytul;
+        newOfferData.value.description = offerData.value.opis;
+        newOfferData.value.salaryMin = offerData.value.wynagrodzenie_min;
+        newOfferData.value.salaryMax = offerData.value.wynagrodzenie_max;
+        newOfferData.value.location = offerData.value.lokalizacja;
+    }
 
     const response = ref(false);
 

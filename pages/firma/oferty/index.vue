@@ -1,7 +1,12 @@
 <template>
     <ModalBlock @close="isModalVisible = false" :isVisible="isModalVisible">
-        <OfferInfo :id="selectedOfferId" v-if="type === 0" @deleted="offerDeleted"/>
-        <AddOffer v-if="type === 1" @created="offerCreated" />
+        <OfferInfo :id="selectedOfferId" v-if="type === 0" @deleted="offerDeleted" @edit="isModalVisible = true; type = 2"/>
+        <AddOffer v-if="type === 1" @created="offerCreated" >
+            Dodaj ofertę
+        </AddOffer>
+        <AddOffer v-if="type === 2" @created="offerCreated" :offer-id="selectedOfferId">
+            Edytuj ofertę
+        </AddOffer>
     </ModalBlock>
 
     <div id="container">
@@ -35,6 +40,7 @@
     const isModalVisible = ref(false);
     const type = ref(0);
     const selectedOfferId = ref();
+    const selectefOffer = ref();
 
     const { data: offers } = await useFetch('http://localhost/advertising-system/backend/api/offer/GetCompanyOffers.php', { credentials: 'include', responseType: 'json', method: 'post' });
 
