@@ -9,7 +9,7 @@
 
             $notification = new NotificationController(
                 "Gratulację!",
-                "Firma zaakceptowała twoją aplikacje i wkrótce się z Tobą skontaktuje!"
+                "Firma zaakceptowała twoją aplikację i wkrótce się z Tobą skontaktuje!"
             );
 
             echo json_encode($notification->sendUserNotification($user_id));
