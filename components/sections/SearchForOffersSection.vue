@@ -5,9 +5,11 @@
             <form @submit.prevent="search">
                 <div id="inputs">
                     <input type="text" id="search" placeholder="stanowisko" v-model="searchValue">
-                    <div id="category">Kategoria</div>
+                    <SelectBox style="height: 20px;" :source="categories" />
+
                     <input type="text" id="location" placeholder="Lokalizacja">
-                    <div id="distance">Odległość</div>
+                    
+                    <SelectBox style="height: 20px;" :source="[{ name: '+10 km' }, { name: '+30 km' }, { name: '+50 km' }]" />
                 </div>
 
                 <div id="filters">
@@ -48,6 +50,8 @@
 </template>
 
 <script setup>
+    const { data: categories } = await useFetch('http://localhost/advertising-system/backend/api/job/GetJobCategories.php', { responseType: 'json', method: 'post' });
+
     const searchValue = ref('');
 
     async function search() {
@@ -108,13 +112,14 @@
         border-radius: 2px;
     }
 
-    input[type='text'], #category, #distance{
+    input[type='text']{
         padding: 0 5px;
     }
 
     input#search{
         width: 350px;
         height: 40px;
+        border-right: none;
     }
 
     #filters{
@@ -160,17 +165,8 @@
     input#location{
         width: 200px;
         height: 40px;
-    }
-
-    #distance{
-        font-size: 14px;
-        width: 200px;
-        height: 40px;
+        border-right: none;
         border-left: none;
-        display: flex;
-        align-items: center;
-        border: 1px solid #DDD;
-        border-left: none
     }
 
 </style>

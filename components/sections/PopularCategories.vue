@@ -67,4 +67,8 @@
         padding: 15px 25px;
         border-radius: 2px;
     }
+
+    .category:hover {
+        background-color: #eee;
+    }
 </style>

@@ -1,4 +1,5 @@
 <template>
+     <PasswordInput />
      <HomeSection />
      <SearchForOffersSection />
      <RandomCompaniesSection />

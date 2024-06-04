@@ -1,15 +1,14 @@
 <template>
-    <LoadingScreen :is-loading="loading" />
+    <LoadingScreen :is-loading="loading" @loaded="loading = false" />
 
     <section>
         <Filters />
         <div id="offers-flex">
-            <OfferSort @loading="loading = true" />
-            <OffersList :offers="offers" />
+            <OfferSort @loading="loading = true" @selection-changed="(id) => selected = id" />
+            <OffersList :edit-mode="false" :offers="offers" :sort-method="selected" />
         </div>
     </section>
 </template>
-
 <script setup>
     const route = useRoute();
     const { data: offers } = await useFetch('http://localhost/advertising-system/backend/api/offer/GetSearchedOffers.php', { responseType: 'json', method: 'post', body: { 'value': route.params.value } });

@@ -24,6 +24,7 @@
 <style scoped>
     section#companies{
         padding: 200px 250px 0;
+        margin-top: 50px;
         display: flex;
         flex-direction: column;
         align-items: center;
