@@ -8,12 +8,16 @@
             <form @submit.prevent="Login" method="post"> 
                 <div>
                     <label for="email">Email:</label>
-                    <input :class="{ 'input-error': error.emailErr }" placeholder="Adres e-mail" type="text" name="email" v-model="data.email">
+                    <EmailInput v-model="data.email"/>
                 </div>
 
                 <div>
                     <label for="password">Hasło:</label>
-                    <input :class="{ 'input-error': error.passwordErr }" placeholder="Hasło" type="password" name="password" v-model="data.password">
+                    <PasswordInput 
+                        v-model="data.password" 
+                        :validate="false"
+                        :min-length="8"
+                        :max-length="30"/>
                 </div>
 
                 <button type="submit">Zaloguj się</button>

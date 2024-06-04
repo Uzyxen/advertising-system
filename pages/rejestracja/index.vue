@@ -18,22 +18,29 @@
 
         <div id="register-box">
             <h2>Zarejestruj się</h2>
-            <span class="error">{{ error_message }}</span>
 
             <form @submit.prevent="Register" method="post">
                 <div>
                     <label for="email">Email:</label>
-                    <input :class="{ 'input-error': error.emailErr }" placeholder="Adres e-mail" type="text" name="email" v-model="data.email">
+                    <EmailInput v-model="data.email" />
                 </div>
 
                 <div>
                     <label for="password">Hasło:</label>
-                    <input :class="{ 'input-error': error.passwordErr }" placeholder="Hasło" type="password" name="password" v-model="data.password">
+                    <PasswordInput
+                    v-model="data.password"
+                    :validate="true"
+                    :min-length="8"
+                    :max-length="30" />
                 </div>
 
                 <div>
                     <label for="password_2">Powtórz hasło:</label>
-                    <input :class="{ 'input-error': error.password_2Err }" placeholder="Powtórz hasło" type="password" name="password_2" v-model="data.password_2">
+                    <PasswordInput 
+                        v-model="data.passwordRepeat"
+                        :validate="true"
+                        :min-length="8"
+                        :max-length="30" />
                 </div>
 
                 <button type="submit">Zarejestruj się</button>
@@ -55,18 +62,11 @@
     const data = ref({
         email: '',
         password: '',
-        password_2: ''
-    });
-
-    const error = ref({
-        emailErr: false,
-        passwordErr: false,
-        password_2Err: false
+        passwordRepeat: ''
     });
 
     const status = ref('');
     const message = ref('');
-    const error_message = ref('');
 
     function GoToLogin() {
         const router = useRouter();
@@ -82,47 +82,10 @@
     }
 
     async function Register() {
-
-        // validate email
-
-        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-        if(data.value.email == '') {
-            error.value.emailErr = true;
-            error_message.value = 'Uzupełnij wymagane pola!';
-
-        } else if(!regex.test(data.value.email)) {
-            error.value.emailErr = true;
-            error_message.value = 'Podaj poprawny e-mail';
-        } else {
-            error.value.emailErr = false;
-            error_message.value = '';
-        }
-
-        // validate password
-
-        if(!data.value.password) {
-            error.value.passwordErr = true;
-            error_message.value = 'Uzupełnij wymagane pola!';
-        } else {
-            error.value.passwordErr = false;
-            error_message.value = '';
-        }
-
-        if(!data.value.password_2) {
-            error.value.password_2Err = true;
-            error_message.value = 'Uzupełnij wymagane pola!';
-        } else {
-            error.value.password_2Err = false;
-            error_message.value = '';
-        }
-
         if(validate()) {
             const response = await $fetch('http://localhost/advertising-system/backend/api/user/RegisterUser.php' , { body: data.value, method: 'post', responseType: 'json' });
 
             if(response) {
-                console.log(response);
-
                 status.value = response.status;
                 message.value = response.message;
             }
