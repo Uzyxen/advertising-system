@@ -43,8 +43,15 @@
 <style scoped>
     #filters {
         height: 900px;
-        width: 30%;
+        width: 350px;
         background-color: var(--asc-bg-alt);
+        -webkit-box-shadow: 0px 0px 42px -32px rgba(98, 68, 219, 1);
+        -moz-box-shadow: 0px 0px 42px -32px rgba(98, 68, 219, 1);
+        box-shadow: 0px 0px 42px -32px rgba(98, 68, 219, 1);
+    }
+
+    section {
+        width: 100%;
     }
 
     section h3 {
@@ -57,6 +64,7 @@
         color: var(--asc-txt-sec);
         font-size: 18px;
         border-bottom: 1px solid var(--asc-bg-border);
+        margin: 0;
     }
 
     section h3 > div {
@@ -86,5 +94,22 @@
 
     svg.opened {
         transform: rotate(360deg);
+    }
+
+    @media (max-width: 1015px) {
+        #filters {
+            width: 300px;
+        }
+    }
+    
+    @media (max-width: 896px) {
+        #filters {
+            height: auto;
+            width: 100%;
+        }
+
+        #filters section:last-child h3 {
+            border-bottom: none;
+        } 
     }
 </style>

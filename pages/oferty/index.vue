@@ -1,6 +1,7 @@
 <template>
     <LoadingScreen :is-loading="loading" @loaded="loading = false" />
 
+    <SectionTitle id="title">Oferty</SectionTitle>
     <section>
         <Filters />
         <div id="offers-flex">
@@ -22,13 +23,45 @@
         display: flex;
         gap: 15px;
         width: calc(100% - 300px);
-        padding: 40px 150px 0;
+        padding: 20px 150px 0;
+    }
+
+    #title {
+        margin: 20px 150px;
     }
 
     #offers-flex {
-        width: 100%;
         display: flex;
+        flex: 1;
         flex-direction: column;
         gap: 15px;
+    }
+
+    @media (max-width: 1300px) {
+        section {
+            width: calc(100% - 120px);
+            padding: 20px 60px 0;
+        }
+
+        #title {
+            margin: 20px 60px;
+        }
+    }
+
+    @media (max-width: 1015px) {
+        section {
+            width: calc(100% - 40px);
+            padding: 20px 20px 0;
+        }
+
+        #title {
+            margin: 20px 20px;
+        }
+    }
+
+    @media (max-width: 896px) {
+        section {
+            flex-direction: column;
+        }
     }
 </style>
