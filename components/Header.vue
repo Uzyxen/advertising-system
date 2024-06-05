@@ -22,7 +22,7 @@
                     Moje konto
                 </div>
 
-                <div id="my-account-dropdown" v-if="account_dropdown_visible" ref="dropDown">
+                <div id="my-account-dropdown" v-if="account_dropdown_visible" ref="dropDown" v-click-outside="hideDropdown">
                     <div id="dropdown-company-logged" v-if="company_logged">
                         <ul>
                             <li>
@@ -215,6 +215,10 @@
         if(response) {
             company_logged.value = response.logged;
         }
+    }
+
+    function hideDropdown() {
+        account_dropdown_visible.value = false;
     }
 
     onMounted(() => {

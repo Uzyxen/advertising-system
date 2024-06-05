@@ -14,5 +14,8 @@ export default defineNuxtConfig({
       pathPrefix: false,
     },
   ],
+    plugins: [
+    '~/plugins/directives.js'
+  ],
   ssr: false
 })
