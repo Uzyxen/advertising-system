@@ -1,4 +1,6 @@
 <template>
+    <MobileNavigation :is-visible="isMobileMenuVisible" @close="isMobileMenuVisible = false" />
+
     <header>
         <div id="topbar">
             <Nuxt-link id="logo" to="/">moltaro.pl</Nuxt-link>
@@ -10,7 +12,7 @@
                 <Nuxt-link to="/cv">Kreator CV</Nuxt-link>
             </nav>
 
-            <div id="hamburger-menu">
+            <div id="hamburger-menu" @click.stop="isMobileMenuVisible = true">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                     <!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc. -->
                     <path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM64 256c0-17.7 14.3-32 32-32H480c17.7 0 32 14.3 32 32s-14.3 32-32 32H96c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/>
@@ -187,6 +189,7 @@
     const user_logged = ref(false);
     const company_logged = ref(false);
     const account_dropdown_visible = ref(false);
+    const isMobileMenuVisible = ref(false);
 
     async function LogOut() {
         const response = await $fetch('http://localhost/advertising-system/backend/api/LogOut.php', { method: 'post', credentials: 'include', responseType: 'json' });
@@ -446,11 +449,19 @@
         #topbar {
             padding: 0 60px;
         }
+
+        #my-account-dropdown{
+            right: 60px;
+        }
     }
 
     @media (max-width: 1015px) {
         #topbar {
             padding: 0 20px;
+        }
+
+        #my-account-dropdown{
+            right: 20px;
         }
     }
 
@@ -469,7 +480,6 @@
             height: 35px;
             cursor: pointer;
             fill: #231d2b;
-            opacity: .8;
         }
     }
     
