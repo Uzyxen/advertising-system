@@ -172,4 +172,10 @@
     .list-leave-active {
         position: absolute;
     }
+
+    @media (max-width: 1015px) {
+        #main-grid {
+            width: calc(100% - 40px);
+        }
+    }
 </style>

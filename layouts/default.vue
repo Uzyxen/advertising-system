@@ -21,6 +21,10 @@
 <style>
     @import url('/assets/styles/style.css');
 
+    body {
+        overflow-x: hidden;
+    }
+
     #background{
         position: fixed;
         width: 100%;

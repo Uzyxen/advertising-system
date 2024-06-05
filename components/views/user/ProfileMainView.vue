@@ -57,7 +57,7 @@
                         </h3>
                     </div>
 
-                    <PurpleButton style="margin-bottom: 10px;">Udostępnij profil</PurpleButton>
+                    <PurpleButton id="share"style="margin-bottom: 10px;">Udostępnij profil</PurpleButton>
                 </div>
             </div>
 
@@ -226,7 +226,7 @@
     #main-flex {
         display: flex;
         flex-direction: column;
-        width: calc(100% - 300px);
+        flex: 1;
         border-right: 1px solid #DDD;
     }
 
@@ -399,6 +399,10 @@
         background-color: #FFF;
     }
 
+    #languages {
+        width: 100%;
+    }
+
     #experience {
         display: flex;
         flex-direction: column;
@@ -445,5 +449,95 @@
     .v-leave-to {
         transform: translateY(-50px);
         opacity: 0;
+    }
+
+    @media (max-width: 1686px) {
+        #user-top {
+            flex-direction: column;
+            gap: 60px;
+            padding-top: 40px;
+            height: auto !important;
+        }
+
+        #user-main {
+            width: 100%;
+        }
+
+        #user-alt {
+            border-top: 1px solid var(--asc-bg-border);
+            width: calc(100% - 60px);
+        }
+    }
+
+    @media (max-width: 1300px) {
+        section#right-side h4 {
+            font-size: 14px;
+        }
+
+        #main-flex {
+            flex: 1;
+        }
+    }
+
+    @media (max-width: 1075px) {
+        section#right-side h4 {
+            font-size: 12px;
+        }
+    }
+
+    @media (max-width: 1015px) {
+        section#right-side {
+            border-top: 1px solid var(--asc-bg-border);
+            border-right: 1px solid var(--asc-bg-border);
+            width: 100%;
+        }
+    }
+
+    @media (max-width: 775px) {
+        #user-basic-info {
+            padding-right: 10px;
+            width: 60%;
+        }
+
+        h2#user-name {
+            gap: 20px;
+        }
+
+        h2#user-name > span {
+            width: 50%;
+        }
+
+        h2#user-name > span input {
+            width: calc(100% - 10px);
+        }
+    }
+
+    @media (max-width: 600px) {
+        #user-main {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #user-top {     
+            gap: 20px; 
+        }
+
+        #user-basic-info {
+            padding: 20px;
+            width: calc(100% - 40px);
+        }
+
+        #share {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        h3#user-position span {
+            width: 100%;
+        }
+
+        h3#user-position span input {
+            width: calc(100% - 10px);
+        }
     }
 </style>

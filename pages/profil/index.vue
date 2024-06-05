@@ -105,4 +105,20 @@
         }
     }
 
+    @media (max-width: 1300px) {
+        #root-inner {
+            padding: 20px 60px 0;
+        }
+    }
+
+    @media (max-width: 1015px) {
+        #root-inner {
+            padding: 0 20px;
+        }
+
+        main {
+            flex-direction: column;
+        }
+    }
+
 </style>
