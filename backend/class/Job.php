@@ -40,5 +40,31 @@
                 return $result;
             }
         }
+
+        protected function getJobModes() {
+            $sql = "SELECT * FROM job_modes";
+            $stmt = $this->connect()->prepare($sql);
+
+            $stmt->execute();
+
+            $result = $stmt->fetchAll();
+
+            if($result) {
+                return $result;
+            }
+        }
+
+        protected function getEmploymentTypes() {
+            $sql = "SELECT * FROM employment_types";
+            $stmt = $this->connect()->prepare($sql);
+
+            $stmt->execute();
+
+            $result = $stmt->fetchAll();
+
+            if($result) {
+                return $result;
+            }
+        }
     }
 ?>

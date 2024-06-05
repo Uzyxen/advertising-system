@@ -3,7 +3,7 @@
         <section v-for="filter in filters" :key="filter.id">
             <h3 @click="toggleDropdown(filter.id)">
                 <div>
-                    {{ filter.title }} <p v-if="filter.numberOfSelected != 0 && filter.isDropdownVisible === false">{{ filter.numberOfSelected }}</p>
+                    {{ filter.title }} <p v-if="filter.numberOfSelected != 0">{{ filter.numberOfSelected }}</p>
                 </div>
 
                 <svg :class="{ opened: filter.isDropdownVisible }" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc. -->
@@ -25,12 +25,14 @@
 <script setup>
     const { data: jobLevels } = await useFetch('http://localhost/advertising-system/backend/api/job/GetJobLevels.php', { responseType: 'json', method: 'post' });
     const { data: contractTypes } = await useFetch('http://localhost/advertising-system/backend/api/job/GetContractTypes.php', { responseType: 'json', method: 'post' });
+    const { data: jobModes } = await useFetch('http://localhost/advertising-system/backend/api/job/GetJobModes.php', { responseType: 'json', method: 'post' });
+    const { data: employmentTypes } = await useFetch('http://localhost/advertising-system/backend/api/job/GetEmploymentTypes.php', { responseType: 'json', method: 'post' });
 
     const filters = ref([
         { id: 0, title: 'Poziom stanowiska', filter_elements: jobLevels.value, numberOfSelected: 0, isDropdownVisible: true },
         { id: 1, title: 'Rodzaj umowy', filter_elements: contractTypes.value, numberOfSelected: 0, isDropdownVisible: false },
-        { id: 2, title: 'Tryb pracy', numberOfSelected: 0, isDropdownVisible: false },
-        { id: 3, title: 'Wymiar pracy', numberOfSelected: 0, isDropdownVisible: false }
+        { id: 2, title: 'Tryb pracy', filter_elements: jobModes.value, numberOfSelected: 0, isDropdownVisible: false },
+        { id: 3, title: 'Wymiar pracy', filter_elements: employmentTypes.value, numberOfSelected: 0, isDropdownVisible: false }
     ]);
 
     // functions
@@ -45,9 +47,9 @@
         height: 900px;
         width: 350px;
         background-color: var(--asc-bg-alt);
-        -webkit-box-shadow: 0px 0px 42px -32px rgba(98, 68, 219, 1);
-        -moz-box-shadow: 0px 0px 42px -32px rgba(98, 68, 219, 1);
-        box-shadow: 0px 0px 42px -32px rgba(98, 68, 219, 1);
+        -webkit-box-shadow: 0px 0px 12px 0px rgb(4 4 4 / 15%);
+        -moz-box-shadow: 0px 0px 12px 0px rgb(4 4 4 / 15%);
+        box-shadow: 0px 0px 12px 0px rgb(4 4 4 / 15%);
     }
 
     section {
@@ -79,7 +81,7 @@
 
     section h3 div p {
         margin: 0;
-        background-color: var(--asc-bg);
+        background-color: var(--asc-txt-ui-sec);
         color: var(--asc-txt-alt);
         width: 20px;
         height: 20px;

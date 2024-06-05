@@ -13,5 +13,13 @@
         public function fetchJobCategories() {
             return $this->getJobCategories();
         }
+
+        public function fetchJobModes() {
+            return $this->getJobModes();
+        }
+
+        public function fetchEmploymentTypes() {
+            return $this->getEmploymentTypes();
+        }
     }
 ?>

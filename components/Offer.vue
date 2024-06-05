@@ -47,7 +47,9 @@
 <style scoped>
     .offer{
         cursor: pointer;
-        box-shadow: 0 0 5px rgba(0,0,0,.12);
+        -webkit-box-shadow: 0px 0px 12px 0px rgb(4 4 4 / 15%);
+        -moz-box-shadow: 0px 0px 12px 0px rgb(4 4 4 / 15%);
+        box-shadow: 0px 0px 12px 0px rgb(4 4 4 / 15%);
         border-radius: 2px;
         width: 100%;
         background-color: var(--asc-bg-alt);

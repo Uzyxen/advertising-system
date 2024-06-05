@@ -49,9 +49,9 @@
         justify-content: space-between;
         width: calc(100% - 40px);
         background-color: var(--asc-bg-alt);
-        -webkit-box-shadow: 0px 0px 42px -28px rgba(98, 68, 219, 1);
-        -moz-box-shadow: 0px 0px 42px -28px rgba(98, 68, 219, 1);
-        box-shadow: 0px 0px 42px -28px rgba(98, 68, 219, 1);
+        -webkit-box-shadow: 0px 0px 12px 0px rgb(4 4 4 / 15%);
+        -moz-box-shadow: 0px 0px 12px 0px rgb(4 4 4 / 15%);
+        box-shadow: 0px 0px 12px 0px rgb(4 4 4 / 15%);
     }
 
     #sort-in{
