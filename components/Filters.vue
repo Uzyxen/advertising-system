@@ -13,7 +13,7 @@
 
             <KeepAlive>
                 <FilterDropdown v-if="filter.isDropdownVisible">
-                    <FilterElement v-for="filter_element in filter.filter_elements">
+                    <FilterElement v-for="filter_element in filter.filter_elements" @select="filter.numberOfSelected++" @unselect="filter.numberOfSelected--">
                         {{ filter_element.name }}
                     </FilterElement>
                 </FilterDropdown>
@@ -54,6 +54,10 @@
         width: 100%;
     }
 
+    section h3:hover {
+        background-color: #eee;
+    }
+
     section h3 {
         display: flex;
         align-items: center;
@@ -79,8 +83,9 @@
         color: var(--asc-txt-alt);
         width: 20px;
         height: 20px;
-        font-size: 14px;
+        font-size: 12px;
         display: flex;
+        font-weight: 500;
         justify-content: center;
         align-items: center;
         border-radius: 2px;
