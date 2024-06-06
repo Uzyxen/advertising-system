@@ -94,7 +94,9 @@
     }
 
     main {
-        box-shadow: rgba(87, 32, 58, 0.08) 0px 30px 1.2rem;
+        -webkit-box-shadow: 0px 0px 12px 0px rgb(4 4 4 / 15%);
+        -moz-box-shadow: 0px 0px 12px 0px rgb(4 4 4 / 15%);
+        box-shadow: 0px 0px 12px 0px rgb(4 4 4 / 15%);
         display: flex;
     }
 

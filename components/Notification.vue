@@ -21,7 +21,6 @@
 <style scoped>
     .notification {
         background-color: var(--asc-bg-alt);
-        box-shadow: rgba(87, 32, 58, 0.08) 0px 20px 1.2rem;
         padding: 10px;
         border-left: 10px solid var(--asc-bg-border-alt);
         position: relative;

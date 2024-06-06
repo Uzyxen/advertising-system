@@ -44,7 +44,7 @@
 
 <style scoped>
     #filters {
-        height: 900px;
+        min-height: 1000px;
         width: 350px;
         background-color: var(--asc-bg-alt);
         -webkit-box-shadow: 0px 0px 12px 0px rgb(4 4 4 / 15%);
@@ -113,6 +113,7 @@
         #filters {
             height: auto;
             width: 100%;
+            min-height: 0;
         }
 
         #filters section:last-child h3 {
