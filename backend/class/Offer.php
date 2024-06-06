@@ -75,10 +75,10 @@
                 $image_result = $image_stmt->fetch();
     
                 if($image_result) {
-                    $sql = "INSERT INTO offers (zdjecie_url, tytul, opis, umowa, lokalizacja, wynagrodzenie_min, wynagrodzenie_max, czestotliwosc_wynagrodzenia, data_dodania, kategoria_id, firma_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, now(), ?, ?)";
+                    $sql = "INSERT INTO offers (zdjecie_url, tytul, opis, umowa, employment_type, job_mode, lokalizacja, wynagrodzenie_min, wynagrodzenie_max, czestotliwosc_wynagrodzenia, data_dodania, kategoria_id, firma_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, now(), ?, ?)";
                     $stmt = $this->connect()->prepare($sql);
     
-                    if($stmt->execute([$image_result['zdjecie_url'], $data['title'], $data['description'], $data['contractType'], $data['location'], $data['salaryMin'], $data['salaryMax'], $data['frequency'], $result['kategoria_id'], $company_id])) {
+                    if($stmt->execute([$image_result['zdjecie_url'], $data['title'], $data['description'], $data['contractType'], $data['type'], $data['mode'], $data['location'], $data['salaryMin'], $data['salaryMax'], $data['frequency'], $result['kategoria_id'], $company_id])) {
                         $last_id = $this->connect()->lastInsertId();
 
                         $duties_sql = "INSERT INTO duties (duty, offer_id) VALUES (?, ?)";

@@ -28,6 +28,18 @@
             </section>
 
             <section>
+                <h3>Tryb pracy</h3>
+
+                <SelectBox :source="jobModes" @selectionChanged="(value) => { newOfferData.mode = value }"/>
+            </section>
+
+            <section>
+                <h3>Wymiar pracy</h3>
+
+                <SelectBox :source="employmentTypes" @selectionChanged="(value) => { newOfferData.type = value }"/>
+            </section>
+
+            <section>
                 <h3>Wynagrodzenie: </h3>
                 <div id="salary">
                     <input type="text" v-model.number="newOfferData.salaryMin">
@@ -100,6 +112,8 @@
     const { data: jobCategories } = await useFetch('http://localhost/advertising-system/backend/api/job/GetJobCategories.php', { responseType: 'json', method: 'post' });
     const { data: jobLevels } = await useFetch('http://localhost/advertising-system/backend/api/job/GetJobLevels.php', { responseType: 'json', method: 'post' });
     const { data: contractTypes } = await useFetch('http://localhost/advertising-system/backend/api/job/GetContractTypes.php', { responseType: 'json', method: 'post' });
+    const { data: jobModes } = await useFetch('http://localhost/advertising-system/backend/api/job/GetJobModes.php', { responseType: 'json', method: 'post' });
+    const { data: employmentTypes } = await useFetch('http://localhost/advertising-system/backend/api/job/GetEmploymentTypes.php', { responseType: 'json', method: 'post' });
 
     // props
     const props = defineProps(['offerId']);
@@ -112,6 +126,8 @@
     const newOfferData = ref({
         category: '',
         level: '',
+        mode: '',
+        type: '',
         frequency: '',
         contractType: '',
         title: '',
@@ -147,7 +163,7 @@
 
     async function createOffer() {
         if(validate()) {
-            response.value = await $fetch('http://localhost/advertising-system/backend/api/offer/CreateOffer.php', { method: 'post', credentials: 'include', responseType: 'json', body: { 'data': offerData.value } });
+            response.value = await $fetch('http://localhost/advertising-system/backend/api/offer/CreateOffer.php', { method: 'post', credentials: 'include', responseType: 'json', body: { 'data': newOfferData.value } });
 
             if(response.value) {
                 emit('created', offerData.value);
