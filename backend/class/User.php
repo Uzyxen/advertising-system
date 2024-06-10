@@ -98,5 +98,26 @@
 
             return $result;
         }
+
+        protected function getUserLinks($user_id) {
+            $sql = "SELECT link, link_url, link_id FROM links WHERE user_id = ?"; 
+            $stmt = $this->connect()->prepare($sql);
+
+            $stmt->execute([$user_id]);
+            $result = $stmt->fetchAll();
+
+            return $result;
+        }
+
+        
+        protected function getUserEducation($user_id) {
+            $sql = "SELECT * FROM education WHERE user_id = ?"; 
+            $stmt = $this->connect()->prepare($sql);
+
+            $stmt->execute([$user_id]);
+            $result = $stmt->fetchAll();
+
+            return $result;
+        }
     }
 ?>

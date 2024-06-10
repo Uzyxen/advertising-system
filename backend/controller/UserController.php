@@ -133,5 +133,33 @@
 
             return $this->getUserExprerience($this->user_id);
         }
+
+        public function fetchUserLinks() {
+            if($this->session->check('user_logged') == false) {
+                exit();
+            }
+
+            if($this->session->check('user_id') == false) {
+                exit();
+            } else {
+                $this->user_id = $this->session->get('user_id');
+            }
+
+            return $this->getUserLinks($this->user_id);
+        }
+
+        public function fetchUserEducation() {
+            if($this->session->check('user_logged') == false) {
+                exit();
+            }
+
+            if($this->session->check('user_id') == false) {
+                exit();
+            } else {
+                $this->user_id = $this->session->get('user_id');
+            }
+
+            return $this->getUserEducation($this->user_id);
+        }
     }
 ?>

@@ -108,6 +108,18 @@
 
                 <UserExperience />
             </div>
+
+            
+            <div>
+                <EditHeader :is-edit-mode="true" @edit="isEditMode = true">Wykształcenie</EditHeader>
+                <hr>
+
+                <div id="education">
+                    <div v-for="education in userEducation">
+                        <Education :education="education"/>
+                    </div>
+                </div>
+            </div>
         </section>
     </div>
 
@@ -121,12 +133,28 @@
                 <h4>{{ language.level }}</h4>
             </div>
         </div>
+
+        <hr>
+
+        <div id="links">
+            <EditHeader :is-edit-mode="true" style="font-size: 20px;">Linki</EditHeader>
+            <hr>
+
+            <div v-for="link in userLinks">
+                <a :href="link.link_url" target="_blank">
+                    {{ link.link }}
+                </a>
+            </div>
+        </div>
     </section>
 </template>
 
 <script setup>
     const { data: userData } = await useFetch('http://localhost/advertising-system/backend/api/user/GetUserData.php', { credentials: 'include', responseType: 'json', method: 'post' });
     const { data: userSkills } = await useFetch('http://localhost/advertising-system/backend/api/user/GetUserSkills.php', { credentials: 'include', responseType: 'json', method: 'post' });
+    const { data: userLinks } = await useFetch('http://localhost/advertising-system/backend/api/user/GetUserLinks.php', { credentials: 'include', responseType: 'json', method: 'post' });
+    const { data: userEducation } = await useFetch('http://localhost/advertising-system/backend/api/user/GetUserEducation.php', { credentials: 'include', responseType: 'json', method: 'post' });
+
     // --------
     // data
 
@@ -384,6 +412,12 @@
         flex-wrap: wrap;
     }
 
+    #education {
+        display: flex;
+        flex-direction: column;
+        padding: 22px 22px 13px;
+    }
+
     section#right-side {
         width: 350px;
         background-color: #FFF;
@@ -397,6 +431,23 @@
         display: flex;
         justify-content: space-between;
         padding: 10px 13px
+    }
+
+    #links > div{
+        cursor: pointer;
+    }
+
+    #links a{
+        width: calc(100% - 26px);
+        height: 100%;
+        display: block;
+        padding: 10px 13px;
+        font-weight: 600;
+        color: var(--asc-txt-sec)
+    }
+
+    #links a:hover {
+        background-color: #eee;
     }
 
     .v-enter-active,
