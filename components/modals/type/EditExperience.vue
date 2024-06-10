@@ -2,7 +2,7 @@
     <ModalHeader>Doświadczenie</ModalHeader>
 
     <div id="content">
-        <UserExperience v-for="experienceBlock in experience" :experience="experienceBlock" :is-edit-mode="true" :empty="false"/>
+        <UserExperience :is-edit-mode="true"/>
 
         <h4>
             <span>
@@ -10,7 +10,7 @@
             </span>
         </h4>
 
-        <UserExperience :experience="null" :is-edit-mode="true"/>
+
     </div>
 </template>
 

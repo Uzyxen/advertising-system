@@ -90,13 +90,24 @@
         }
 
         protected function getUserExprerience($user_id) {
-            $sql = "SELECT data_poczatek, data_koniec, stanowisko, opis, firma, lokalizacja FROM doswiadczenie WHERE uzytkownik_id = ? ORDER BY data_poczatek ASC"; 
+            $sql = "SELECT doswiadczenie_id, data_poczatek, data_koniec, stanowisko, opis, firma, lokalizacja FROM doswiadczenie WHERE uzytkownik_id = ? ORDER BY data_poczatek ASC"; 
             $stmt = $this->connect()->prepare($sql);
 
             $stmt->execute([$user_id]);
             $result = $stmt->fetchAll();
 
             return $result;
+        }
+
+        protected function removeExperience($id, $user_id) {
+            $sql = "DELETE FROM doswiadczenie WHERE doswiadczenie_id = ? AND uzytkownik_id = ?"; 
+            $stmt = $this->connect()->prepare($sql);
+
+            if($stmt->execute([$id, $user_id])) {
+                return $id;
+            } else {
+                return false;
+            }
         }
 
         protected function getUserLinks($user_id) {

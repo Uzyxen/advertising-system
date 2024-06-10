@@ -134,6 +134,20 @@
             return $this->getUserExprerience($this->user_id);
         }
 
+        public function deleteUserExperience($id) {
+            if($this->session->check('user_logged') == false) {
+                exit();
+            }
+
+            if($this->session->check('user_id') == false) {
+                exit();
+            } else {
+                $this->user_id = $this->session->get('user_id');
+            }
+
+            return $this->removeExperience($id, $this->user_id);
+        }
+
         public function fetchUserLinks() {
             if($this->session->check('user_logged') == false) {
                 exit();

@@ -103,10 +103,10 @@
             </div>
 
             <div>
-                <EditHeader :is-edit-mode="true" @edit="isEditMode = true">Doświadczenie</EditHeader>
+                <EditHeader :is-edit-mode="true" @edit="isModalVisible = true; modalType = 3;">Doświadczenie</EditHeader>
                 <hr>
 
-                <UserExperience />
+                <UserExperience :is-edit-mode="false" />
             </div>
 
             
