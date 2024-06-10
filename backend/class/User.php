@@ -69,6 +69,17 @@
             }
         }
 
+        protected function setLanguage($data, $user_id) {
+            $sql = "INSERT INTO languages (language, level, user_id) VALUES (?, ?, ?)"; 
+            $stmt = $this->connect()->prepare($sql);
+
+            if($stmt->execute([$data['language'], $data['level'], $user_id])) {
+                return $data;
+            } else {
+                return false;
+            }
+        }
+
         protected function removeSkill($id, $user_id) {
             $sql = "DELETE FROM skills WHERE skill_id = ? AND user_id = ?"; 
             $stmt = $this->connect()->prepare($sql);
@@ -112,6 +123,17 @@
 
         protected function removeExperience($id, $user_id) {
             $sql = "DELETE FROM doswiadczenie WHERE doswiadczenie_id = ? AND uzytkownik_id = ?"; 
+            $stmt = $this->connect()->prepare($sql);
+
+            if($stmt->execute([$id, $user_id])) {
+                return $id;
+            } else {
+                return false;
+            }
+        }
+
+        protected function removeLanguage($id, $user_id) {
+            $sql = "DELETE FROM languages WHERE language_id = ? AND user_id = ?"; 
             $stmt = $this->connect()->prepare($sql);
 
             if($stmt->execute([$id, $user_id])) {

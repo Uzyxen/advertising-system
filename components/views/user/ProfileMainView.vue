@@ -6,7 +6,10 @@
         </EditDescription>
         <EditSkills v-if="modalType === 2" :skills="userSkills" @added="(value) => { userSkills.push({ skill: value }) }" />
         <EditExperience v-if="modalType === 3" :experience="userExperience" />
-        <EditLanguages v-if="modalType === 4"/>
+        <EditLanguages v-if="modalType === 4" 
+            :languages="userLanguages" 
+            @deleted="(id) => userLanguages = userLanguages.filter(language => language.language_id !== id)"
+            @created="(element) => userLanguages.push(element)"/>
     </ModalBlock>
 
     <Transition>

@@ -23,6 +23,7 @@
         background-color: var(--asc-bg-alt);
         padding: 10px;
         border-left: 10px solid var(--asc-bg-border-alt);
+        box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.15);
         position: relative;
     }
 
