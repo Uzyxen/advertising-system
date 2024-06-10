@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Cze 10, 2024 at 04:54 PM
+-- Generation Time: Cze 10, 2024 at 11:30 PM
 -- Wersja serwera: 10.4.32-MariaDB
 -- Wersja PHP: 8.2.12
 
@@ -91,8 +91,7 @@ CREATE TABLE `doswiadczenie` (
 --
 
 INSERT INTO `doswiadczenie` (`doswiadczenie_id`, `data_poczatek`, `data_koniec`, `stanowisko`, `opis`, `firma`, `lokalizacja`, `uzytkownik_id`) VALUES
-(1, '2024-05-01', '2024-05-23', 'Mid vuejs developer', 'Pracowałem przez jakiś czas jako mid vuejs developer.', 'Gizlomar', 'Kraków', 30),
-(2, '2020-05-07', '2024-05-16', 'junior vue.js developer', 'Pracowałem przez 4 lata jako junior vue developer', 'Molekin', 'Warszawa', 30);
+(5, '2024-06-01', '2024-06-10', 'Vuejs developer', 'bfqwgbf wiqobf ouqiwbf oqwb fqwof qw', 'Gizlomar', 'Limanowa', 30);
 
 -- --------------------------------------------------------
 
@@ -117,15 +116,36 @@ INSERT INTO `duties` (`duty_id`, `duty`, `offer_id`) VALUES
 (22, 'obowiązek 4', 158),
 (23, 'eqweqw', 159),
 (24, 'ewqeqweqweqw', 159),
-(28, 'wqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwe', 161),
-(29, 'wqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwe', 161),
-(30, 'wqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwe', 161),
 (31, ' qweqweqweqweqwe aqwe qawd', 162),
 (32, ' qweqweqweqweqwe aqwe qawd qweqweqweqweqwe aqwe qawd', 162),
 (33, ' qweqweqweqweqwe aqwe qawd', 162),
 (34, ' qweqweqweqweqwe aqwe qawd qweqweqweqweqwe aqwe qawd', 162),
 (35, 'qweqwe qweqw eqw eqw e eqw', 163),
 (36, 'qwe qwe qwee qwe qwqwe qwe', 163);
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `education`
+--
+
+CREATE TABLE `education` (
+  `education_id` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `location` varchar(30) NOT NULL,
+  `level` varchar(20) NOT NULL,
+  `specialization` varchar(50) NOT NULL,
+  `start_date` date NOT NULL,
+  `end_date` date DEFAULT NULL,
+  `user_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `education`
+--
+
+INSERT INTO `education` (`education_id`, `name`, `location`, `level`, `specialization`, `start_date`, `end_date`, `user_id`) VALUES
+(1, 'ZSTiO', 'Limanowa', 'Średnie', 'programista', '2020-06-03', '2024-06-10', 30);
 
 -- --------------------------------------------------------
 
@@ -234,6 +254,48 @@ CREATE TABLE `konwersacje` (
 -- --------------------------------------------------------
 
 --
+-- Struktura tabeli dla tabeli `languages`
+--
+
+CREATE TABLE `languages` (
+  `language_id` int(11) NOT NULL,
+  `language` varchar(30) NOT NULL,
+  `level` varchar(20) NOT NULL,
+  `user_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `languages`
+--
+
+INSERT INTO `languages` (`language_id`, `language`, `level`, `user_id`) VALUES
+(4, 'Polski', 'Ojczysty', 30),
+(6, 'Angielski', 'zaawansowany', 30),
+(10, 'Niemiecki', 'komunikatywny', 30);
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `links`
+--
+
+CREATE TABLE `links` (
+  `link_id` int(11) NOT NULL,
+  `link` varchar(30) NOT NULL,
+  `link_url` varchar(500) NOT NULL,
+  `user_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `links`
+--
+
+INSERT INTO `links` (`link_id`, `link`, `link_url`, `user_id`) VALUES
+(1, 'Github', 'https://github.com/Uzyxen/', 30);
+
+-- --------------------------------------------------------
+
+--
 -- Struktura tabeli dla tabeli `notifications`
 --
 
@@ -266,6 +328,7 @@ CREATE TABLE `offers` (
   `tytul` varchar(100) NOT NULL,
   `opis` varchar(1000) NOT NULL,
   `umowa` varchar(50) NOT NULL,
+  `job_level` varchar(30) NOT NULL,
   `employment_type` varchar(20) NOT NULL,
   `job_mode` varchar(20) NOT NULL,
   `lokalizacja` varchar(50) NOT NULL,
@@ -281,12 +344,11 @@ CREATE TABLE `offers` (
 -- Dumping data for table `offers`
 --
 
-INSERT INTO `offers` (`ogloszenie_id`, `zdjecie_url`, `tytul`, `opis`, `umowa`, `employment_type`, `job_mode`, `lokalizacja`, `wynagrodzenie_min`, `wynagrodzenie_max`, `czestotliwosc_wynagrodzenia`, `data_dodania`, `kategoria_id`, `firma_id`) VALUES
-(158, 'obraz_2024-06-02_203348043.png', 'vuejs developer', 'qwrqweqweqweqweqw', 'umowa o pracę', '', '', 'Kraków', 12000, 16000, 'miesiąc', '2024-06-02', 1, 6),
-(159, 'obraz_2024-06-02_203348043.png', 'qew', 'eqweqweqw', 'umowa o pracę', '', '', 'eqweqweqweqw', 123, 123312, 'miesiąc', '2024-06-02', 1, 6),
-(161, 'gizlomar.png', 'vuejs developer', 'wqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwe', 'kontrakt B2B', '', '', 'Limanowa', 12000, 16000, 'miesiąc', '2024-06-05', 1, 5),
-(162, 'gizlomar.png', 'Vuejs developer', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\n\n\nLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letr', 'umowa o pracę', 'pełny etat', '', 'Warszawa', 25000, 35000, 'miesiąc', '2024-06-06', 1, 5),
-(163, 'gizlomar.png', 'junior vuejs developer', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\n\n', 'kontrakt B2B', 'pełny etat', 'praca stacjonarna', 'Kraków', 7000, 8000, 'miesiąc', '2024-06-06', 1, 5);
+INSERT INTO `offers` (`ogloszenie_id`, `zdjecie_url`, `tytul`, `opis`, `umowa`, `job_level`, `employment_type`, `job_mode`, `lokalizacja`, `wynagrodzenie_min`, `wynagrodzenie_max`, `czestotliwosc_wynagrodzenia`, `data_dodania`, `kategoria_id`, `firma_id`) VALUES
+(158, 'obraz_2024-06-02_203348043.png', 'vuejs developer', 'qwrqweqweqweqweqw', 'umowa o pracę', 'starszy specjalista', '', '', 'Kraków', 12000, 16000, 'miesiąc', '2024-06-02', 1, 6),
+(159, 'obraz_2024-06-02_203348043.png', 'qew', 'eqweqweqw', 'umowa o pracę', 'starszy specjalista', '', '', 'eqweqweqweqw', 123, 123312, 'miesiąc', '2024-06-02', 1, 6),
+(162, 'gizlomar.png', 'Vuejs developer', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\n\n\nLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letr', 'umowa o pracę', 'starszy specjalista', 'pełny etat', 'Praca zdalna', 'Warszawa', 25000, 35000, 'miesiąc', '2024-06-06', 1, 5),
+(163, 'gizlomar.png', 'junior vuejs developer', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\n\n', 'kontrakt B2B', 'asystent', 'pełny etat', 'praca stacjonarna', 'Kraków', 7000, 8000, 'miesiąc', '2024-06-06', 1, 5);
 
 -- --------------------------------------------------------
 
@@ -335,9 +397,6 @@ INSERT INTO `requirements` (`requirement_id`, `requirement`, `offer_id`) VALUES
 (8, 'wymóg', 158),
 (9, 'ewqeqweqw', 159),
 (10, 'eqweqweqw', 159),
-(14, 'wqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwe', 161),
-(15, 'wqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwe', 161),
-(16, 'wqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwe', 161),
 (17, ' qweqweqweqweqwe aqwe qawd qweqweqweqweqwe aqwe qawd', 162),
 (18, ' qweqweqweqweqwe aqwe qawd qweqweqweqweqwe aqwe qawd', 162),
 (19, ' qweqweqweqweqwe aqwe qawd', 162),
@@ -390,7 +449,8 @@ INSERT INTO `skills` (`skill_id`, `skill`, `user_id`) VALUES
 (109, 'HTML', 31),
 (110, 'CSS', 31),
 (111, 'Nuxt', 31),
-(112, 'Nuxt.js', 30);
+(112, 'Nuxt.js', 30),
+(113, 'Nitro.js', 30);
 
 -- --------------------------------------------------------
 
@@ -470,7 +530,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`uzytkownik_id`, `image_url`, `login`, `imie`, `nazwisko`, `opis`, `numer_telefonu`, `email`, `stanowisko`, `status`, `wiek`, `kraj`, `password`, `is_private`) VALUES
-(30, 'gizlomar.png', '', 'Bonifacy', 'Borucki', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\n\nLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\n', '518-242-045', 'bonifacyborucki123@gmail.com', 'Mid vuejs developer', 'bezrobotny', 24, 'Polska', '$2y$10$Qw4/SAmZdINGryn.qFGfzunx.xjLQKaMZl.g3CAwTNz0znNp0aRDm', 0),
+(30, 'gizlomar.png', '', 'Bonifacy', 'Borucki', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\n\nLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\n', '123-456-789', 'bonifacyborucki123@gmail.com', 'Mid vuejs developer', 'bezrobotny', 24, 'Polska', '$2y$10$Qw4/SAmZdINGryn.qFGfzunx.xjLQKaMZl.g3CAwTNz0znNp0aRDm', 0),
 (31, '', '', 'Michał', 'Giromański', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\n\nLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\n\n', '123-456-789', 'michal912456@gmail.com', 'Vuejs developer', '', 18, 'Polska', '$2y$10$Mfd4wSbkq3PQdyvX70/fleMWRvy/Zy91OBSjyFhNt3KOOlH06Fm86', 1);
 
 -- --------------------------------------------------------
@@ -532,6 +592,13 @@ ALTER TABLE `duties`
   ADD KEY `offer_id` (`offer_id`);
 
 --
+-- Indeksy dla tabeli `education`
+--
+ALTER TABLE `education`
+  ADD PRIMARY KEY (`education_id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
 -- Indeksy dla tabeli `employment_types`
 --
 ALTER TABLE `employment_types`
@@ -564,6 +631,20 @@ ALTER TABLE `konwersacje`
   ADD KEY `uczestnik_2` (`uzytkownik_id`);
 
 --
+-- Indeksy dla tabeli `languages`
+--
+ALTER TABLE `languages`
+  ADD PRIMARY KEY (`language_id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
+-- Indeksy dla tabeli `links`
+--
+ALTER TABLE `links`
+  ADD PRIMARY KEY (`link_id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
 -- Indeksy dla tabeli `notifications`
 --
 ALTER TABLE `notifications`
@@ -577,7 +658,8 @@ ALTER TABLE `notifications`
 ALTER TABLE `offers`
   ADD PRIMARY KEY (`ogloszenie_id`),
   ADD KEY `firma_id` (`firma_id`),
-  ADD KEY `kategoria_id` (`kategoria_id`);
+  ADD KEY `kategoria_id` (`kategoria_id`),
+  ADD KEY `job_level_id` (`job_level`);
 
 --
 -- Indeksy dla tabeli `ogloszenia_uzytkownikow`
@@ -660,13 +742,19 @@ ALTER TABLE `companies`
 -- AUTO_INCREMENT for table `doswiadczenie`
 --
 ALTER TABLE `doswiadczenie`
-  MODIFY `doswiadczenie_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `doswiadczenie_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `duties`
 --
 ALTER TABLE `duties`
   MODIFY `duty_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+
+--
+-- AUTO_INCREMENT for table `education`
+--
+ALTER TABLE `education`
+  MODIFY `education_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `employment_types`
@@ -697,6 +785,18 @@ ALTER TABLE `kategorie`
 --
 ALTER TABLE `konwersacje`
   MODIFY `konwersacja_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT for table `languages`
+--
+ALTER TABLE `languages`
+  MODIFY `language_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `links`
+--
+ALTER TABLE `links`
+  MODIFY `link_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `notifications`
@@ -732,7 +832,7 @@ ALTER TABLE `sessions`
 -- AUTO_INCREMENT for table `skills`
 --
 ALTER TABLE `skills`
-  MODIFY `skill_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=113;
+  MODIFY `skill_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=114;
 
 --
 -- AUTO_INCREMENT for table `technologies`
@@ -781,11 +881,29 @@ ALTER TABLE `duties`
   ADD CONSTRAINT `duties_ibfk_1` FOREIGN KEY (`offer_id`) REFERENCES `offers` (`ogloszenie_id`) ON DELETE CASCADE;
 
 --
+-- Constraints for table `education`
+--
+ALTER TABLE `education`
+  ADD CONSTRAINT `education_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`uzytkownik_id`);
+
+--
 -- Constraints for table `konwersacje`
 --
 ALTER TABLE `konwersacje`
   ADD CONSTRAINT `konwersacje_ibfk_1` FOREIGN KEY (`uzytkownik_id`) REFERENCES `users` (`uzytkownik_id`),
   ADD CONSTRAINT `konwersacje_ibfk_2` FOREIGN KEY (`firma_id`) REFERENCES `companies` (`company_id`);
+
+--
+-- Constraints for table `languages`
+--
+ALTER TABLE `languages`
+  ADD CONSTRAINT `languages_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`uzytkownik_id`);
+
+--
+-- Constraints for table `links`
+--
+ALTER TABLE `links`
+  ADD CONSTRAINT `links_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`uzytkownik_id`);
 
 --
 -- Constraints for table `notifications`
