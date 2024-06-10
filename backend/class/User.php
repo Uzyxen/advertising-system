@@ -141,5 +141,15 @@
 
             return $result;
         }
+
+        protected function getUserLanguages($user_id) {
+            $sql = "SELECT * FROM languages WHERE user_id = ?"; 
+            $stmt = $this->connect()->prepare($sql);
+
+            $stmt->execute([$user_id]);
+            $result = $stmt->fetchAll();
+
+            return $result;
+        }
     }
 ?>

@@ -6,6 +6,7 @@
         </EditDescription>
         <EditSkills v-if="modalType === 2" :skills="userSkills" @added="(value) => { userSkills.push({ skill: value }) }" />
         <EditExperience v-if="modalType === 3" :experience="userExperience" />
+        <EditLanguages v-if="modalType === 4"/>
     </ModalBlock>
 
     <Transition>
@@ -125,11 +126,11 @@
 
     <section id="right-side">
         <div id="languages">
-            <EditHeader :is-edit-mode="true" style="font-size: 20px;">Języki</EditHeader>
+            <EditHeader :is-edit-mode="true" @edit="isModalVisible = true; modalType = 4" style="font-size: 20px;">Języki</EditHeader>
             <hr>
 
-            <div v-for="language in languages">
-                <h4>{{ language.lang }}</h4>
+            <div v-for="language in userLanguages">
+                <h4>{{ language.language }}</h4>
                 <h4>{{ language.level }}</h4>
             </div>
         </div>
@@ -154,7 +155,7 @@
     const { data: userSkills } = await useFetch('http://localhost/advertising-system/backend/api/user/GetUserSkills.php', { credentials: 'include', responseType: 'json', method: 'post' });
     const { data: userLinks } = await useFetch('http://localhost/advertising-system/backend/api/user/GetUserLinks.php', { credentials: 'include', responseType: 'json', method: 'post' });
     const { data: userEducation } = await useFetch('http://localhost/advertising-system/backend/api/user/GetUserEducation.php', { credentials: 'include', responseType: 'json', method: 'post' });
-
+    const { data: userLanguages } = await useFetch('http://localhost/advertising-system/backend/api/user/GetUserLanguages.php', { credentials: 'include', responseType: 'json', method: 'post' });
     // --------
     // data
 
@@ -166,12 +167,6 @@
         age: userData.value.wiek,
         phoneNumber: userData.value.numer_telefonu
     });
-
-    const languages = ref([
-        { lang: 'Polski', level: 'Ojczysty' },
-        { lang: 'Angielski', level: 'Zaawansowany' },
-        { lang: 'Niemiecki', level: 'Komunikatywny' }
-    ]);
 
     const isModalVisible = ref(false);
     const modalType = ref(0);
