@@ -58,6 +58,17 @@
             return false;
         }
 
+        protected function setExperience($data, $user_id) {
+            $sql = "INSERT INTO doswiadczenie (data_poczatek, data_koniec, stanowisko, opis, firma, lokalizacja, uzytkownik_id) VALUES (?, ?, ?, ?, ?, ?, ?)"; 
+            $stmt = $this->connect()->prepare($sql);
+
+            if($stmt->execute([$data['date_start'], $data['date_end'], $data['position'], $data['description'], $data['company'], $data['location'], $user_id])) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
         protected function removeSkill($id, $user_id) {
             $sql = "DELETE FROM skills WHERE skill_id = ? AND user_id = ?"; 
             $stmt = $this->connect()->prepare($sql);
