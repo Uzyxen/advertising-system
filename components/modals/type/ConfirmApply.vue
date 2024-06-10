@@ -22,7 +22,8 @@
                 </h3>
 
                 <h5>
-                    <span>{{ userData.email }}</span> • <span>{{ userData.numer_telefonu }}</span>
+                    <span>{{ userData.email }}</span>
+                    <span>{{ userData.numer_telefonu }}</span>
                 </h5>
             </div>
         </section>
@@ -176,10 +177,10 @@
 
     div > h5 {
         display: flex;
-        gap: 10px;
         font-size: 14px;
         margin-bottom: 15px;
-        align-items: center;
+        flex-direction: column;
+        gap: 5px;
     }
 
     input.error {

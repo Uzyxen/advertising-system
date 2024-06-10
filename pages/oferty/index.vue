@@ -3,19 +3,43 @@
 
     <SectionTitle id="title">Oferty</SectionTitle>
     <section>
-        <Filters />
+        <Filters @selected="addFilter" @unselected="removeFilter" />
         <div id="offers-flex">
             <OfferSort @loading="loading = true" @selection-changed="(id) => selected = id" />
-            <OffersList :edit-mode="false" :offers="offers" :sort-method="selected" />
+            <OffersList :edit-mode="false" :offers="filtered_offers" :sort-method="selected" />
         </div>
     </section>
+
+    {{ filters.length }}
 </template>
 
 <script setup>
     const loading = ref(false);
     const selected = ref();
+    const filters = ref([]);
     
     const { data: offers } = await useFetch('http://localhost/advertising-system/backend/api/offer/GetOffers.php', { responseType: 'json', method: 'post' });
+
+    const filtered_offers = ref();
+    filtered_offers.value = offers.value;
+
+    function addFilter(name) {
+        filters.value.push(name);
+        filtered_offers.value = offers.value.filter(offer => filters.value.includes(offer.job_level));
+    }
+
+    function removeFilter(name) {
+        const index = filters.value.indexOf(name);
+
+        if(index !== -1) {
+            filters.value.splice(index, 1);
+            filtered_offers.value = offers.value.filter(offer => filters.value.includes(offer.job_level));
+
+            if(filters.value.length <= 0) {
+                filtered_offers.value = offers.value;
+            }
+        }
+    }
 </script>
 
 <style scoped>

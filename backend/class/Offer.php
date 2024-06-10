@@ -21,7 +21,7 @@
             $l_stmt = $this->connect()->prepare('SET lc_time_names = "pl_PL"');
             $l_stmt->execute();
 
-            $sql = 'SELECT zdjecie_url, ogloszenie_id, tytul, opis, umowa, lokalizacja, wynagrodzenie_min, wynagrodzenie_max, czestotliwosc_wynagrodzenia, DATE_FORMAT(data_dodania, "%e %M %Y") AS data_dodania, data_dodania AS data_sort, (SELECT nazwa_firmy FROM companies WHERE company_id = offers.firma_id) AS firma FROM offers';
+            $sql = 'SELECT zdjecie_url, ogloszenie_id, tytul, opis, umowa, job_level, lokalizacja, wynagrodzenie_min, wynagrodzenie_max, czestotliwosc_wynagrodzenia, DATE_FORMAT(data_dodania, "%e %M %Y") AS data_dodania, data_dodania AS data_sort, (SELECT nazwa_firmy FROM companies WHERE company_id = offers.firma_id) AS firma FROM offers';
             $stmt = $this->connect()->prepare($sql);
 
             $stmt->execute();

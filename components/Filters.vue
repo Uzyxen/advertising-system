@@ -13,7 +13,7 @@
 
             <KeepAlive>
                 <FilterDropdown v-if="filter.isDropdownVisible">
-                    <FilterElement v-for="filter_element in filter.filter_elements" @select="filter.numberOfSelected++" @unselect="filter.numberOfSelected--">
+                    <FilterElement v-for="filter_element in filter.filter_elements" @select="filter.numberOfSelected++; $emit('selected', filter_element.name)" @unselect="filter.numberOfSelected--; $emit('unselected', filter_element.name)">
                         {{ filter_element.name }}
                     </FilterElement>
                 </FilterDropdown>
