@@ -38,7 +38,7 @@
     });
 
     async function addLanguage() {
-        if(newLanguage.value.language !== '') {
+        if(newLanguage.value.   language !== '') {
             const response = await $fetch('http://localhost/advertising-system/backend/api/user/SetUserLanguage.php', { method: 'post', credentials: 'include', responseType: 'json', body: { 'data': newLanguage.value } });
 
             if(response) {
