@@ -17,7 +17,7 @@
         <div id="blur-circle"></div>
 
         <div id="register-box">
-            <h4>dla firm</h4>
+            <h4 style="text-align: center;">Dla firm</h4>
             <h2>Zarejestruj się</h2>
 
             <form @submit.prevent="Register" method="post">

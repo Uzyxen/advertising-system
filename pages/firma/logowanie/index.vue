@@ -2,7 +2,7 @@
     <div id="root">
         <div id="blur-circle"></div>
         <div id="login-box">
-            <h4>Dla firm</h4>
+            <h4 style="text-align: center;">Dla firm</h4>
             <h2>Zaloguj się do portalu</h2>
             <span class="error">{{ error_message }}</span>
 
