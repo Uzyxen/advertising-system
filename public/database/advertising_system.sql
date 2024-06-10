@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Maj 20, 2024 at 07:38 AM
+-- Generation Time: Cze 10, 2024 at 04:54 PM
 -- Wersja serwera: 10.4.32-MariaDB
 -- Wersja PHP: 8.2.12
 
@@ -31,7 +31,7 @@ CREATE TABLE `applications` (
   `application_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `offer_id` int(11) NOT NULL,
-  `status` enum('oczekująca','odrzucona','zaakceptowana') NOT NULL
+  `status` enum('oczekująca','odrzucona','zatwierdzona') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -39,11 +39,9 @@ CREATE TABLE `applications` (
 --
 
 INSERT INTO `applications` (`application_id`, `user_id`, `offer_id`, `status`) VALUES
-(13, 30, 8, 'odrzucona'),
-(14, 30, 9, 'oczekująca'),
-(15, 30, 65, 'zaakceptowana'),
-(16, 30, 64, 'oczekująca'),
-(17, 30, 70, 'oczekująca');
+(61, 30, 159, 'zatwierdzona'),
+(62, 30, 158, 'odrzucona'),
+(64, 30, 160, 'zatwierdzona');
 
 -- --------------------------------------------------------
 
@@ -56,19 +54,20 @@ CREATE TABLE `companies` (
   `zdjecie_url` varchar(255) NOT NULL,
   `nazwa_firmy` varchar(90) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `haslo` varchar(40) NOT NULL,
-  `NIP` varchar(10) NOT NULL
+  `country` varchar(20) NOT NULL,
+  `remote` tinyint(1) NOT NULL,
+  `description` varchar(1000) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `NIP` varchar(13) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `companies`
 --
 
-INSERT INTO `companies` (`company_id`, `zdjecie_url`, `nazwa_firmy`, `email`, `haslo`, `NIP`) VALUES
-(1, 'makolab.png', 'MakoLab', 'makolab@gmail.com', 'makomako', '1234567891'),
-(2, 'softiq.png', 'SOFTIQ SOFTWARE HOUSE', '', '', '2345215215'),
-(3, 'poloenergia.png', 'Polenergia Fotowoltaika S.A.', 'polo@gmail.com', 'polo', '2345215215'),
-(4, 'tmobile.png', 'T-Mobile', '', '', '2345215215');
+INSERT INTO `companies` (`company_id`, `zdjecie_url`, `nazwa_firmy`, `email`, `country`, `remote`, `description`, `password`, `NIP`) VALUES
+(5, 'gizlomar.png', 'gizlomar', 'qwe@gmail.com', 'Polska', 1, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\n\nLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letra', '$2y$10$1wI/XhIes67/tg2NrXn6H.mnvMmjIga1meSs90weRiU6KjgvxmW3m', '123-456-12-92'),
+(6, 'obraz_2024-06-02_203348043.png', 'Axos', 'firma@gmail.com', 'Polska', 0, 'firma IT', '$2y$10$LZBDzhhUJTcWzjmSj11ab.sOstB39IcDvxVdFp8GeNUfhICf8lbA6', '123-123-12-12');
 
 -- --------------------------------------------------------
 
@@ -94,6 +93,61 @@ CREATE TABLE `doswiadczenie` (
 INSERT INTO `doswiadczenie` (`doswiadczenie_id`, `data_poczatek`, `data_koniec`, `stanowisko`, `opis`, `firma`, `lokalizacja`, `uzytkownik_id`) VALUES
 (1, '2024-05-01', '2024-05-23', 'Mid vuejs developer', 'Pracowałem przez jakiś czas jako mid vuejs developer.', 'Gizlomar', 'Kraków', 30),
 (2, '2020-05-07', '2024-05-16', 'junior vue.js developer', 'Pracowałem przez 4 lata jako junior vue developer', 'Molekin', 'Warszawa', 30);
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `duties`
+--
+
+CREATE TABLE `duties` (
+  `duty_id` int(11) NOT NULL,
+  `duty` varchar(255) NOT NULL,
+  `offer_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `duties`
+--
+
+INSERT INTO `duties` (`duty_id`, `duty`, `offer_id`) VALUES
+(19, 'obowiazek 1', 158),
+(20, 'obowiązek 2', 158),
+(21, 'obowiązek 3', 158),
+(22, 'obowiązek 4', 158),
+(23, 'eqweqw', 159),
+(24, 'ewqeqweqweqw', 159),
+(28, 'wqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwe', 161),
+(29, 'wqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwe', 161),
+(30, 'wqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwe', 161),
+(31, ' qweqweqweqweqwe aqwe qawd', 162),
+(32, ' qweqweqweqweqwe aqwe qawd qweqweqweqweqwe aqwe qawd', 162),
+(33, ' qweqweqweqweqwe aqwe qawd', 162),
+(34, ' qweqweqweqweqwe aqwe qawd qweqweqweqweqwe aqwe qawd', 162),
+(35, 'qweqwe qweqw eqw eqw e eqw', 163),
+(36, 'qwe qwe qwee qwe qwqwe qwe', 163);
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `employment_types`
+--
+
+CREATE TABLE `employment_types` (
+  `employment_type_id` int(11) NOT NULL,
+  `name` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `employment_types`
+--
+
+INSERT INTO `employment_types` (`employment_type_id`, `name`) VALUES
+(1, 'pełny etat'),
+(2, 'część etatu'),
+(3, 'praca dodatkowa'),
+(4, 'praca dorywcza'),
+(5, 'praca sezonowa');
 
 -- --------------------------------------------------------
 
@@ -126,19 +180,40 @@ INSERT INTO `job_levels` (`job_level_id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Struktura tabeli dla tabeli `job_modes`
+--
+
+CREATE TABLE `job_modes` (
+  `job_mode_id` int(11) NOT NULL,
+  `name` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `job_modes`
+--
+
+INSERT INTO `job_modes` (`job_mode_id`, `name`) VALUES
+(1, 'praca stacjonarna'),
+(2, 'praca hybrydowa'),
+(3, 'praca zdalna'),
+(4, 'praca mobilna');
+
+-- --------------------------------------------------------
+
+--
 -- Struktura tabeli dla tabeli `kategorie`
 --
 
 CREATE TABLE `kategorie` (
   `kategoria_id` int(11) NOT NULL,
-  `nazwa` varchar(30) NOT NULL
+  `name` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `kategorie`
 --
 
-INSERT INTO `kategorie` (`kategoria_id`, `nazwa`) VALUES
+INSERT INTO `kategorie` (`kategoria_id`, `name`) VALUES
 (1, 'IT'),
 (2, 'Marketing'),
 (3, 'Praca zdalna');
@@ -159,15 +234,40 @@ CREATE TABLE `konwersacje` (
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `ogloszenia_firm`
+-- Struktura tabeli dla tabeli `notifications`
 --
 
-CREATE TABLE `ogloszenia_firm` (
+CREATE TABLE `notifications` (
+  `notification_id` int(11) NOT NULL,
+  `title` varchar(150) NOT NULL,
+  `description` varchar(1500) NOT NULL,
+  `notification_date` datetime NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `company_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `notifications`
+--
+
+INSERT INTO `notifications` (`notification_id`, `title`, `description`, `notification_date`, `user_id`, `company_id`) VALUES
+(7, 'Gratulację!', 'Firma zaakceptowała twoją aplikację i wkrótce się z Tobą skontaktuje!', '2024-06-03 20:24:40', 30, NULL),
+(8, 'Ogłoszenie, na które aplikujesz niedługo wygasa!', 'Informujemy, że ogłoszenie, na które aplikujesz wkrótce wygaśnie ', '2024-06-03 20:53:53', 30, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `offers`
+--
+
+CREATE TABLE `offers` (
   `ogloszenie_id` int(11) NOT NULL,
   `zdjecie_url` varchar(255) NOT NULL,
   `tytul` varchar(100) NOT NULL,
   `opis` varchar(1000) NOT NULL,
-  `umowa` varchar(10) NOT NULL,
+  `umowa` varchar(50) NOT NULL,
+  `employment_type` varchar(20) NOT NULL,
+  `job_mode` varchar(20) NOT NULL,
   `lokalizacja` varchar(50) NOT NULL,
   `wynagrodzenie_min` int(11) NOT NULL,
   `wynagrodzenie_max` int(11) NOT NULL,
@@ -178,41 +278,15 @@ CREATE TABLE `ogloszenia_firm` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `ogloszenia_firm`
+-- Dumping data for table `offers`
 --
 
-INSERT INTO `ogloszenia_firm` (`ogloszenie_id`, `zdjecie_url`, `tytul`, `opis`, `umowa`, `lokalizacja`, `wynagrodzenie_min`, `wynagrodzenie_max`, `czestotliwosc_wynagrodzenia`, `data_dodania`, `kategoria_id`, `firma_id`) VALUES
-(8, 'makolab_offer.png', 'vuejs developer', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\r\n\r\n', 'B2B', 'Limanowa', 12000, 16000, 'mies.', '2024-01-12', 1, 1),
-(9, 'softiq.png', 'react developer', 'dość głupek robiący w tym co popularne i powtarzający jak małpa że react jest super', 'B2C', 'Kraków', 5000, 6000, '', '2024-01-12', 1, 2),
-(64, 'makolab_offer.png', 'Oferta pracy 1', 'Opis oferty pracy 1', 'Umowa o pr', 'Lokalizacja 1', 3000, 5000, '', '2023-01-01', 1, 1),
-(65, 'makolab_offer.png', 'Oferta pracy 2', 'Opis oferty pracy 2', 'Umowa o pr', 'Lokalizacja 2', 3500, 5500, '', '2023-01-02', 1, 1),
-(66, 'softiq.png', 'Oferta pracy 3', 'Opis oferty pracy 3', 'Umowa o pr', 'Lokalizacja 3', 4000, 6000, '', '2023-01-03', 1, 2),
-(67, 'softiq.png', 'Oferta pracy 3', 'Opis oferty pracy 3', 'Umowa o pr', 'Lokalizacja 3', 4000, 6000, '', '2023-01-03', 1, 2),
-(68, 'softiq.png', 'Oferta pracy 3', 'Opis oferty pracy 3', 'Umowa o pr', 'Lokalizacja 3', 4000, 6000, '', '2023-01-03', 1, 2),
-(69, 'softiq.png', 'Oferta pracy 3', 'Opis oferty pracy 3', 'Umowa o pr', 'Lokalizacja 3', 4000, 6000, '', '2023-01-03', 1, 2),
-(70, 'softiq.png', 'Oferta pracy 3', 'Opis oferty pracy 3', 'Umowa o pr', 'Lokalizacja 3', 4000, 6000, '', '2023-01-03', 1, 2),
-(71, 'softiq.png', 'Oferta pracy 3', 'Opis oferty pracy 3', 'Umowa o pr', 'Lokalizacja 3', 4000, 6000, '', '2023-01-03', 1, 2),
-(72, 'softiq.png', 'Oferta pracy 3', 'Opis oferty pracy 3', 'Umowa o pr', 'Lokalizacja 3', 4000, 6000, '', '2023-01-03', 1, 2),
-(73, 'softiq.png', 'Oferta pracy 3', 'Opis oferty pracy 3', 'Umowa o pr', 'Lokalizacja 3', 4000, 6000, '', '2023-01-03', 1, 2),
-(74, 'softiq.png', 'Oferta pracy 3', 'Opis oferty pracy 3', 'Umowa o pr', 'Lokalizacja 3', 4000, 6000, '', '2023-01-03', 1, 2),
-(75, 'softiq.png', 'Oferta pracy 3', 'Opis oferty pracy 3', 'Umowa o pr', 'Lokalizacja 3', 4000, 6000, '', '2023-01-03', 1, 2),
-(76, 'softiq.png', 'Oferta pracy 3', 'Opis oferty pracy 3', 'Umowa o pr', 'Lokalizacja 3', 4000, 6000, '', '2023-01-03', 1, 2),
-(77, 'softiq.png', 'Oferta pracy 3', 'Opis oferty pracy 3', 'Umowa o pr', 'Lokalizacja 3', 4000, 6000, '', '2023-01-03', 1, 2),
-(78, 'softiq.png', 'Oferta pracy 3', 'Opis oferty pracy 3', 'Umowa o pr', 'Lokalizacja 3', 4000, 6000, '', '2023-01-03', 1, 2),
-(79, 'softiq.png', 'Oferta pracy 3', 'Opis oferty pracy 3', 'Umowa o pr', 'Lokalizacja 3', 4000, 6000, '', '2023-01-03', 1, 2),
-(80, 'softiq.png', 'Oferta pracy 3', 'Opis oferty pracy 3', 'Umowa o pr', 'Lokalizacja 3', 4000, 6000, '', '2023-01-03', 1, 2),
-(81, 'softiq.png', 'Oferta pracy 3', 'Opis oferty pracy 3', 'Umowa o pr', 'Lokalizacja 3', 4000, 6000, '', '2023-01-03', 1, 2),
-(82, 'softiq.png', 'Oferta pracy 3', 'Opis oferty pracy 3', 'Umowa o pr', 'Lokalizacja 3', 4000, 6000, '', '2023-01-03', 1, 2),
-(83, 'softiq.png', 'Oferta pracy 3', 'Opis oferty pracy 3', 'Umowa o pr', 'Lokalizacja 3', 4000, 6000, '', '2023-01-03', 1, 2),
-(84, 'softiq.png', 'Oferta pracy 3', 'Opis oferty pracy 3', 'Umowa o pr', 'Lokalizacja 3', 4000, 6000, '', '2023-01-03', 1, 2),
-(85, 'softiq.png', 'Oferta pracy 3', 'Opis oferty pracy 3', 'Umowa o pr', 'Lokalizacja 3', 4000, 6000, '', '2023-01-03', 1, 2),
-(86, 'softiq.png', 'Oferta pracy 3', 'Opis oferty pracy 3', 'Umowa o pr', 'Lokalizacja 3', 4000, 6000, '', '2023-01-03', 1, 2),
-(87, 'softiq.png', 'Oferta pracy 3', 'Opis oferty pracy 3', 'Umowa o pr', 'Lokalizacja 3', 4000, 6000, '', '2023-01-03', 1, 2),
-(88, 'softiq.png', 'Oferta pracy 3', 'Opis oferty pracy 3', 'Umowa o pr', 'Lokalizacja 3', 4000, 6000, '', '2023-01-03', 1, 2),
-(89, 'softiq.png', 'Oferta pracy 3', 'Opis oferty pracy 3', 'Umowa o pr', 'Lokalizacja 3', 4000, 6000, '', '2023-01-03', 1, 2),
-(90, 'softiq.png', 'Oferta pracy 30', 'Opis oferty pracy 30', 'Umowa o pr', 'Lokalizacja 30', 4500, 6500, '', '2023-01-30', 2, 2),
-(91, 'softiq.png', 'najwysze wnagrodzenie', 'fqwfwqfwqfwqiofbqwfibgwqfghb wqofhbqw', 'B2B', 'Limanowa', 19000, 70000, 'mies.', '2024-01-13', 1, 2),
-(92, 'makolab_offer.png', 'fqwfwqfwqfwqfwq', 'fqwfwqfqwfqwfwq', 'B2C', 'Warszawa', 40, 60, 'godz.', '2024-01-13', 3, 1);
+INSERT INTO `offers` (`ogloszenie_id`, `zdjecie_url`, `tytul`, `opis`, `umowa`, `employment_type`, `job_mode`, `lokalizacja`, `wynagrodzenie_min`, `wynagrodzenie_max`, `czestotliwosc_wynagrodzenia`, `data_dodania`, `kategoria_id`, `firma_id`) VALUES
+(158, 'obraz_2024-06-02_203348043.png', 'vuejs developer', 'qwrqweqweqweqweqw', 'umowa o pracę', '', '', 'Kraków', 12000, 16000, 'miesiąc', '2024-06-02', 1, 6),
+(159, 'obraz_2024-06-02_203348043.png', 'qew', 'eqweqweqw', 'umowa o pracę', '', '', 'eqweqweqweqw', 123, 123312, 'miesiąc', '2024-06-02', 1, 6),
+(161, 'gizlomar.png', 'vuejs developer', 'wqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwe', 'kontrakt B2B', '', '', 'Limanowa', 12000, 16000, 'miesiąc', '2024-06-05', 1, 5),
+(162, 'gizlomar.png', 'Vuejs developer', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\n\n\nLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letr', 'umowa o pracę', 'pełny etat', '', 'Warszawa', 25000, 35000, 'miesiąc', '2024-06-06', 1, 5),
+(163, 'gizlomar.png', 'junior vuejs developer', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\n\n', 'kontrakt B2B', 'pełny etat', 'praca stacjonarna', 'Kraków', 7000, 8000, 'miesiąc', '2024-06-06', 1, 5);
 
 -- --------------------------------------------------------
 
@@ -241,29 +315,108 @@ INSERT INTO `ogloszenia_uzytkownikow` (`ogloszenie_uzytkownika_id`, `zdjecie_url
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `powiadomienia`
+-- Struktura tabeli dla tabeli `requirements`
 --
 
-CREATE TABLE `powiadomienia` (
-  `powiadomienie_id` int(11) NOT NULL,
-  `tytul` varchar(150) NOT NULL,
-  `opis` varchar(1500) NOT NULL,
-  `data_powiadomienia` datetime NOT NULL,
-  `status` enum('oczekujace','zaakceptowane','odrzucone') NOT NULL,
-  `uzytkownik_id` int(11) DEFAULT NULL,
-  `firma_id` int(11) DEFAULT NULL
+CREATE TABLE `requirements` (
+  `requirement_id` int(11) NOT NULL,
+  `requirement` varchar(255) NOT NULL,
+  `offer_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `powiadomienia`
+-- Dumping data for table `requirements`
 --
 
-INSERT INTO `powiadomienia` (`powiadomienie_id`, `tytul`, `opis`, `data_powiadomienia`, `status`, `uzytkownik_id`, `firma_id`) VALUES
-(1, 'Firma gizlomar próbuje się z tobą skontakować', 'dzień dobry, w mailu wysyłamy umowe.', '2024-01-18 05:15:17', 'oczekujace', 1, NULL),
-(2, 'Masz nową wiadomość', 'Dzień dobry,\n\nwynagrodzenie podane jest w brutto czy netto?', '2024-02-18 00:00:00', 'oczekujace', NULL, 1),
-(4, 'Masz nową wiadomość', 'Jeszcze jedno pytanie, czy praca jest zdalna?', '2024-02-18 00:00:00', 'oczekujace', NULL, 1),
-(5, 'Masz nową wiadomość', 'Czy firma oferuje darmowe posiłki?', '2024-02-18 20:25:00', 'oczekujace', NULL, 1),
-(6, 'Pytanie', 'Dzień dobry, \n\njest możliwosć podwyżki?', '2024-02-18 00:47:45', 'oczekujace', NULL, 1);
+INSERT INTO `requirements` (`requirement_id`, `requirement`, `offer_id`) VALUES
+(5, 'wymóg 1', 158),
+(6, 'wymóg', 158),
+(7, 'wymóg', 158),
+(8, 'wymóg', 158),
+(9, 'ewqeqweqw', 159),
+(10, 'eqweqweqw', 159),
+(14, 'wqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwe', 161),
+(15, 'wqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwe', 161),
+(16, 'wqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwewqwwqqwe', 161),
+(17, ' qweqweqweqweqwe aqwe qawd qweqweqweqweqwe aqwe qawd', 162),
+(18, ' qweqweqweqweqwe aqwe qawd qweqweqweqweqwe aqwe qawd', 162),
+(19, ' qweqweqweqweqwe aqwe qawd', 162),
+(20, ' qweqweqweqweqwe aqwe qawd qweqweqweqweqwe aqwe qawd qweqweqweqweqwe aqwe qawd', 162),
+(21, ' qweqweqweqweqwe aqwe qawd', 162),
+(22, 'qweqweqweqweqw qwe qwe qwe qw', 163),
+(23, 'qweqw eqw eqw qwe qwe qw', 163),
+(24, 'eqweqw eqwe qwe qw', 163);
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `sessions`
+--
+
+CREATE TABLE `sessions` (
+  `session_id` int(11) NOT NULL,
+  `access` int(10) UNSIGNED DEFAULT NULL,
+  `data` text NOT NULL,
+  `id` varchar(32) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `skills`
+--
+
+CREATE TABLE `skills` (
+  `skill_id` int(11) NOT NULL,
+  `skill` varchar(50) NOT NULL,
+  `user_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `skills`
+--
+
+INSERT INTO `skills` (`skill_id`, `skill`, `user_id`) VALUES
+(35, 'Vue.js', 30),
+(36, 'Javascript', 30),
+(37, 'Typescript', 30),
+(38, 'PHP', 30),
+(39, 'HTML', 30),
+(40, 'CSS', 30),
+(105, 'Vue', 31),
+(106, 'Javascript', 31),
+(107, 'PHP', 31),
+(108, 'Typescript', 31),
+(109, 'HTML', 31),
+(110, 'CSS', 31),
+(111, 'Nuxt', 31),
+(112, 'Nuxt.js', 30);
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `technologies`
+--
+
+CREATE TABLE `technologies` (
+  `technology_id` int(11) NOT NULL,
+  `technology` varchar(30) NOT NULL,
+  `company_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `technologies`
+--
+
+INSERT INTO `technologies` (`technology_id`, `technology`, `company_id`) VALUES
+(1, 'PHP', 5),
+(3, 'Vue', 5),
+(4, 'Nuxt.js', 5),
+(5, 'Javascript', 5),
+(6, 'PHP', 6),
+(7, 'Vue', 6),
+(8, 'Javascript', 6),
+(9, '.NET', 6);
 
 -- --------------------------------------------------------
 
@@ -292,55 +445,33 @@ INSERT INTO `types_of_contract` (`type_of_contract_id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `umiejetnosci`
---
-
-CREATE TABLE `umiejetnosci` (
-  `umiejetnosc_id` int(11) NOT NULL,
-  `umiejetnosc` varchar(50) NOT NULL,
-  `uzytkownik_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `umiejetnosci`
---
-
-INSERT INTO `umiejetnosci` (`umiejetnosc_id`, `umiejetnosc`, `uzytkownik_id`) VALUES
-(35, 'Vue.js', 30),
-(36, 'Javascript', 30),
-(37, 'Typescript', 30),
-(38, 'PHP', 30),
-(39, 'HTML', 30),
-(40, 'CSS', 30);
-
--- --------------------------------------------------------
-
---
 -- Struktura tabeli dla tabeli `users`
 --
 
 CREATE TABLE `users` (
   `uzytkownik_id` int(11) NOT NULL,
+  `image_url` varchar(255) NOT NULL,
   `login` varchar(40) NOT NULL,
   `imie` varchar(30) NOT NULL,
   `nazwisko` varchar(30) NOT NULL,
   `opis` varchar(1500) NOT NULL,
-  `numer_telefonu` varchar(16) NOT NULL,
+  `numer_telefonu` varchar(11) NOT NULL,
   `email` varchar(255) NOT NULL,
   `stanowisko` varchar(40) NOT NULL,
   `status` varchar(20) NOT NULL,
   `wiek` tinyint(3) UNSIGNED NOT NULL,
   `kraj` varchar(58) NOT NULL,
-  `password` varchar(255) NOT NULL
+  `password` varchar(255) NOT NULL,
+  `is_private` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`uzytkownik_id`, `login`, `imie`, `nazwisko`, `opis`, `numer_telefonu`, `email`, `stanowisko`, `status`, `wiek`, `kraj`, `password`) VALUES
-(30, '', 'Bonifacy', 'Borucki', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\r\n\r\nLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\r\n\r\n\r\n\r\n', '518242045', 'bonifacyborucki123@gmail.com', 'Mid vuejs developer', 'bezrobotny', 24, 'Polska', '$2y$10$Qw4/SAmZdINGryn.qFGfzunx.xjLQKaMZl.g3CAwTNz0znNp0aRDm'),
-(31, '', '', '', '', '', 'michal912456@gmail.com', '', '', 0, '', '$2y$10$Mfd4wSbkq3PQdyvX70/fleMWRvy/Zy91OBSjyFhNt3KOOlH06Fm86');
+INSERT INTO `users` (`uzytkownik_id`, `image_url`, `login`, `imie`, `nazwisko`, `opis`, `numer_telefonu`, `email`, `stanowisko`, `status`, `wiek`, `kraj`, `password`, `is_private`) VALUES
+(30, 'gizlomar.png', '', 'Bonifacy', 'Borucki', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\n\nLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\n', '518-242-045', 'bonifacyborucki123@gmail.com', 'Mid vuejs developer', 'bezrobotny', 24, 'Polska', '$2y$10$Qw4/SAmZdINGryn.qFGfzunx.xjLQKaMZl.g3CAwTNz0znNp0aRDm', 0),
+(31, '', '', 'Michał', 'Giromański', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\n\nLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\n\n', '123-456-789', 'michal912456@gmail.com', 'Vuejs developer', '', 18, 'Polska', '$2y$10$Mfd4wSbkq3PQdyvX70/fleMWRvy/Zy91OBSjyFhNt3KOOlH06Fm86', 1);
 
 -- --------------------------------------------------------
 
@@ -394,10 +525,29 @@ ALTER TABLE `doswiadczenie`
   ADD KEY `uzytkownik_id` (`uzytkownik_id`);
 
 --
+-- Indeksy dla tabeli `duties`
+--
+ALTER TABLE `duties`
+  ADD PRIMARY KEY (`duty_id`),
+  ADD KEY `offer_id` (`offer_id`);
+
+--
+-- Indeksy dla tabeli `employment_types`
+--
+ALTER TABLE `employment_types`
+  ADD PRIMARY KEY (`employment_type_id`);
+
+--
 -- Indeksy dla tabeli `job_levels`
 --
 ALTER TABLE `job_levels`
   ADD PRIMARY KEY (`job_level_id`);
+
+--
+-- Indeksy dla tabeli `job_modes`
+--
+ALTER TABLE `job_modes`
+  ADD PRIMARY KEY (`job_mode_id`);
 
 --
 -- Indeksy dla tabeli `kategorie`
@@ -414,9 +564,17 @@ ALTER TABLE `konwersacje`
   ADD KEY `uczestnik_2` (`uzytkownik_id`);
 
 --
--- Indeksy dla tabeli `ogloszenia_firm`
+-- Indeksy dla tabeli `notifications`
 --
-ALTER TABLE `ogloszenia_firm`
+ALTER TABLE `notifications`
+  ADD PRIMARY KEY (`notification_id`),
+  ADD KEY `uzytkownik_id` (`user_id`),
+  ADD KEY `firma_id` (`company_id`);
+
+--
+-- Indeksy dla tabeli `offers`
+--
+ALTER TABLE `offers`
   ADD PRIMARY KEY (`ogloszenie_id`),
   ADD KEY `firma_id` (`firma_id`),
   ADD KEY `kategoria_id` (`kategoria_id`);
@@ -429,25 +587,37 @@ ALTER TABLE `ogloszenia_uzytkownikow`
   ADD KEY `uzytkownik_id` (`uzytkownik_id`);
 
 --
--- Indeksy dla tabeli `powiadomienia`
+-- Indeksy dla tabeli `requirements`
 --
-ALTER TABLE `powiadomienia`
-  ADD PRIMARY KEY (`powiadomienie_id`),
-  ADD KEY `uzytkownik_id` (`uzytkownik_id`),
-  ADD KEY `firma_id` (`firma_id`);
+ALTER TABLE `requirements`
+  ADD PRIMARY KEY (`requirement_id`),
+  ADD KEY `offer_id` (`offer_id`);
+
+--
+-- Indeksy dla tabeli `sessions`
+--
+ALTER TABLE `sessions`
+  ADD PRIMARY KEY (`session_id`);
+
+--
+-- Indeksy dla tabeli `skills`
+--
+ALTER TABLE `skills`
+  ADD PRIMARY KEY (`skill_id`),
+  ADD KEY `uzytkownik_id` (`user_id`);
+
+--
+-- Indeksy dla tabeli `technologies`
+--
+ALTER TABLE `technologies`
+  ADD PRIMARY KEY (`technology_id`),
+  ADD KEY `company_id` (`company_id`);
 
 --
 -- Indeksy dla tabeli `types_of_contract`
 --
 ALTER TABLE `types_of_contract`
   ADD PRIMARY KEY (`type_of_contract_id`);
-
---
--- Indeksy dla tabeli `umiejetnosci`
---
-ALTER TABLE `umiejetnosci`
-  ADD PRIMARY KEY (`umiejetnosc_id`),
-  ADD KEY `uzytkownik_id` (`uzytkownik_id`);
 
 --
 -- Indeksy dla tabeli `users`
@@ -478,13 +648,13 @@ ALTER TABLE `zapisane`
 -- AUTO_INCREMENT for table `applications`
 --
 ALTER TABLE `applications`
-  MODIFY `application_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `application_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 
 --
 -- AUTO_INCREMENT for table `companies`
 --
 ALTER TABLE `companies`
-  MODIFY `company_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `company_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `doswiadczenie`
@@ -493,10 +663,28 @@ ALTER TABLE `doswiadczenie`
   MODIFY `doswiadczenie_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT for table `duties`
+--
+ALTER TABLE `duties`
+  MODIFY `duty_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+
+--
+-- AUTO_INCREMENT for table `employment_types`
+--
+ALTER TABLE `employment_types`
+  MODIFY `employment_type_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT for table `job_levels`
 --
 ALTER TABLE `job_levels`
   MODIFY `job_level_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `job_modes`
+--
+ALTER TABLE `job_modes`
+  MODIFY `job_mode_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `kategorie`
@@ -511,10 +699,16 @@ ALTER TABLE `konwersacje`
   MODIFY `konwersacja_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
--- AUTO_INCREMENT for table `ogloszenia_firm`
+-- AUTO_INCREMENT for table `notifications`
 --
-ALTER TABLE `ogloszenia_firm`
-  MODIFY `ogloszenie_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
+ALTER TABLE `notifications`
+  MODIFY `notification_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `offers`
+--
+ALTER TABLE `offers`
+  MODIFY `ogloszenie_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=164;
 
 --
 -- AUTO_INCREMENT for table `ogloszenia_uzytkownikow`
@@ -523,10 +717,28 @@ ALTER TABLE `ogloszenia_uzytkownikow`
   MODIFY `ogloszenie_uzytkownika_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `powiadomienia`
+-- AUTO_INCREMENT for table `requirements`
 --
-ALTER TABLE `powiadomienia`
-  MODIFY `powiadomienie_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+ALTER TABLE `requirements`
+  MODIFY `requirement_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
+--
+-- AUTO_INCREMENT for table `sessions`
+--
+ALTER TABLE `sessions`
+  MODIFY `session_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `skills`
+--
+ALTER TABLE `skills`
+  MODIFY `skill_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=113;
+
+--
+-- AUTO_INCREMENT for table `technologies`
+--
+ALTER TABLE `technologies`
+  MODIFY `technology_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `types_of_contract`
@@ -535,16 +747,10 @@ ALTER TABLE `types_of_contract`
   MODIFY `type_of_contract_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT for table `umiejetnosci`
---
-ALTER TABLE `umiejetnosci`
-  MODIFY `umiejetnosc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
-
---
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `uzytkownik_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `uzytkownik_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `wiadomosci`
@@ -569,6 +775,12 @@ ALTER TABLE `doswiadczenie`
   ADD CONSTRAINT `doswiadczenie_ibfk_1` FOREIGN KEY (`uzytkownik_id`) REFERENCES `users` (`uzytkownik_id`);
 
 --
+-- Constraints for table `duties`
+--
+ALTER TABLE `duties`
+  ADD CONSTRAINT `duties_ibfk_1` FOREIGN KEY (`offer_id`) REFERENCES `offers` (`ogloszenie_id`) ON DELETE CASCADE;
+
+--
 -- Constraints for table `konwersacje`
 --
 ALTER TABLE `konwersacje`
@@ -576,11 +788,18 @@ ALTER TABLE `konwersacje`
   ADD CONSTRAINT `konwersacje_ibfk_2` FOREIGN KEY (`firma_id`) REFERENCES `companies` (`company_id`);
 
 --
--- Constraints for table `ogloszenia_firm`
+-- Constraints for table `notifications`
 --
-ALTER TABLE `ogloszenia_firm`
-  ADD CONSTRAINT `ogloszenia_firm_ibfk_1` FOREIGN KEY (`firma_id`) REFERENCES `companies` (`company_id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `ogloszenia_firm_ibfk_2` FOREIGN KEY (`kategoria_id`) REFERENCES `kategorie` (`kategoria_id`);
+ALTER TABLE `notifications`
+  ADD CONSTRAINT `notifications_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`uzytkownik_id`),
+  ADD CONSTRAINT `notifications_ibfk_2` FOREIGN KEY (`company_id`) REFERENCES `companies` (`company_id`);
+
+--
+-- Constraints for table `offers`
+--
+ALTER TABLE `offers`
+  ADD CONSTRAINT `offers_ibfk_1` FOREIGN KEY (`firma_id`) REFERENCES `companies` (`company_id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `offers_ibfk_2` FOREIGN KEY (`kategoria_id`) REFERENCES `kategorie` (`kategoria_id`);
 
 --
 -- Constraints for table `ogloszenia_uzytkownikow`
@@ -589,17 +808,22 @@ ALTER TABLE `ogloszenia_uzytkownikow`
   ADD CONSTRAINT `ogloszenia_uzytkownikow_ibfk_1` FOREIGN KEY (`uzytkownik_id`) REFERENCES `users` (`uzytkownik_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `powiadomienia`
+-- Constraints for table `requirements`
 --
-ALTER TABLE `powiadomienia`
-  ADD CONSTRAINT `powiadomienia_ibfk_1` FOREIGN KEY (`uzytkownik_id`) REFERENCES `users` (`uzytkownik_id`),
-  ADD CONSTRAINT `powiadomienia_ibfk_2` FOREIGN KEY (`firma_id`) REFERENCES `companies` (`company_id`);
+ALTER TABLE `requirements`
+  ADD CONSTRAINT `requirements_ibfk_1` FOREIGN KEY (`offer_id`) REFERENCES `offers` (`ogloszenie_id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `umiejetnosci`
+-- Constraints for table `skills`
 --
-ALTER TABLE `umiejetnosci`
-  ADD CONSTRAINT `umiejetnosci_ibfk_1` FOREIGN KEY (`uzytkownik_id`) REFERENCES `users` (`uzytkownik_id`);
+ALTER TABLE `skills`
+  ADD CONSTRAINT `skills_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`uzytkownik_id`);
+
+--
+-- Constraints for table `technologies`
+--
+ALTER TABLE `technologies`
+  ADD CONSTRAINT `technologies_ibfk_1` FOREIGN KEY (`company_id`) REFERENCES `companies` (`company_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `wiadomosci`

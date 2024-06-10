@@ -103,19 +103,10 @@
             </div>
 
             <div>
-                <EditHeader :is-edit-mode="true" @edit="isModalVisible = true; modalType = 3">Doświadczenie</EditHeader>
+                <EditHeader :is-edit-mode="true" @edit="isEditMode = true">Doświadczenie</EditHeader>
                 <hr>
 
-                <div id="experience">
-                    <div id="experience-block" v-for="experience in userExperience">
-                        <div id="abstract">
-                            <div id="circle"></div>
-                            <div id="line"></div>
-                        </div>
-
-                        <UserExperience :experience="experience" :is-edit-mode="false"/>
-                    </div>
-                </div>
+                <UserExperience />
             </div>
         </section>
     </div>
@@ -136,8 +127,6 @@
 <script setup>
     const { data: userData } = await useFetch('http://localhost/advertising-system/backend/api/user/GetUserData.php', { credentials: 'include', responseType: 'json', method: 'post' });
     const { data: userSkills } = await useFetch('http://localhost/advertising-system/backend/api/user/GetUserSkills.php', { credentials: 'include', responseType: 'json', method: 'post' });
-    const { data: userExperience } = await useFetch('http://localhost/advertising-system/backend/api/user/GetUserExperience.php', { credentials: 'include', responseType: 'json', method: 'post' });
-
     // --------
     // data
 
@@ -159,6 +148,7 @@
     const isModalVisible = ref(false);
     const modalType = ref(0);
     const unsaved = ref(false);
+    const isEditMode = ref(false);
 
     // functions
 
@@ -401,37 +391,6 @@
 
     #languages {
         width: 100%;
-    }
-
-    #experience {
-        display: flex;
-        flex-direction: column;
-        padding: 22px 22px 13px;
-    }
-
-    #experience > div#experience-block {
-        display: flex;
-        gap: 20px;
-    }
-
-    #experience div#experience-block > #abstract {
-        width: 25px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    #experience #circle {
-        border: 3px solid #6244DB;
-        height: 19px;
-        width: 19px;
-        border-radius: 50%;
-    }
-
-    #experience #line {
-        height: 250px;
-        width: 3px;
-        background-color: #6244DB;
     }
 
     #languages > div {
